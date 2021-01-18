@@ -62,7 +62,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#!" class="nav-link waves-effect">
-                        Loans
+                        <i class="fas fa-store"></i> Create store
                     </a>
                 </li>
                 <li class="nav-item dropdown">
