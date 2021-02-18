@@ -15,10 +15,10 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
 
-        <a class="navbar-brand" href="#!">
-            <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="30" alt="mdb logo">
+        <a class="navbar-brand" href="./index.php">
+            Ridges
         </a>
 
         <!-- Collapse button -->
@@ -27,42 +27,47 @@
             <i class="fa fa-align-center"></i>
         </button>
 
-        <div class="col-md-6">
-            <div class="flex-center">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="md-form" style="margin: 0px;">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-white btn-outline-white btn-md"><i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <!-- Links -->
         <div class="collapse navbar-collapse" id="basicExampleNav1">
+            <!-- Left -->
+            <ul class="navbar-nav mr-auto">
 
-            <!-- Right -->
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="cart.php" class="nav-link navbar-link-2 waves-effect">
-                        <span class="badge badge-pill red">1</span>
-                        <i class="fas fa-shopping-cart pl-0"></i>
-                    </a>
-                </li>
 
-                </li>
                 <li class="nav-item">
-                    <a href="ecommerce/mart.php" class="nav-link waves-effect">
+                    <a href="./ecommerce/mart.php" class="nav-link waves-effect">
                         Shop
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#!" class="nav-link waves-effect">
-                        <i class="fas fa-store"></i> Create store
+                        Help
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="add.php" class="nav-link waves-effect">
+                        <i class="fa fa-plus"></i> Add item
+                    </a>
+                </li>
+            </ul>
+            <!-- Links -->
+            <!-- Right -->
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <div class="form-inline">
+                        <div class="md-form text-white" style="margin: 0px;">
+                            <label>Search</label>
+                            <input type="text" class="form-control text-white" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm" style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;">
+                            Search
+                        </button>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="cart.php" class="nav-link navbar-link-2 waves-effect">
+                        <span class="badge badge-pill red"><?php $hide = (!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0"; echo $hide;?></span>
+                        <i class="fas fa-shopping-cart pl-0"></i>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -71,22 +76,19 @@
                         <i class="fas fa-user-circle"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="#!">Action</a>
-                        <a class="dropdown-item" href="#!">Another action</a>
-                        <a class="dropdown-item" href="#!">Something else here</a>
+                        <a class="dropdown-item" href="#!">Login</a>
+                        <a class="dropdown-item" href="#!">Create account</a>
+                        <a class="dropdown-item" href="#!">Create store</a>
                     </div>
                 </li>
             </ul>
-
         </div>
-        <!-- Links -->
-
     </nav>
     <!-- Navbar -->
 
     <div class="container-fluid bg-dark z-depth-1 p-5" style="min-height: 100vh;">
         <div class="row mt-3">
-            <div class="col-md-3 col-sm-3 mb-5">
+            <div class="col-md-3 mb-5">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="mb-3"><b>My markets</b></h5>

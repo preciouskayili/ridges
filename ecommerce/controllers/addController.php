@@ -10,6 +10,7 @@
 
         $target = "../image/";
         $image = basename($_FILES['upload']['name']);
+        $temp_name = $_FILES['upload']['tmp_name'];
         $imagePath = $target . $image;
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
@@ -65,7 +66,7 @@
             } else {
                 $invalidImage =  "
                 <div class=\"z-depth-1 alert alert-danger alert-dismissible fade show\" role=\"alert\">
-                    Holy guacamole! You should check the image fields below.
+                    Holy guacamole! You should check the image field below.
                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
                         <span aria-hidden=\"true\">&times;</span>
                     </button>

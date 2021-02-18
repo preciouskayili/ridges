@@ -17,87 +17,10 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
 
-        <a class="navbar-brand" href="#!">
-            Ridges
-        </a>
-
-        <!-- Collapse button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav1"
-            aria-controls="basicExampleNav1" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa fa-align-center"></i>
-        </button>
-
-        <div class="col-md-6">
-            <div class="flex-center">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 form-inline flex-center">
-                        <input type="text" class="form-control text-dark" placeholder="Search" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                        <select name="" id="" class="form-control" style="border-radius: 0px;">
-                            <option value="">Hello</option>
-                            <option value="">Hello</option>
-                            <option value="">Fruits</option>
-                        </select>
-                        <button class="btn btn-white btn-md z-depth-0" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px; margin-left: 0px;"><i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                    <!-- <div class="col-md-3">
-                    </div> -->
-                </div>
-            </div>
-        </div>
-        <!-- Links -->
-        <div class="collapse navbar-collapse" id="basicExampleNav1">
-
-            <!-- Right -->
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="cart.php" class="nav-link navbar-link-2 waves-effect">
-                        <span class="badge badge-pill red"><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0"; echo $hide;?></span>
-                        <i class="fas fa-shopping-cart pl-0"></i>
-                    </a>
-                </li>
-
-                </li>
-                <li class="nav-item">
-                    <a href="mart.php" class="nav-link waves-effect">
-                        Shop
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#!" class="nav-link waves-effect">
-                        Help
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="add.php" class="nav-link waves-effect">
-                        <i class="fa fa-plus"></i> Add item
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="#!">Action</a>
-                        <a class="dropdown-item" href="#!">Another action</a>
-                        <a class="dropdown-item" href="#!">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-
-        </div>
-        <!-- Links -->
-
-    </nav>
-    <!-- Navbar -->
+	<?php include("../templates/navbar.php") ?>
     <div class="container-fluid mt-5">
         <div class="row">
-            
-
             <div class="col-md-10">
                 <!--Section: Block Content-->
                 <section>
@@ -130,18 +53,14 @@
 
                                     <h6 class="mb-3"><span><?php echo $product["price"]; ?></span></h6>
                                     <div class="my-4">
-                                        <form id="addToCart" action="mart.php" method="post">                                        
+                                        <form id="addToCart<?php echo $product["id"]; ?>" action="mart.php" method="post">                                        
                                         </form>
-                                        <button type="submit" form="addToCart" name="add<?php echo $product["id"]; ?>" class="btn btn-primary btn-md mr-1 mb-2"><i
+                                        <button type="submit" form="addToCart<?php echo $product["id"]; ?>" name="add<?php echo $product["id"]; ?>" class="btn btn-primary btn-md mr-1 mb-2"><i
                                             class="fas fa-shopping-cart pr-2"></i>Add to cart</button>
                                         <a href="overview.php?id=<?php echo $product["id"]; ?>" class="btn btn-light btn-md mr-1 mb-2"><i
                                                 class="fas fa-info-circle pr-2"></i>Details</a>
                                     </div>
-                                    <button type="button"
-                                        class="btn btn-danger btn-md px-3 mb-lg-2 material-tooltip-main"
-                                        data-toggle="tooltip" data-placement="top" title="Add to wishlist"><i
-                                            class="fas fa-heart"></i></button>
-
+                                    
                                 </div>
                             </div>
                         </div>
