@@ -30,21 +30,21 @@
                         <div class="col-md-6">
                             <div class="md-form">
                                 <label for="title">Title</label>
-                                <input type="text" name="title" id="title" class="form-control" autocomplete="off">
+                                <input type="text" value="<?php echo $title; ?>" name="title" id="title" class="form-control" autocomplete="off">
                                 <p class="text-danger"><?php echo $errors["title"]; ?></p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="md-form">
                                 <label for="items">Number of items</label>
-                                <input type="number" name="items" id="items" min="1" class="form-control" autocomplete="off">
+                                <input type="number" value="<?php echo $items; ?>" name="items" id="items" min="1" class="form-control" autocomplete="off">
                                 <p class="text-danger"><?php echo $errors["items"]; ?></p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="md-form">
                                 <label for="items">Price</label>
-                                <input type="text" name="price" id="price" class="form-control" id="price" autocomplete="off">
+                                <input type="number" min="1" value="<?php echo $price; ?>" name="price" id="price" class="form-control" autocomplete="off">
                                 <p class="text-danger"><?php echo $errors["price"]; ?></p>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                         <div class="col-md-12">
                             <div class="md-form">
                                 <label for="items">Description</label>
-                                <input type="text" name="description" id="description" class="form-control" autocomplete="off">
+                                <input type="text" value="<?php echo $description; ?>" name="description" id="description" class="form-control" autocomplete="off">
                                 <p class="text-danger"><?php echo $errors["description"]; ?></p>
                             </div>
                         </div>

@@ -86,184 +86,67 @@
     </nav>
     <!-- Navbar -->
 
-    <div class="container-fluid bg-dark z-depth-1 p-5" style="min-height: 100vh;">
-        <div class="row mt-3">
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="mb-3"><b>My markets</b></h5>
-                        <p>Fruits and vegetables</p>
-                        <p>Farm equipments</p>
-                        <p>Farm implements</p>
-                        <p>Farm equipments</p>
-                        <p class="pb-2">Fertilizer</p>
-                    </div>
+    <div class="container-fluid mt-3">
+        <h4>Categories</h4>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">
+                        Fruit
+                    </p>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-12 mb-5">
-                <div id="carouselId" class="carousel slide carousel-fade" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselId" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselId" data-slide-to="1"></li>
-                        <li data-target="#carouselId" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <img height="400" class="col-md-12" src="img\anete-lusina-zwsHjakE_iI-unsplash.jpg"
-                                alt="First slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3><b>Title</b></h3>
-                                <p>This is a good picture</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img height="400" class="col-md-12" src="img\hector-martinez-EG49vTtKdvI-unsplash.jpg"
-                                alt="Second slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h2><b>Title</b></h2>
-                                <p>Another picture that is good</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img height="400" class="col-md-12" src="img\jason-blackeye-2SPPbNbVQ3Y-unsplash.jpg"
-                                alt="Third slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h2><b>Title</b></h2>
-                                <p>Another fine picture</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body" style="padding: 9px;">
-                        <p>
-                            <i class="fa fa-question text-center"
-                                style="padding-top: 10px;border: 1px solid orange; border-radius: 50%; height: 40px; width: 40px;"></i>
-                            Help center
-                            <br>
-                            <small class="text-muted">Stuck? get help and guidiance, with our active customer care service.</small>
-                        </p>
-                        <p>
-                            <i class="fa fa-money-bill text-center"
-                                style="padding-top: 10px;border: 1px solid orange; border-radius: 50%; height: 40px; width: 40px;"></i>
-                            Quick loans
-                            <br>
-                            <small class="text-muted">Get CBN loans with your account details</small>
-                        </p>
-                        <p>
-                            <i class="fa fa-store text-center"
-                                style="padding-top: 10px;border: 1px solid orange; border-radius: 50%; height: 40px; width: 40px;"></i>
-                            Quick store
-                            <br>
-                            <small class="text-muted">Get your online store instantly up and running in a few
-                                clicks.</small>
-                        </p>
-                    </div>
+                <div class="card-footer">
+                    100 products
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Container -->
-    <div class="container-fluid">
-        <div class="card-body">
-            <h3 class="text-center">New products</h3>
-            <hr  class="w-25 bg-dark"/>
-            <!--Carousel Wrapper-->
-            <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-                <!--Controls-->
-                <div class="controls-top text-center mt-5">
-                    <a class="btn-floating z-depth-1" href="#multi-item-example" data-slide="prev" style="border-radius: 50%;"><i
-                            class="fas fa-chevron-left text-white" style="padding-top: 10px; border-radius: 50%; height: 40px; width: 40px; border: 1px solid #007bff; background-color: #007bff;"></i></a>
-                    <a class="btn-floating z-depth-1" href="#multi-item-example" data-slide="next" style="border-radius: 50%;"><i
-                            class="fas fa-chevron-right text-white" style="padding-top: 10px; border-radius: 50%; height: 40px; width: 40px; border: 1px solid #007bff; background-color: #007bff;"></i></a>
-                </div>
-                <!--/.Controls-->
-
-                <!--Indicators-->
-                <ol class="carousel-indicators">
-                    <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
-                    <li data-target="#multi-item-example" data-slide-to="1"></li>
-
-                </ol>
-                <!--/.Indicators-->
-
-                <!--Slides-->
-                <div class="carousel-inner" role="listbox">
-
-                    <!--First slide-->
-                    <div class="carousel-item active">
-
-                        <?php for($i = 0; $i < 4; $i++): ?>
-                        <div class="col-md-3" style="float:left">
-                            <div class="card mb-2">
-                                <img class="card-img-top"
-                                    src="image/<?php echo $newProducts[$i]["img_path"]; ?>"
-                                    alt="Card image cap"
-                                    height="200"
-                                    >
-                                <div class="card-body">
-                                    <h4 class="card-title"><?php echo $newProducts[$i]["title"]; ?></h4>
-                                    <p class="card-text">NGN1000</p>
-                                    <div class="d-flex mx-auto">
-                                        <a class="btn btn-light btn-sm text-dark" title="Details"><i class="fas fa-ellipsis-v"></i></a>
-                                        <a class="btn btn-danger btn-sm" title="Add to favourites"><i class="fa fa-heart"></i></a>
-                                        <a class="btn btn-primary btn-sm" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endfor; ?>
-
+    <div class="container-fluid mt-3">
+        <!--Grid row-->
+        <div class="row">
+            <?php foreach ($newProducts as $new) : ?>
+            <!--Grid column-->
+            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
+                <!--Card-->
+                <div class="card">
+                    <!--Card image-->
+                    <div class="view overlay">
+                    <img src="./image/<?php echo $new["img_path"]; ?>" height="250" class="card-img-top"
+                        alt="">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
                     </div>
-                    <!--/.First slide-->
-
-                    <!--Second slide-->
-                    <div class="carousel-item">
-
-                        <?php for($i = 4;4 == $i < 8;$i++): ?>
-                        <div class="col-md-3" style="float:left">
-                            <div class="card mb-2">
-                                <img class="card-img-top"
-                                    src="image/<?php echo $newProducts[$i]["img_path"]; ?>"
-                                    alt="Card image cap"
-                                    height="200">
-                                <div class="card-body">
-                                    <h4 class="card-title"><?php echo $newProducts[$i]["title"]; ?></h4>
-                                    <p class="card-text">NGN1000</p>
-                                    <div class="d-flex mx-auto">
-                                        <a class="btn btn-light btn-sm text-dark" title="Details"><i class="fas fa-ellipsis-v"></i></a>
-                                        <a class="btn btn-danger btn-sm" title="Add to favourites"><i class="fa fa-heart"></i></a>
-                                        <a class="btn btn-primary btn-sm" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endfor; ?>
-
+                    <!--Card image-->
+                    <!--Card content-->
+                    <div class="card-body text-center">
+                    <!--Category & Title-->
+                    <a href="" class="grey-text">
+                        <h5><?php echo $new["category"]; ?></h5>
+                    </a>
+                    <h5>
+                        <strong>
+                        <a href="" class="dark-grey-text"><?php echo $new["title"] ?>
+                            <span class="badge badge-pill danger-color">NEW</span>
+                        </a>
+                        </strong>
+                    </h5>
+                    <h4 class="font-weight-bold blue-text">
+                        <small>NGN</small>
+                        <strong><?php echo $new["price"]; ?></strong>
+                    </h4>
                     </div>
-                    <!--/.Second slide-->
-
-
-
+                    <!--Card content-->
                 </div>
-                <!--/.Slides-->
-
-            </div>
-            <!--/.Carousel Wrapper-->
+            <!--Card-->
         </div>
+        <!--Grid column-->
+        <?php endforeach; ?>
     </div>
+
+    
 
     <script type="text/javascript" src="node_modules/mdbootstrap/js/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>

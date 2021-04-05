@@ -1,3 +1,4 @@
+<?php setlocale(LC_ALL, "US"); ?>
 <?php include("controllers/productController.php"); ?>
 <?php
     $cartCheck = (isset($_SESSION["cart"])) ? $cartItemsNumber = count($_SESSION["cart"]) : 0;
@@ -17,7 +18,9 @@
 </head>
 
 <body>
-
+    <div class="alert alert-success fade-out z-depth-1">
+       Item added to cart successfully
+    </div>
 	<?php include("../templates/navbar.php") ?>
     <div class="container-fluid mt-5">
         <div class="row">
@@ -51,12 +54,11 @@
                                 </div>
                                 <div class="col-lg-5 col-xl-5">
 
-                                    <h6 class="mb-3"><span><?php echo $product["price"]; ?></span></h6>
+                                    <h6 class="mb-3">NGN<span><?php echo number_format($product["price"]); ?></span></h6>
+                                    <small class="text-muted"><?php echo $product["created_at"]; ?></small>
                                     <div class="my-4">
-                                        <form id="addToCart<?php echo $product["id"]; ?>" action="mart.php" method="post">                                        
-                                        </form>
-                                        <button type="submit" form="addToCart<?php echo $product["id"]; ?>" name="add<?php echo $product["id"]; ?>" class="btn btn-primary btn-md mr-1 mb-2"><i
-                                            class="fas fa-shopping-cart pr-2"></i>Add to cart</button>
+                                        <a href="./controllers/addToCart.php?id=<?php echo $id; ?>&img_path=<?php echo $product["img_path"] ?>&title=<?php echo $product["title"]; ?>&category=<?php echo $product["category"]; ?>&price=<?php echo $product["price"]; ?>&unit=<?php echo $product["unit"]; ?>&number_of_items=<?php echo $product["number_of_items"]; ?>" class="btn btn-primary btn-md mr-1 mb-2"><i
+                                            class="fas fa-shopping-cart pr-2"></i>Add to cart</a>
                                         <a href="overview.php?id=<?php echo $product["id"]; ?>" class="btn btn-light btn-md mr-1 mb-2"><i
                                                 class="fas fa-info-circle pr-2"></i>Details</a>
                                     </div>
@@ -66,13 +68,36 @@
                         </div>
                     </div>
                     <?php endforeach; ?>
+                <ul class="pagination d-flex mx-auto">
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">First</a>
+                    </li>
+                    <li class="<?php if($page <= 1){ echo 'disabled page-item'; } else { echo 'page-item'; } ?>">
+                        <a class="page-link" href="<?php if($page <= 1){ echo '#'; } else { echo "?page=".($page - 1); } ?>"><<</a>
+                    </li>
+                    <?php for ($i=0; $i < $total_pages; $i++): ?>
+                        <li class="<?php if($page == $i + 1) { echo "page-item active"; } else { echo "page-item"; } ?>">
+                            <a href="?page=<?php echo $i + 1; ?>" class="page-link">
+                                <?php echo $i + 1; ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="<?php if($page >= $total_pages){ echo 'disabled page-item'; } else { echo 'page-item'; } ?>">
+                        <a class="page-link" href="<?php if($page >= $total_pages){ echo '#'; } else { echo "?page=".($page + 1); } ?>">>></a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?php echo $total_pages; ?>">Last</a>
+                    </li>
+                </ul>
                 </section>
                 <!--Section: Block Content-->
+            <!-- <div class="container-fluid d-flex mx-auto"> -->
+            <!-- </div> -->
             </div>
         </div>
 
-
-        <script type="text/javascript" src="../node_modules/mdbootstrap/js/jquery.min.js"></script>
+        <script src="./js/alert.js"></script>
+        <script type="text/javascript" src="../node_modules/mdbootstrap/js/jquery.min.js"> </script>
         <script type="text/javascript" src="../node_modules/mdbootstrap/js/popper.min.js"></script>
         <script type="text/javascript" src="../node_modules/mdbootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../node_modules/mdbootstrap/js/mdb.min.js"></script>

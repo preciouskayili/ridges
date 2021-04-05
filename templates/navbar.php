@@ -1,3 +1,4 @@
+
 <!-- Navbar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
 
@@ -28,11 +29,13 @@
 					Help
 				</a>
 			</li>
+			<?php if(isset($_SESSION["email"])): ?>
 			<li class="nav-item">
 				<a href="add.php" class="nav-link waves-effect">
 					<i class="fa fa-plus"></i> Add item
 				</a>
 			</li>
+			<?php else: echo ""; endif; ?>
 		</ul>
 		<!-- Links -->
 		<!-- Right -->
@@ -50,7 +53,7 @@
 			</li>
 			<li class="nav-item">
 				<a href="cart.php" class="nav-link navbar-link-2 waves-effect">
-					<span class="badge badge-pill red"><?php $hide = (!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0"; echo $hide;?></span>
+					<span class="badge badge-pill red"><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0"; echo $hide;?></span>
 					<i class="fas fa-shopping-cart pl-0"></i>
 				</a>
 			</li>
@@ -58,6 +61,7 @@
 				<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
 					<i class="fas fa-user-circle"></i>
+					<?php if(isset($_SESSION["email"])) { echo $_SESSION["email"]; } else { echo ""; } ?>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
 					<a class="dropdown-item" href="#!">Action</a>

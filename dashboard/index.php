@@ -15,7 +15,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand text-white" href="#!">
             Ridges <small class="">dashboard</small>
         </a>
@@ -50,6 +50,26 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#!" class="nav-link waves-effect">
+                        Help
+                    </a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Transactions</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Orders</a>
+                        <a class="dropdown-item" href="#">Deliveries</a>
+                        <a class="dropdown-item" href="#">Income</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#!" class="nav-link waves-effect">
+                        Help
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="add.php" class="nav-link waves-effect">
                         <i class="fa fa-plus"></i> Add item
                     </a>
@@ -73,6 +93,14 @@
     </nav>
     <!-- Navbar -->
     
+    <nav aria-label="breadcrumb">
+	   <ol class="breadcrumb z-depth-1">
+		   <li class="breadcrumb-item"><a href="#">Ridges</a></li>
+		   <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+		   <li class="breadcrumb-item active">Home</li>
+	   </ol>
+	</nav>
+
     <div class="container-fluid">
         <div class="row mt-5">
             <div class="col-md-3 mb-3">
@@ -90,10 +118,10 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="card bg-warning">
-                    <div class="card-body">
+                <div class="card bg-primary">
+                    <div class="card-body text-white">
                         <h5>
-                            <i class="fas fa-hourglass-half bg-warning z-depth-1 text-center" style="
+                            <i class="fas fa-hourglass-half bg-primary z-depth-1 text-center" style="
                                 width: 40px;
                                 height: 40px;
                                 font-size: 20px;
@@ -106,9 +134,9 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="card bg-success text-white">
+                <div class="card bg-primary text-white">
                     <div class="card-body">
-                        <h5><i class="fas fa-receipt bg-success z-depth-1 text-center" style="
+                        <h5><i class="fas fa-receipt bg-primary z-depth-1 text-center" style="
                             width: 40px;
                             height: 40px;
                             font-size: 20px;
@@ -120,10 +148,10 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="card bg-light">
-                    <div class="card-body">
+                <div class="card bg-primary">
+                    <div class="card-body text-white">
                         <h5>                        
-                            <i class="fas fa-dollar-sign bg-light z-depth-1 text-center" style="
+                            <i class="fas fa-dollar-sign bg-primary z-depth-1 text-center" style="
                                 width: 40px;
                                 height: 40px;
                                 font-size: 20px;
@@ -141,7 +169,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <div class="card bg-success">
+                <div class="card bg-primary">
                     <div class="card-body">
                         <h4 class="text-white">Recent Orders</h4>
                         <table class="table table-striped table-inverse table-responsive text-white">
@@ -184,7 +212,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card bg-success">
+                <div class="card bg-primary">
                     <div class="card-body">
                         <h4 class="text-white">Recent Orders</h4>
                         <table class="table table-striped table-inverse table-responsive text-white">

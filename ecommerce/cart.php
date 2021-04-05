@@ -165,11 +165,9 @@
                                                 <a href="#!" type="button"
                                                     class="card-link-secondary small text-uppercase mr-3"><i
                                                         class="fas fa-trash-alt mr-1"></i> Remove item </a>
-                                                <a href="#!" type="button"
-                                                    class="card-link-secondary small text-uppercase"><i
-                                                        class="fas fa-heart mr-1"></i> Move to wish list </a>
+                                                
                                             </div>
-                                            <p class="mb-0"><span><strong><?php echo $cart["price"]; ?></strong></span></p>
+                                            <p class="mb-0"><span><strong><?php echo number_format($cart["price"]); ?></strong></span></p>
                                         </div>
                                     </div>
                                 </div>

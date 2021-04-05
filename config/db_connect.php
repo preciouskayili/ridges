@@ -1,7 +1,7 @@
 <?php 
 
 	// connect to the database
-	$conn = mysqli_connect('localhost', 'presh', 'Legendpresh88!!', 'ridges');
+	$conn = mysqli_connect('localhost', 'Presh', 'Legendpresh88!!', 'ridges');
 
 	// check connection
 	if(!$conn){

@@ -6,6 +6,10 @@
     $invalidImage = "";
     $formErrors = "";
     
+    $title = "";
+    $items = "";
+    $price = "";
+    $description = "";
     if(isset($_POST['submit'])) {
 
         $target = "../image/";
@@ -62,6 +66,7 @@
                     move_uploaded_file($_FILES['upload']['tmp_name'],$imagePath);
                     $sql = "INSERT INTO products(title,description,img_path,category,price,unit,number_of_items,store) VALUES('$title', '$description','$image', '$category', '$price', '$unit', '$items', 'Precious')";
                     $conn->query($sql);
+                    header("Location: ../index.php");
                 }
             } else {
                 $invalidImage =  "
