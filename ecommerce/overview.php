@@ -1,5 +1,6 @@
-<?php include("relatedProducts.php"); ?>
-<?php include("controllers/overviewController.php"); ?>
+<?php setlocale(LC_ALL, "US");?>
+<?php include "relatedProducts.php";?>
+<?php include "controllers/overviewController.php";?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +56,8 @@
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<a href="../cart.php" class="nav-link navbar-link-2 waves-effect">
-						<span class="badge badge-pill red"><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0"; echo $hide;?></span>
+						<span class="badge badge-pill red"><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
+echo $hide;?></span>
 						<i class="fas fa-shopping-cart pl-0"></i>
 					</a>
 				</li>
@@ -121,12 +123,13 @@
 			</ul>
 			<hr>
 			<div class="tab-content" id="advancedTabContent">
-				<div class="tab-pane fade show active" id="description" role="tabpanel"
+				<div class="tab-pane fade show active container-fluid" id="description" role="tabpanel"
 					aria-labelledby="description-tab">
-					<h5><?php echo $description[0]["title"] ?> Description</h5>
+					<h5><?php echo $description[0]["title"] ?></h5>
 					<p class="small text-muted text-uppercase mb-2"><?php echo $description[0]["category"] ?></p>
 					<h6><?php echo $description[0]["price"] ?></h6>
 					<p class="pt-1"><?php echo $description[0]["description"]; ?></p>
+					<a href="./controllers/addToCart.php?id=<?php echo $id; ?>&img_path=<?php echo $description[0]["img_path"] ?>&title=<?php echo $description[0]["title"]; ?>&category=<?php echo $description[0]["category"]; ?>&price=<?php echo $description[0]["price"]; ?>&unit=<?php echo $description[0]["unit"]; ?>&number_of_items=<?php echo $description[0]["number_of_items"]; ?>" class="btn btn-primary rounded"><i class="fas fa-cart-plus"></i></a>
 				</div>
 				<div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
 					<h5>Additional Information</h5>
@@ -134,7 +137,7 @@
 						<thead>
 							<tr>
 								<th scope="row" class="w-150 dark-grey-text h6"><?php echo $description[0]["unit"]; ?> available</th>
-								<td><em><?php echo $description[0]["number_of_items"] ?></em></td>
+								<td><em><?php echo number_format($description[0]["number_of_items"]); ?></em></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -164,7 +167,7 @@
 					</table>
 				</div>
 				<div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-					<h5><span>1</span> review for <span>Fantasy T-shirt</span></h5>
+					<h5><span>1</span> review for <span><?php echo $description[0]["title"]; ?></span></h5>
 					<div class="media mt-3 mb-4">
 						<img class="d-flex mr-3 z-depth-1"
 							src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" width="62"
@@ -204,47 +207,47 @@
 					</div>
 				</div>
 			</div>
-		
-			
+
+
 		</div>
 		<!-- Classic tabs -->
 		<!--Section: Block Content-->
 		<div class="container mt-5 d-block ml-auto">
 			<h3 class="mb-4">Related products</h3>
 			<section class="text-center">
-			
+
 				<!-- Grid row -->
 				<div class="row">
-				  
-				<?php foreach($relatedProducts as $related): ?>
+
+				<?php foreach ($relatedProducts as $related): ?>
 				  <!-- Grid column -->
 				  <div class="col-md-6 col-lg-3 mb-5">
-			  
+
 					<!-- Card -->
 					<div class="">
-			  
+
 					  <div class="view overlay z-depth-2 rounded">
 						  <a href="overview.php?id=<?php echo $related["id"]; ?>">
 							  <img style="height: 250px;" class="img-fluid w-100"
 								src="../image/<?php echo $related["img_path"]; ?>" alt="Sample">
 							</div>
 						  </a>
-			  
+
 					  <div class="pt-4">
-			  
+
 						<h5><?php echo $related["title"]; ?></h5>
 						<h6><?php echo $related["price"]; ?></h6>
 					  </div>
-			  
+
 					</div>
 					<!-- Card -->
-			  
+
 				  </div>
 				  <!-- Grid column -->
-				<?php endforeach; ?>
+				<?php endforeach;?>
 				</div>
 				<!-- Grid row -->
-			  
+
 			  </section>
 			  <!--Section: Block Content-->
 		</div>

@@ -1,7 +1,8 @@
-<?php setlocale(LC_ALL, "US"); ?>
-<?php include("controllers/productController.php"); ?>
+<?php setlocale(LC_ALL, "US");?>
+<?php include "./search.php"?>
+<?php include "controllers/productController.php";?>
 <?php
-    $cartCheck = (isset($_SESSION["cart"])) ? $cartItemsNumber = count($_SESSION["cart"]) : 0;
+$cartCheck = (isset($_SESSION["cart"])) ? $cartItemsNumber = count($_SESSION["cart"]) : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,17 +22,19 @@
     <div class="alert alert-success fade-out z-depth-1">
        Item added to cart successfully
     </div>
-	<?php include("../templates/navbar.php") ?>
+	<?php include "../templates/navbar.php"?>
+    <?php if (count($products) == 0): include "./emptyResult.php";
+endif;?>
     <div class="container-fluid mt-5">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12 mb-3">
                 <!--Section: Block Content-->
                 <section>
-                    <?php foreach($produce as $product): ?>
-                    <?php $id = $product["id"]; ?>
-                    <?php include("controllers/addToCart.php"); ?>
+                    <?php foreach ($products as $product): ?>
+                    <?php $id = $product["id"];?>
+                    <?php include "controllers/addToCart.php";?>
                     <div class="row mb-4">
-                        <div class="col-md-5 col-lg-3 col-xl-3">
+                        <div class="col-md-4 col-lg-4">
 
                             <div class="view overlay z-depth-1 rounded mb-3 mb-md-0">
                                 <a href="overview.php?id=<?php echo $product["id"]; ?>">
@@ -42,7 +45,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md-7 col-lg-9 col-xl-9">
+                        <div class="col-md-8 col-lg-8 col-xl-8">
                             <div class="row">
                                 <div class="col-lg-7 col-xl-7">
 
@@ -55,40 +58,45 @@
                                 <div class="col-lg-5 col-xl-5">
 
                                     <h6 class="mb-3">NGN<span><?php echo number_format($product["price"]); ?></span></h6>
-                                    <small class="text-muted"><?php echo $product["created_at"]; ?></small>
+                                    <small class="text-muted">
+                                    <?php
+$format = "M d,Y";
+$created_at = new DateTime($product["created_at"]);
+echo date_format($created_at, $format);
+?></small>
                                     <div class="my-4">
                                         <a href="./controllers/addToCart.php?id=<?php echo $id; ?>&img_path=<?php echo $product["img_path"] ?>&title=<?php echo $product["title"]; ?>&category=<?php echo $product["category"]; ?>&price=<?php echo $product["price"]; ?>&unit=<?php echo $product["unit"]; ?>&number_of_items=<?php echo $product["number_of_items"]; ?>" class="btn btn-primary btn-md mr-1 mb-2"><i
                                             class="fas fa-shopping-cart pr-2"></i>Add to cart</a>
                                         <a href="overview.php?id=<?php echo $product["id"]; ?>" class="btn btn-light btn-md mr-1 mb-2"><i
                                                 class="fas fa-info-circle pr-2"></i>Details</a>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php endforeach; ?>
-                <ul class="pagination d-flex mx-auto">
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1">First</a>
-                    </li>
-                    <li class="<?php if($page <= 1){ echo 'disabled page-item'; } else { echo 'page-item'; } ?>">
-                        <a class="page-link" href="<?php if($page <= 1){ echo '#'; } else { echo "?page=".($page - 1); } ?>"><<</a>
-                    </li>
-                    <?php for ($i=0; $i < $total_pages; $i++): ?>
-                        <li class="<?php if($page == $i + 1) { echo "page-item active"; } else { echo "page-item"; } ?>">
-                            <a href="?page=<?php echo $i + 1; ?>" class="page-link">
-                                <?php echo $i + 1; ?>
-                            </a>
+                    <?php endforeach;?>
+                    <ul class="pagination d-flex mx-auto" style="display: <?php if (count($product) == 0): echo "none";else:"block";endif;?>">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1">First</a>
                         </li>
-                    <?php endfor; ?>
-                    <li class="<?php if($page >= $total_pages){ echo 'disabled page-item'; } else { echo 'page-item'; } ?>">
-                        <a class="page-link" href="<?php if($page >= $total_pages){ echo '#'; } else { echo "?page=".($page + 1); } ?>">>></a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?php echo $total_pages; ?>">Last</a>
-                    </li>
-                </ul>
+                        <li class="<?php if ($page <= 1) {echo 'disabled page-item';} else {echo 'page-item';}?>">
+                            <a class="page-link" href="<?php if ($page <= 1) {echo '#';} else {echo "?page=" . ($page - 1);}?>"><<</a>
+                        </li>
+                        <?php for ($i = 0; $i < $total_pages; $i++): ?>
+                            <li class="<?php if ($page == $i + 1) {echo "page-item active";} else {echo "page-item";}?>">
+                                <a href="?page=<?php echo $i + 1; ?>" class="page-link">
+                                    <?php echo $i + 1; ?>
+                                </a>
+                            </li>
+                        <?php endfor;?>
+                        <li class="<?php if ($page >= $total_pages) {echo 'disabled page-item';} else {echo 'page-item';}?>">
+                            <a class="page-link" href="<?php if ($page >= $total_pages) {echo '#';} else {echo "?page=" . ($page + 1);}?>">>></a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $total_pages; ?>">Last</a>
+                        </li>
+                    </ul>
                 </section>
                 <!--Section: Block Content-->
             <!-- <div class="container-fluid d-flex mx-auto"> -->

@@ -1,4 +1,4 @@
-<?php include("controllers/newProducts.php"); ?>
+<?php include "controllers/newProducts.php";?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +27,7 @@
             <i class="fa fa-align-center"></i>
         </button>
 
-        
+
         <!-- Links -->
         <div class="collapse navbar-collapse" id="basicExampleNav1">
             <!-- Left -->
@@ -66,7 +66,8 @@
                 </li>
                 <li class="nav-item">
                     <a href="cart.php" class="nav-link navbar-link-2 waves-effect">
-                        <span class="badge badge-pill red"><?php $hide = (!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0"; echo $hide;?></span>
+                        <span class="badge badge-pill red"><?php $hide = (!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
+echo $hide;?></span>
                         <i class="fas fa-shopping-cart pl-0"></i>
                     </a>
                 </li>
@@ -106,7 +107,7 @@
     <div class="container-fluid mt-3">
         <!--Grid row-->
         <div class="row">
-            <?php foreach ($newProducts as $new) : ?>
+            <?php foreach ($newProducts as $new): ?>
             <!--Grid column-->
             <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
                 <!--Card-->
@@ -143,10 +144,10 @@
             <!--Card-->
         </div>
         <!--Grid column-->
-        <?php endforeach; ?>
+        <?php endforeach;?>
     </div>
 
-    
+
 
     <script type="text/javascript" src="node_modules/mdbootstrap/js/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>

@@ -1,4 +1,4 @@
-<?php include("controllers/cartController.php"); ?>
+<?php include "controllers/cartController.php";?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +60,8 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a href="#!" class="nav-link navbar-link-2 waves-effect">
-                        <span class="badge badge-pill red"><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0"; echo $hide;?></span>
+                        <span class="badge badge-pill red"><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
+echo $hide;?></span>
                         <i class="fas fa-shopping-cart pl-0"></i>
                     </a>
                 </li>
@@ -99,15 +100,15 @@
 
     </nav>
     <!-- Navbar -->
-    <?php if(!isset($_SESSION["cart"])) : ?>
+    <?php if (!isset($_SESSION["cart"])): ?>
     <div class="container mt-5">
         <div class="alert alert-warning z-depth-1">
             <i class="fa fa-shopping-cart"> </i>
             Your shopping cart is empty, trying shopping for items and adding them to cart.
         </div>
     </div>
-    <?php else : ?>
-    <?php if(sizeof($_SESSION["cart"]) <= 0): ?>
+    <?php else: ?>
+    <?php if (sizeof($_SESSION["cart"]) <= 0): ?>
     <div class="container mt-5">
         <div class="alert alert-warning z-depth-1">
             <i class="fa fa-shopping-cart"> </i>
@@ -128,8 +129,9 @@
                     <div class="card wish-list mb-3">
                         <div class="card-body">
 
-                            <h5 class="mb-4">Cart: <span><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0"; echo $hide;?></span> item(s)</h5>
-                            <?php foreach($_SESSION["cart"] as $cart): ?>
+                            <h5 class="mb-4">Cart: <span><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
+echo $hide;?></span> item(s)</h5>
+                            <?php foreach ($_SESSION["cart"] as $cart): ?>
                             <div class="row mb-4">
                                 <div class="col-md-5 col-lg-3 col-xl-3">
                                     <div class="view overlay z-depth-1 rounded mb-3 mb-md-0">
@@ -151,7 +153,7 @@
                                                 <p class="mb-3 text-muted text-uppercase small">Number of items available: <?php echo $cart["number_of_items"]; ?></p>
                                             </div>
                                             <div>
-                                                <div class="def-number-input number-input safari_only mb-0 w-100">                                                    
+                                                <div class="def-number-input number-input safari_only mb-0 w-100">
                                                     <input class="form-control text-dark quantity" min="1" name="quantity" value="1"
                                                         type="number">
                                                 </div>
@@ -165,7 +167,7 @@
                                                 <a href="#!" type="button"
                                                     class="card-link-secondary small text-uppercase mr-3"><i
                                                         class="fas fa-trash-alt mr-1"></i> Remove item </a>
-                                                
+
                                             </div>
                                             <p class="mb-0"><span><strong><?php echo number_format($cart["price"]); ?></strong></span></p>
                                         </div>
@@ -173,7 +175,7 @@
                                 </div>
                             </div>
                             <hr class="mb-4">
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
                             <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the
                                 purchase,
                                 adding
@@ -266,8 +268,8 @@
 
     </section>
     <!--Section: Block Content-->
-    <?php endif; ?>
-    <?php endif; ?>
+    <?php endif;?>
+    <?php endif;?>
     <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="../node_modules/mdbootstrap/js/popper.min.js"></script>

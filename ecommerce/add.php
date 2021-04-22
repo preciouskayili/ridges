@@ -1,4 +1,4 @@
-<?php include("controllers/addController.php"); ?>
+<?php include "controllers/addController.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

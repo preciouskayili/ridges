@@ -15,7 +15,7 @@
     $total_rows = mysqli_fetch_array($result)[0];
     $total_pages = ceil($total_rows / $products_per_page);
 
-    $sql = "SELECT * FROM products ORDER BY created_at DESC LIMIT $offset, $products_per_page";
+    $sql = "SELECT * FROM products ORDER BY created_at ASC LIMIT $offset, $products_per_page";
     $response = $conn->query($sql);
     $produce = mysqli_fetch_all($response, MYSQLI_ASSOC);
     
