@@ -56,7 +56,7 @@
 							<option>Fruits</option>
 							<option>Photosynthesis</option>
 						</select>
-						<button name="search" class="btn btn-sm rounded btn-outline-white" style="background-color: #3F51B5;">&copy;</button>
+						<button name="search" class="btn btn-sm rounded btn-outline-white" style="background-color: #3F51B5;"><i class="fas fa-search    "></i></button>
 					</div>
 			</form>
 		</ul>
