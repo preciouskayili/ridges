@@ -57,8 +57,7 @@
                 <!-- ============================================================== -->
                 <li>
                     <a class="profile-pic" href="#">
-                        <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                            class="img-circle"><span class="text-white font-medium">Steave</span></a>
+                        <span class="text-white font-medium">Hello, <?php echo $_SESSION["username"] ?></span></a>
                 </li>
                 <!-- ============================================================== -->
                 <!-- User profile and search -->

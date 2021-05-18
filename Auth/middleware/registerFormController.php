@@ -1,10 +1,10 @@
 <?php
 include '../config/db_connect.php';
 
-$email  = $email  = $password  = '';
-$errors = array('username' => '', 'email' => '', 'password' => '');
+$email  = $username  = $password  = $re_pass = '';
+$errors = array('username' => '', 'email' => '', 'password' => '', 're_pass' => '');
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['signup'])) {
 
  // check username
  if (empty($_POST['username'])) {
@@ -32,26 +32,40 @@ if (isset($_POST['submit'])) {
  } else {
   $password = mysqli_real_escape_string($conn, $_POST['password']);
   if (!preg_match('/^[\w@-]{8,20}$/', $password)) {
-   $errors['password'] = 'Password must be alphanumeric(@, _ and - are also allowed) and must be 8-20 characters';
+   $errors['password'] = 'Password must be alphanumeric [8-20 characters]';
   }
  }
+
+// Check repeat password
+if (empty($_POST['re_pass'])) {
+    $errors['re_pass'] = 'This field is required';
+   } else {
+    $re_pass = mysqli_real_escape_string($conn, $_POST['re_pass']);
+    if (!preg_match('/^[\w@-]{8,20}$/', $re_pass)) {
+     $errors['re_pass'] = 'Repeat password must be alphanumeric [8-20 characters]';
+    }
+   }
 
  if (array_filter($errors)) {
   //echo 'errors in form';
  } else {
+    if($password !== $re_pass) {
+        $errors['re_pass'] = 'Passwords do not match';
+    } else {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+      
+        // create sql
+        $sql = "INSERT INTO users(username,email,password) VALUES('$username','$email','$hashedPassword')";
+      
+        // save to db and check
+        if (mysqli_query($conn, $sql)) {
+         // success
+         $_SESSION["username"] = $username;
+         header('Location: welcome.php');
+        } else {
+         echo 'query error: ' . mysqli_error($conn);
+        }
+       }
+    }
 
-  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-  // create sql
-  $sql = "INSERT INTO users(username,email,password) VALUES('$username','$email','$hashedPassword')";
-
-  // save to db and check
-  if (mysqli_query($conn, $sql)) {
-   // success
-   $_SESSION["username"] = $username;
-   header('Location: welcome.php');
-  } else {
-   echo 'query error: ' . mysqli_error($conn);
-  }
- }
 } // end POST check
