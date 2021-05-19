@@ -9,4 +9,29 @@
             header("Location: ../settings.php");
         }
     }
+    if(isset($_POST["deleteCategory"])) {
+        if(isset($_GET["id"]))  {
+            $id = $_GET['id'];
+            $sql = "DELETE FROM category WHERE id='$id'";
+            if($conn->query($sql)) {
+                header('Location: ../settings.php');
+            } else {
+                header('Location: ../settings.php');
+            }
+        } else {
+            header('Location: ../settings.php');
+       }
+    }
+    if(isset($_POST['updateCategory'])) {
+        if(isset($_GET["id"])) {
+            $id = $_GET['id'];
+            $category_name = mysqli_real_escape_string($conn, $_POST['category']);
+            $sql = "UPDATE category SET category_name='$category_name' WHERE id='$id'";
+            if($conn->query($sql)) {
+                header('Location: ../settings.php');
+            } else {
+                header('Location: ../settings.php');
+            }
+        }
+    }
 ?>

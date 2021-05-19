@@ -3,6 +3,10 @@ Template Name: Admin Template
 Author: Niravjoshi / Wrappixel
 File: scss
 */
+.setting-link {
+  color: #8590D9;
+}
+
 /*******************************/
 /*******************************/
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800");

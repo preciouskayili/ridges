@@ -38,10 +38,10 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="store.php"
                         aria-expanded="false">
-                        <i class="fa fa-globe" aria-hidden="true"></i>
-                        <span class="hide-menu">Google Map</span>
+                        <i class="fas fa-industry"></i>
+                        <span class="hide-menu">Stores</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

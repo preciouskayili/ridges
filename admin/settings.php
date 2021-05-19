@@ -82,7 +82,7 @@
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
-                <!-- Start Page Content -->
+                <!-- Category setting -->
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-md-12">
@@ -97,11 +97,11 @@
                               <table class="table text-nowrap">
                                   <thead>
                                       <tr>
-																				<th class="border-top-0">#</th>
-																				<th class="border-top-0">Category</th>
-																				<th class="border-top-0">Created at</th>
-																				<th class="border-top-0">Created by</th>
-																				<th class="border-top-0">Actions</th>
+                                        <th class="border-top-0">#</th>
+                                        <th class="border-top-0">Category</th>
+                                        <th class="border-top-0">Created at</th>
+                                        <th class="border-top-0">Created by</th>
+                                        <th class="border-top-0">Actions</th>
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -117,8 +117,8 @@
 																					</td>
 																					<td><?php echo $category["created_by"] ?></td>
                                           <td>
-                                              <button type="button" class="btn rounded btn-sm btn-primary text-white"><i class="fas fa-edit"></i></button>
-                                              <button class="btn rounded btn-sm btn-danger text-white"><i class="fas fa-trash"></i></button>
+                                              <button type="button" data-bs-toggle="modal" data-bs-target="#editModal" class="btn rounded btn-sm btn-primary text-white"><i class="fas fa-edit"></i></button>
+                                              <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn rounded btn-sm btn-danger text-white"><i class="fas fa-trash"></i></button>
                                           </td>
                                       </tr>
 																			<?php endforeach; ?>
@@ -126,36 +126,99 @@
                               </table>
                           </div>
                         </div>
+                        
+                        <!-- Modal for CRUD Operations -->
+                        <!-- Create modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create category</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" id="categoryCreator" action="middleware/categoryCreator.php" autocomplete="off">
+                                            <label class="lead" for="category">Category Name</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">
+                                                    <i class="fas fa-list-ol"></i>
+                                                </span>
+                                                <input required type="text" id="category" name="category" class="form-control" placeholder="Category name" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="setCategory" form="categoryCreator" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-												<!-- Modal -->
-												<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="exampleModalLabel">Create category</h5>
-																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-															</div>
-															<div class="modal-body">
-																<form method="POST" id="categoryCreator" action="middleware/categoryCreator.php" autocomplete="off">
-																	<label class="lead" for="category">Category Name</label>
-																	<div class="input-group mb-3">
-																		<span class="input-group-text" id="basic-addon1">
-																			<i class="fas fa-list-ol"></i>
-																		</span>
-																		<input type="text" id="category" name="category" class="form-control" placeholder="Category name" aria-label="Username" aria-describedby="basic-addon1">
-																	</div>
-																</form>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																<button type="submit" name="setCategory" form="categoryCreator" class="btn btn-primary">Save changes</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+                        <!-- Delete alert modal -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Notice</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="categoryDelete" action="./middleware/categoryCreator.php?id=<?php echo $category['id'] ?>" method="POST">
+
+                                        </form>
+                                        <p><strong>You are about to delete a category,</strong> are you sure you want to delete this category.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="deleteCategory" form="categoryDelete" class="btn btn-danger">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Edit modal -->
+                        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" id="categoryUpdate" action="./middleware/categoryCreator.php?id=<?php echo $category['id'] ?>" autocomplete="off">
+                                            <label class="lead" for="category">Category Name</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">
+                                                    <i class="fas fa-list-ol"></i>
+                                                </span>
+                                                <input required type="text" id="category" value="<?php echo $category['category_name'] ?>" name="category" class="form-control" placeholder="Category name" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="updateCategory" form="categoryUpdate" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Account</h3>
+                            <a class="setting-link" href="#">Logout <i class="fas fa-arrow-right"></i></a>
+                            <br />
+                            <a href="#" class="setting-link">Visit profile <i class="fas fa-arrow-right"></i></a>
+                            <br />
+                            <button class="btn mt-3 btn-danger text-white rounded" type="submit">Delete account</button>
+                        </div>
+                    </div>
+
+                </div>
+
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
