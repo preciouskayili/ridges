@@ -27,7 +27,7 @@
                     <div class="signin-form">
                         <h2 class="form-title">Sign in</h2>
                         <small style="color: red"><?php echo $invalid ?></small>
-                        <form method="POST" action="./login.php" class="register-form" id="login-form">
+                        <form method="POST" action="./login.php" autocomplete="off" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input value="<?php echo $username ?>" type="text" name="username" id="username" placeholder="Your Username"/>

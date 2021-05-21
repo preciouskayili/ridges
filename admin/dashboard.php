@@ -1,3 +1,24 @@
+<?php 
+    include "../config/db_connect.php";
+    setlocale(LC_ALL, "US");
+    if(!isset($_SESSION['username'])) {
+        header('Location: ../Auth/login.php');
+    } else {
+        // Allow user on page
+    }
+        
+    if(isset($_GET["apply_category"])) {
+        $category = mysqli_real_escape_string($conn, $_GET["apply_category"]);
+        $sql = "SELECT * FROM products WHERE category='$category'";
+        $result = $conn->query($sql);
+        $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    } else {
+        $sql = "SELECT * FROM products";
+        $result = $conn->query($sql);
+        $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+?>
 <?php include "./middleware/category.php"; ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -70,8 +91,9 @@
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
                             <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
-                                to Pro</a>
+                                class="btn btn-primary  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">
+                                <i class="fa fa-plus"></i> Add product
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -92,12 +114,7 @@
                         <div class="white-box analytics-info">
                             <h3 class="box-title">Total Visit</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-success">659</span></li>
+                                <span class="counter text-success">659</span>
                             </ul>
                         </div>
                     </div>
@@ -105,12 +122,7 @@
                         <div class="white-box analytics-info">
                             <h3 class="box-title">Total Page Views</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash2"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
+                               <span class="counter text-purple">869</span>
                             </ul>
                         </div>
                     </div>
@@ -118,42 +130,12 @@
                         <div class="white-box analytics-info">
                             <h3 class="box-title">Unique Visitor</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div id="sparklinedash3"><canvas width="67" height="30"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-info">911</span>
-                                </li>
+                                <span class="counter text-info">911</span>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- PRODUCTS YEARLY SALES -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Products Yearly Sales</h3>
-                            <div class="d-md-flex">
-                                <ul class="list-inline d-flex ms-auto">
-                                    <li class="ps-3">
-                                        <h5><i class="fa fa-circle me-1 text-info"></i>Mac</h5>
-                                    </li>
-                                    <li class="ps-3">
-                                        <h5><i class="fa fa-circle me-1 text-inverse"></i>Windows</h5>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="ct-visits" style="height: 405px;">
-                                <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
-                                        class="chartist-tooltip-value">6</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <!-- ============================================================== -->
                 <!-- RECENT SALES -->
                 <!-- ============================================================== -->
@@ -161,13 +143,16 @@
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="white-box">
                             <div class="d-md-flex mb-3">
-                                <h3 class="box-title mb-0">Recent sales</h3>
+                                <h3 class="box-title mb-0">Products</h3>
                                 <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                    <select class="form-select shadow-none row border-top">
-                                        <?php foreach($categories as $category): ?>
-                                            <option><?php echo $category["category_name"] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <form action="./dashboard.php" id="apply_category" method="GET">
+                                        <select name="apply_category" class="form-select shadow-none row border-top">
+                                            <option selected disabled>-- Choose a category --</option>
+                                            <?php foreach($categories as $category): ?>
+                                                <option><?php echo $category["category_name"] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </form>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -175,62 +160,35 @@
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Image</th>
                                             <th class="border-top-0">Name</th>
-                                            <th class="border-top-0">Status</th>
+                                            <th class="border-top-0">Store</th>
                                             <th class="border-top-0">Date</th>
                                             <th class="border-top-0">Price</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach($products as $product): ?>
                                         <tr>
-                                            <td>1</td>
-                                            <td class="txt-oflo">Elite admin</td>
-                                            <td>SALE</td>
-                                            <td class="txt-oflo">April 18, 2021</td>
-                                            <td><span class="text-success">$24</span></td>
+                                            <td><?php echo $product["id"]; ?></td>
+                                            <td>
+                                                <img width="40px" class="rounded-circle" src="../image/<?php echo $product['img_path']; ?>" alt="">
+                                            </td> 
+                                            <td class="txt-oflo">
+                                                <a class="text-dark" href="middlware/editProduct.php?id=<?php echo $product["id"]; ?>">
+                                                    <strong><?php echo $product["title"]; ?></strong>
+                                                </a>
+                                            </td>
+                                            <td><?php echo $product["store"]; ?></td>
+                                            <td class="txt-oflo">
+                                            <?php
+                                                    $format="M d,Y";
+                                                    $created_at = new DateTime($product["created_at"]);
+                                                    echo date_format($created_at, $format);
+                                                    ?></td>
+                                            <td><span class="text-success">NGN<?php echo $product["price"]; ?></span></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="txt-oflo">Real Homes WP Theme</td>
-                                            <td>EXTENDED</td>
-                                            <td class="txt-oflo">April 19, 2021</td>
-                                            <td><span class="text-info">$1250</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="txt-oflo">Ample Admin</td>
-                                            <td>EXTENDED</td>
-                                            <td class="txt-oflo">April 19, 2021</td>
-                                            <td><span class="text-info">$1250</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td class="txt-oflo">Medical Pro WP Theme</td>
-                                            <td>TAX</td>
-                                            <td class="txt-oflo">April 20, 2021</td>
-                                            <td><span class="text-danger">-$24</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td class="txt-oflo">Hosting press html</td>
-                                            <td>SALE</td>
-                                            <td class="txt-oflo">April 21, 2021</td>
-                                            <td><span class="text-success">$24</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td class="txt-oflo">Digital Agency PSD</td>
-                                            <td>SALE</td>
-                                            <td class="txt-oflo">April 23, 2021</td>
-                                            <td><span class="text-danger">-$14</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td class="txt-oflo">Helping Hands WP Theme</td>
-                                            <td>MEMBER</td>
-                                            <td class="txt-oflo">April 22, 2021</td>
-                                            <td><span class="text-success">$64</span></td>
-                                        </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -441,6 +399,11 @@
     <script src="js/waves.js"></script>
     <!--Menu sidebar -->
     <script src="js/sidebarmenu.js"></script>
+    <script>
+        $("#apply_category").change(function() {
+            $(this).submit();
+        });
+    </script>
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
     <!--This page JavaScript -->

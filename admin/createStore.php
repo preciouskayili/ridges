@@ -1,3 +1,10 @@
+<?php 
+    if(!isset($_SESSION['username'])) {
+        header('Location: ../Auth/login.php');
+    } else {
+        // Allow user on page
+    }
+?>
 <?php include "./middleware/storeCreator.php"; ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -117,7 +124,7 @@
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-phone"></i>
                                             </span>
-                                            <input value="<?php echo $phone_number ?>" required type="telephone" id="phone_number" name="phone_number" class="form-control" placeholder="Phone number" aria-label="Username" aria-describedby="basic-addon1">
+                                            <input value="<?php echo $phone_number ?>" required type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Phone number" aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
     

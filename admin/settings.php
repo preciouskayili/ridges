@@ -1,3 +1,10 @@
+<?php 
+    if(!isset($_SESSION['username'])) {
+        header('Location: ../Auth/login.php');
+    } else {
+        // Allow user on page
+    }
+?>
 <?php setlocale(LC_ALL, "US"); ?>
 <?php include "./middleware/category.php"; ?>
 <!DOCTYPE html>

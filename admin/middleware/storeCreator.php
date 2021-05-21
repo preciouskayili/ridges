@@ -30,7 +30,6 @@ if (isset($_POST['createStore'])) {
     $email_address = mysqli_real_escape_string($conn, $_POST['email_address']);
 
     if ($check !== false) {
-        echo "Working";
         move_uploaded_file($_FILES['upload_image']['tmp_name'], $imagePath);
         $sql = "INSERT INTO stores(store_name,img_path,store_location,phone_number,email_address) VALUES('$store_name', '$imageName','$store_location', '$phone_number', '$email_address')";
         $conn->query($sql);

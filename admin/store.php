@@ -1,3 +1,10 @@
+<?php 
+    if(!isset($_SESSION['username'])) {
+        header('Location: ../Auth/login.php');
+    } else {
+        // Allow user on page
+    }
+?>
 <?php
     setlocale(LC_ALL, "US");
     include "../config/db_connect.php";
@@ -74,9 +81,6 @@
                             <ol class="breadcrumb ms-auto">
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
-                            <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
-                                to Pro</a>
                         </div>
                     </div>
                 </div>
@@ -119,7 +123,7 @@
                                         <tr>
                                           <td><?php echo $store["id"]; ?></td>
                                           <td>
-                                            <img height="58px" width="60px" class="shadow-sm rounded-circle border border-3 border-danger p-1" src="./store_images/<?php echo $store["img_path"]; ?>" alt="Store icon">
+                                            <img height="60" width="60" class="shadow-sm rounded-circle border border-3 border-danger p-1" src="./store_images/<?php echo $store["img_path"]; ?>" alt="Store icon">
                                           </td>
                                           <td><?php echo $store["store_name"] ?></td>
                                           <td><?php echo $store["store_location"] ?></td>

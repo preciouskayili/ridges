@@ -1,3 +1,10 @@
+<?php 
+    if(!isset($_SESSION['username'])) {
+        header('Location: ../Auth/login.php');
+    } else {
+        // Allow user on page
+    }
+?>
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 <!-- Left Sidebar - style you can find in sidebar.scss  -->

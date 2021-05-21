@@ -1,4 +1,4 @@
-<footer class="footer text-center"> 2021 © Ample Admin brought to you by
+<footer class="footer text-center"> <?php echo date("Y") ?> &copy; Ample Admin brought to you by
   <a href="https://www.wrappixel.com/"
   >
     wrappixel.com

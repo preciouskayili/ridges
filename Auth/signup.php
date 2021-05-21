@@ -23,7 +23,7 @@
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>
-                        <form method="POST" action="signup.php" class="register-form" id="register-form">
+                        <form method="POST" action="signup.php" class="register-form" id="register-form" autocomplete="off">
                             <div class="form-group">
                                 <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input value="<?php echo $username; ?>" type="text" name="username" id="username" placeholder="Your Username"/>
