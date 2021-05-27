@@ -79,7 +79,7 @@ input {
             <!-- Right -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="cart.php" class="nav-link navbar-link-2 waves-effect">
+                    <a href="ecommerce/cart.php" class="nav-link navbar-link-2 waves-effect">
                         <span class="badge badge-pill red"><?php echo $cartNumber ?></span>
                         <i class="fas fa-shopping-cart pl-0"></i>
                     </a>
