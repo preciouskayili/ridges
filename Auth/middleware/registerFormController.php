@@ -52,18 +52,26 @@ if (empty($_POST['re_pass'])) {
     if($password !== $re_pass) {
         $errors['re_pass'] = 'Passwords do not match';
     } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-      
-        // create sql
-        $sql = "INSERT INTO users(username,email,password) VALUES('$username','$email','$hashedPassword')";
-      
-        // save to db and check
-        if (mysqli_query($conn, $sql)) {
-         // success
-         $_SESSION["username"] = $username;
-         header('Location: welcome.php');
+        $sql = "SELECT * FROM users WHERE username='$username'";
+        $usernameResult = $conn->query($sql);
+        $numRows = mysqli_num_rows($usernameResult);
+
+        if($numRows >= 1) {
+            $errors['username'] = 'Username already exists';
         } else {
-         echo 'query error: ' . mysqli_error($conn);
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+          
+            // create sql
+            $sql = "INSERT INTO users(username,email,password) VALUES('$username','$email','$hashedPassword')";
+          
+            // save to db and check
+            if (mysqli_query($conn, $sql)) {
+             // success
+             $_SESSION["username"] = $username;
+             header('Location: ../admin/dashboard.php');
+            } else {
+             echo 'query error: ' . mysqli_error($conn);
+            }
         }
        }
     }

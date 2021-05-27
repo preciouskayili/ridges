@@ -1,4 +1,14 @@
-<?php session_start(); ?>
+<?php
+    include "./config/db_connect.php";
+    if(isset($_POST["add"])) {
+        $email = mysqli_real_escape_string($conn, $_POST["email"]);
+        $sql = "INSERT INTO mailing_list(email) VALUES('$email')";
+
+        $conn->query($sql);
+    } else {
+        // Not set yet
+    }
+?>
 <?php include "controllers/newProducts.php";?>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,17 +16,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="./admin/css/icons/font-awesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
-    <link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
+    <link rel="stylesheet" href="mdbootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mdbootstrap/css/mdb.min.css">
+    <link rel="stylesheet" href="./owlcarousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="owlcarousel/dist/assets/owl.theme.default.min.css">
     <title>Ridges</title>
 </head>
+<style>
+.rounded--card {
+    border-radius: 2rem !important;
+}
+
+.bg-img {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(img/bg.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.round--it {
+    border-radius: 1rem !important;
+}
+
+input {
+    color: #777 !important;
+    height: 2.5rem !important;
+}
+</style>
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white">
 
         <a class="navbar-brand" href="./index.php">
             Ridges
@@ -40,31 +71,10 @@
                         Shop
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#!" class="nav-link waves-effect">
-                        Help
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="add.php" class="nav-link waves-effect">
-                        <i class="fa fa-plus"></i> Add item
-                    </a>
-                </li>
             </ul>
             <!-- Links -->
             <!-- Right -->
             <ul class="navbar-nav ml-auto">
-                <li>
-                    <div class="form-inline">
-                        <div class="md-form text-white" style="margin: 0px;">
-                            <label>Search</label>
-                            <input type="text" class="form-control text-white" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                        </div>
-                        <button type="button" class="btn btn-primary btn-sm" style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;">
-                            Search
-                        </button>
-                    </div>
-                </li>
                 <li class="nav-item">
                     <a href="cart.php" class="nav-link navbar-link-2 waves-effect">
                         <span class="badge badge-pill red"><?php $hide = (!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
@@ -86,75 +96,152 @@ echo $hide;?></span>
             </ul>
         </div>
     </nav>
-    <!-- Navbar -->
 
-    <div class="container-fluid mt-3">
-        <h4>Categories</h4>
-
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-title">
-                        Fruit
-                    </p>
+    <!-- ===================== -->
+    <!-- == Landing page design -->
+    <!-- ====================== -->
+    <div class="container-fluid bg-dark" style="overflow-x: hidden;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6 mt-5">
+                    <h1 class="text-white"><strong>Discover, order and access the best farm produce.</strong></h1>
+                    <p style="color: #ccc"><strong>Ridges offers you a wide range of opportunities to harness in the
+                            Agricultural sector as well as a merge of the technological and Agricultural sectors for
+                            a wide market coverage. The platform provides statistical analysis of all the
+                            happenings on the site, from the sales, to the most farm produce, and so on.</strong></p>
+                    <a href="./ecommerce/mart.php" class="btn btn-rounded rounded--card btn-success btn-lg"><i
+                            class="fas fa-shopping-cart"></i> Start
+                        shopping</a>
                 </div>
-                <div class="card-footer">
-                    100 products
+                <div class="col-lg-6 d-lg-block d-none mt-4">
+                    <img class="col-md-10" style="width: 90%; height: 90%; margin-left: 10%"
+                        src="./illustrations/Online_shopping_PNG.png" alt="Online shopping">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid mt-3">
-        <!--Grid row-->
-        <div class="row">
-            <?php foreach ($newProducts as $new): ?>
-            <!--Grid column-->
-            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
-                <!--Card-->
-                <div class="card">
-                    <!--Card image-->
-                    <div class="view overlay">
-                    <img src="./image/<?php echo $new["img_path"]; ?>" height="250" class="card-img-top"
-                        alt="">
-                    <a>
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
+    <div class="container-fluid mt-5">
+        <h4>
+            <strong>Recent products</strong>
+        </h4>
+        <div class="owl-carousel">
+            <?php foreach($newProducts as $newProduct): ?>
+            <div class="pr-3">
+                <img class="shadow rounded--card" src="./image/<?php echo $newProduct["img_path"] ?>" alt="">
+                <div class="d-flex mt-2">
+                    <button title="Add to cart" class="btn btn-sm btn-primary"
+                        style="padding: 10px; width: 40px; height: 40px;"><i class="fas fa-cart-plus"></i></button>
+                    <div class="ml-2">
+                        <h5 class="mt-2"><strong><?php echo $newProduct["title"]; ?></strong></h5>
+                        <p>NGN<?php echo $newProduct["price"] ?></p>
+                        <span class="badge badge-primary"><?php echo $newProduct["category"]; ?></span>
                     </div>
-                    <!--Card image-->
-                    <!--Card content-->
-                    <div class="card-body text-center">
-                    <!--Category & Title-->
-                    <a href="" class="grey-text">
-                        <h5><?php echo $new["category"]; ?></h5>
-                    </a>
-                    <h5>
-                        <strong>
-                        <a href="" class="dark-grey-text"><?php echo $new["title"] ?>
-                            <span class="badge badge-pill danger-color">NEW</span>
-                        </a>
-                        </strong>
-                    </h5>
-                    <h4 class="font-weight-bold blue-text">
-                        <small>NGN</small>
-                        <strong><?php echo $new["price"]; ?></strong>
-                    </h4>
-                    </div>
-                    <!--Card content-->
                 </div>
-            <!--Card-->
+            </div>
+            <?php endforeach; ?>
         </div>
-        <!--Grid column-->
-        <?php endforeach;?>
     </div>
 
+    <div class="container-fluid">
+        <div class="col-md-11 shadow-lg mt-5 round--it mx-auto bg-img p-4">
+            <h4 class="text-center text-white"><strong>Join the innovation</strong></h4>
+            <p style="color: #ccc" class="d-block mx-auto text-justify col-md-6">Ridges is a smart market, creating
+            a vast network of farmers as well as covering a wide market range to enhance productivity and profit.
+            Ridges was born out of a need in the Agricultural sector that has been lingering for years.</p>
+            <button class="btn btn-success d-block mx-auto" style="border-radius: 2rem;">Create an account</button>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-5">Pdas
+        <div class="col-md-8 mx-auto mt-5">
+            <h5 class="text-center"><strong>Join our mailing list!</strong></h5>
+            <form action="index.php" method="POST">
+                <div class="md-form input-group md-outline">
+                    <input name="email" placeholder="Email address" required autocomplete="off" type="email" id="form77"
+                        style="background-color: transparent; border: 1px solid #777; color: white;"
+                        class="form-control m-0">
+                    <button name="add" type="submit" class="btn rounded btn-md btn-dark" style="margin-top: 0.008rem"><i
+                            class="fas fa-paper-plane"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-5 bg-primary text-center text-white text-lg-left">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row">
+                <!--Grid column-->
+                <div class="col-lg-6 d-block mt-auto col-md-12 mb-4 mb-md-0">
+                    <h1>
+                        RIDGES
+                    </h1>
+                </div>
+                <!--Grid column-->
 
 
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/script.js"></script>
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-0">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="./index.php" class="text-dark">Home</a>
+                        </li>
+                        <li>
+                            <a href="./ecommerce/mart.php" class="text-dark">Market</a>
+                        </li>
+                        <li>
+                            <a href="./Auth/login.php" class="text-dark">Login</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © <?php echo date('Y') ?> Copyright:
+            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+
+    <script type="text/javascript" src="mdbootstrap/js/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(".owl-carousel").owlCarousel({
+            autoplay: true,
+            autoplayHoverPause: true,
+            responsiveClass: true,
+            loop: false,
+            responsive: {
+                0: {
+                    items: 2,
+                    nav: false
+                },
+                1000: {
+                    items: 4,
+                    nav: false
+                }
+            }
+        });
+    });
+    </script>
+    <script type="text/javascript" src="mdbootstrap/js/popper.min.js"></script>
+    <script type="text/javascript" src="mdbootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="mdbootstrap/js/mdb.min.js"></script>
+    <script type="text/javascript" src="mdbootstrap/js/script.js"></script>
+    <script type="text/javascript" src="owlcarousel/dist/owl.carousel.min.js"></script>
 </body>
 
 </html>

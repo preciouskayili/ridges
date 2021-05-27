@@ -1,4 +1,11 @@
 <?php include "controllers/cartController.php";?>
+<?php
+    $item_prices = [];
+    for($i = 0;$i < count($cartItems); $i++) {
+        $item_prices[] += $cartItems[$i]["price"];
+        $total_price = array_sum($item_prices);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,97 +17,15 @@
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"> -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../node_modules/mdbootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../node_modules/mdbootstrap/css/mdb.min.css">
-    <link rel="stylesheet" href="../node_modules/mdbootstrap/css/style.css">
+    <link rel="stylesheet" href="../mdbootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../mdbootstrap/css/mdb.min.css">
+    <link rel="stylesheet" href="../mdbootstrap/css/style.css">
     <title>Ridges</title>
 </head>
 
 <body>
-    <style>
-        input {
-            color: white !important;
-        }
-    </style>
-    <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-
-        <div class="col-md-6 d-flex ml-auto">
-            <div class="">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="md-form" style="margin: 0px;">
-                            <label for="">Search</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-white btn-outline-white btn-md"><i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="navbar-brand">
-            <div class="text-center text-white">
-                <h3>Cart</h3>
-            </div>
-        </a>
-
-        <!-- Collapse button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav1"
-            aria-controls="basicExampleNav1" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa fa-align-center"></i>
-        </button>
-
-        <!-- Links -->
-        <div class="collapse navbar-collapse" id="basicExampleNav1">
-
-            <!-- Right -->
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="#!" class="nav-link navbar-link-2 waves-effect">
-                        <span class="badge badge-pill red"><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
-echo $hide;?></span>
-                        <i class="fas fa-shopping-cart pl-0"></i>
-                    </a>
-                </li>
-
-                </li>
-                <li class="nav-item">
-                    <a href="#!" class="nav-link waves-effect">
-                        Shop
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#!" class="nav-link waves-effect">
-                        Contact
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#!" class="nav-link waves-effect">
-                        <i class="fa fa-plus"></i>Add item
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="#!">Action</a>
-                        <a class="dropdown-item" href="#!">Another action</a>
-                        <a class="dropdown-item" href="#!">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-
-        </div>
-        <!-- Links -->
-
-    </nav>
-    <!-- Navbar -->
-    <?php if (!isset($_SESSION["cart"])): ?>
+    <?php include "../templates/navbar.php"; ?>
+    <?php if (!isset($cartItems)): ?>
     <div class="container mt-5">
         <div class="alert alert-warning z-depth-1">
             <i class="fa fa-shopping-cart"> </i>
@@ -108,7 +33,7 @@ echo $hide;?></span>
         </div>
     </div>
     <?php else: ?>
-    <?php if (sizeof($_SESSION["cart"]) <= 0): ?>
+    <?php if (sizeof($cartItems) <= 0): ?>
     <div class="container mt-5">
         <div class="alert alert-warning z-depth-1">
             <i class="fa fa-shopping-cart"> </i>
@@ -129,13 +54,13 @@ echo $hide;?></span>
                     <div class="card wish-list mb-3">
                         <div class="card-body">
 
-                            <h5 class="mb-4">Cart: <span><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
+                            <h5 class="mb-4">Cart: <span><?php $hide = (isset($cartItems)) ? count($cartItems) : "0";
 echo $hide;?></span> item(s)</h5>
-                            <?php foreach ($_SESSION["cart"] as $cart): ?>
+                            <?php foreach ($cartItems as $cart): ?>
                             <div class="row mb-4">
                                 <div class="col-md-5 col-lg-3 col-xl-3">
                                     <div class="view overlay z-depth-1 rounded mb-3 mb-md-0">
-                                        <a href="overview.php?id=<?php echo $cart["id"]; ?>">
+                                        <a href="overview.php?id=<?php echo $cart["product_id"]; ?>">
                                             <img class="img-fluid w-100"
                                                 style="height: 200px;"
                                                 src="../image/<?php echo $cart["img_path"]; ?>"
@@ -154,7 +79,7 @@ echo $hide;?></span> item(s)</h5>
                                             </div>
                                             <div>
                                                 <div class="def-number-input number-input safari_only mb-0 w-100">
-                                                    <input class="form-control text-dark quantity" min="1" name="quantity" value="1"
+                                                    <input class="form-control text-dark quantity" min="1" max="<?php echo $cart["number_of_items"] ?>" name="quantity" value="1"
                                                         type="number">
                                                 </div>
                                                 <small id="passwordHelpBlock" class="form-text text-muted text-center">
@@ -164,12 +89,12 @@ echo $hide;?></span> item(s)</h5>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                <a href="#!" type="button"
+                                                <a href="controllers/cartItemDelete.php?id=<?php echo $cart["product_id"]; ?>" type="button"
                                                     class="card-link-secondary small text-uppercase mr-3"><i
                                                         class="fas fa-trash-alt mr-1"></i> Remove item </a>
 
                                             </div>
-                                            <p class="mb-0"><span><strong><?php echo number_format($cart["price"]); ?></strong></span></p>
+                                            <p class="mb-0"><span><sub>NGN</sub><strong><?php echo number_format($cart["price"]); ?></strong></span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -190,8 +115,20 @@ echo $hide;?></span> item(s)</h5>
                         <div class="card-body">
 
                             <h5 class="mb-4">Expected shipping delivery</h5>
+                            <small class="text-muted">*If you order today</small>
+                            <p class="mb-0"> <?php
+                                $date = date("M d, Y");
+                                $date = strtotime($date);
+                                $date = strtotime("+5 day", $date);
 
-                            <p class="mb-0"> Thu., 12.03. - Mon., 16.03.</p>
+                                echo date('M d, Y', $date);
+                            ?> - <?php
+                                $date2 = date("M d, Y");
+                                $date2 = strtotime($date2);
+                                $date2 = strtotime("+7 day", $date2);
+
+                                echo date('M d, Y', $date2);
+                            ?></p>
                         </div>
                     </div>
                     <!-- Card -->
@@ -201,19 +138,12 @@ echo $hide;?></span> item(s)</h5>
                         <div class="card-body">
 
                             <h5 class="mb-4">We accept</h5>
-
                             <img class="mr-2" width="45px"
                                 src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
                                 alt="Visa">
                             <img class="mr-2" width="45px"
-                                src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
-                                alt="American Express">
-                            <img class="mr-2" width="45px"
                                 src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
                                 alt="Mastercard">
-                            <img class="mr-2" width="45px"
-                                src="https://z9t4u9f6.stackpathcdn.com/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
-                                alt="PayPal acceptance mark">
                         </div>
                     </div>
                     <!-- Card -->
@@ -251,9 +181,44 @@ echo $hide;?></span> item(s)</h5>
                                     <span><strong>$53.98</strong></span>
                                 </li>
                             </ul>
-
-                            <button type="button" class="btn btn-primary btn-block waves-effect waves-light">go to
-                                checkout</button>
+                            <form>
+                                <script src="https://checkout.flutterwave.com/v3.js"></script>
+                                <a href="checkout.php?" onClick="makePayment()" type="button" class="btn btn-primary btn-block waves-effect waves-light">go to
+                                    checkout</a>
+                                    <script>
+                                        function makePayment() {
+                                            FlutterwaveCheckout({
+                                            public_key: "FLWPUBK-feaacb61c66fb8a0384a99345e5fff5c-X",
+                                            tx_ref: "RX1",
+                                            amount: 10,
+                                            currency: "NGN",
+                                            country: "NG",
+                                            payment_options: " ",
+                                            redirect_url: // specified redirect URL
+                                                "http://localhost/ecommerce/mart.php",
+                                            meta: {
+                                                consumer_id: 23,
+                                                consumer_mac: "92a3-912ba-1192a",
+                                            },
+                                            customer: {
+                                                email: "preciouskayili@gmail.com",
+                                                name: "<?php echo $_SESSION['username']; ?>",
+                                            },
+                                            callback: function (data) {
+                                                console.log(data);
+                                            },
+                                            onclose: function() {
+                                                // close modal
+                                            },
+                                            customizations: {
+                                                title: "Ridges",
+                                                description: "Payment for items in cart",
+                                                logo: "http://localhost/ridges/im/logo.png",
+                                            },
+                                            });
+                                        }
+                                        </script>
+                            </form>
 
                         </div>
                     </div>
@@ -272,11 +237,11 @@ echo $hide;?></span> item(s)</h5>
     <?php endif;?>
     <!-- SCRIPTS -->
     <!-- JQuery -->
-    <script type="text/javascript" src="../node_modules/mdbootstrap/js/popper.min.js"></script>
-    <script type="text/javascript" src="../node_modules/mdbootstrap/js/jquery.min.js"></script>
-    <script type="text/javascript" src="../node_modules/mdbootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../node_modules/mdbootstrap/js/mdb.min.js"></script>
-    <script type="text/javascript" src="../node_modules/mdbootstrap/js/script.js"></script>
+    <script type="text/javascript" src="../mdbootstrap/js/popper.min.js"></script>
+    <script type="text/javascript" src="../mdbootstrap/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../mdbootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../mdbootstrap/js/mdb.min.js"></script>
+    <script type="text/javascript" src="../mdbootstrap/js/script.js"></script>
     <script>
         // Animations initialization
         new WOW().init();

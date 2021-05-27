@@ -1,3 +1,12 @@
+<?php
+	include("../config/db_connect.php");
+	$sql = "SELECT * FROM category";
+	$sql2 = "SELECT * FROM cart";
+	$result = $conn->query($sql2);
+	$numRows = mysqli_num_rows($result);
+	$query = $conn->query($sql);
+	$categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
+?>
 <style>
 	::placeholder {
 		color: #a7afb7!important
@@ -26,24 +35,16 @@
 	<div class="collapse navbar-collapse" id="basicExampleNav1">
 		<!-- Left -->
 		<ul class="navbar-nav mr-auto">
-
+			<li class="nav-item">
+				<a href="../index.php" class="nav-link waves-effect">
+					Home
+				</a>
+			</li>
 			<li class="nav-item">
 				<a href="mart.php" class="nav-link waves-effect">
 					Shop
 				</a>
 			</li>
-			<li class="nav-item">
-				<a href="#!" class="nav-link waves-effect">
-					Help
-				</a>
-			</li>
-			<?php if (isset($_SESSION["email"])): ?>
-			<li class="nav-item">
-				<a href="add.php" class="nav-link waves-effect">
-					<i class="fa fa-plus"></i> Add item
-				</a>
-			</li>
-			<?php else:echo "";endif;?>
 		</ul>
 		<!-- Links -->
 		<ul class="navbar-nav mx-auto">
@@ -52,10 +53,9 @@
 						<input name="keywords" placeholder="Keywords" value="<?php if(isset($_POST["search"])): echo $_POST["keywords"]; else: ""; endif;?>" autocomplete="off" type="text" id="form77" style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0">
 						<select name="category" type="text" id="form77" style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0 p-2 rounded">
 							<option disabled selected>Category</option>
-							<option>Tubers</option>
-							<option>Vegetables</option>
-							<option>Fruits</option>
-							<option>Photosynthesis</option>
+							<?php foreach($categories as $category): ?>
+								<option><?php echo $category["category_name"] ?></option>
+							<?php endforeach; ?>
 						</select>
 						<button name="search" class="btn btn-sm rounded btn-outline-white" style="background-color: #3F51B5;"><i class="fas fa-search"></i></button>
 					</div>
@@ -63,13 +63,9 @@
 		</ul>
 		<!-- Right -->
 		<ul class="navbar-nav ml-auto">
-			<li>
-
-			</li>
 			<li class="nav-item">
 				<a href="cart.php" class="nav-link navbar-link-2 waves-effect">
-					<span class="badge badge-pill red"><?php $hide = (isset($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
-echo $hide;?></span>
+					<span class="badge badge-pill red"><?php echo $numRows; ?></span>
 					<i class="fas fa-shopping-cart pl-0"></i>
 				</a>
 			</li>
@@ -77,7 +73,7 @@ echo $hide;?></span>
 				<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
 					<i class="fas fa-user-circle"></i>
-					<?php if (isset($_SESSION["email"])) {echo $_SESSION["email"];} else {echo "";}?>
+					<?php if (isset($_SESSION["username"])) {echo $_SESSION["username"];} else {echo "";}?>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
 					<a class="dropdown-item" href="#!">Action</a>

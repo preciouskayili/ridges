@@ -15,7 +15,7 @@ if (isset($_POST["search"])) {
         $category = $_POST["category"];
     }
 
-    $sql = "SELECT * FROM products WHERE title = '$keywords' OR category = '$category'";
+    $sql = "SELECT * FROM products WHERE title LIKE '%$keywords%' AND category LIKE '%$category%'";
 
     $response = $conn->query($sql);
 

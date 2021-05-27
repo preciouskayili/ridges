@@ -6,15 +6,29 @@
     } else {
         // Allow user on page
     }
-        
+    
+    if(isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
+
+    $products_per_page = 5;
+    $offset = ($page-1) * $products_per_page;
+
+    $total_pages_sql = "SELECT COUNT(*) FROM products";
+    $result = $conn->query($total_pages_sql);
+    $total_rows = mysqli_fetch_array($result)[0];
+    $total_pages = ceil($total_rows / $products_per_page);
+
     if(isset($_GET["apply_category"])) {
         $category = mysqli_real_escape_string($conn, $_GET["apply_category"]);
-        $sql = "SELECT * FROM products WHERE category='$category'";
+        $sql = "SELECT * FROM products WHERE category='$category' LIMIT $offset, $products_per_page";
         $result = $conn->query($sql);
         $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     } else {
-        $sql = "SELECT * FROM products";
+        $sql = "SELECT * FROM products LIMIT $offset, $products_per_page";
         $result = $conn->query($sql);
         $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
@@ -90,7 +104,7 @@
                             <ol class="breadcrumb ms-auto">
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
-                            <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
+                            <a href="createProducts.php"
                                 class="btn btn-primary  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">
                                 <i class="fa fa-plus"></i> Add product
                             </a>
@@ -112,7 +126,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Visit</h3>
+                            <h3 class="box-title">Total Stores</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <span class="counter text-success">659</span>
                             </ul>
@@ -120,7 +134,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Page Views</h3>
+                            <h3 class="box-title">Total Products</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                <span class="counter text-purple">869</span>
                             </ul>
@@ -128,7 +142,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Unique Visitor</h3>
+                            <h3 class="box-title">Orders</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <span class="counter text-info">911</span>
                             </ul>
@@ -172,7 +186,7 @@
                                         <tr>
                                             <td><?php echo $product["id"]; ?></td>
                                             <td>
-                                                <img width="40px" class="rounded-circle" src="../image/<?php echo $product['img_path']; ?>" alt="">
+                                                <img width="40px" height="40px" class="rounded-circle" src="../image/<?php echo $product['img_path']; ?>" alt="">
                                             </td> 
                                             <td class="txt-oflo">
                                                 <a class="text-dark" href="middlware/editProduct.php?id=<?php echo $product["id"]; ?>">
@@ -191,6 +205,29 @@
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
+                                <div class="d-flex">
+                                    <ul class="pagination mx-auto" style="display: <?php if (count($product) == 0): echo "none";else:"flex";endif; ?>">
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1">First</a>
+                                        </li>
+                                        <li class="<?php if ($page <= 1) {echo 'disabled page-item';} else {echo 'page-item';} ?>">
+                                            <a class="page-link" href="<?php if ($page <= 1) {echo '#';} else {echo "?page=" . ($page - 1);} ?>"><<</a>
+                                        </li>
+                                        <?php for ($i = 0; $i < $total_pages; $i++): ?>
+                                            <li class="<?php if ($page == $i + 1) {echo "page-item active";} else {echo "page-item";} ?>">
+                                                <a href="?page=<?php echo $i + 1; ?>" class="page-link">
+                                                    <?php echo $i + 1; ?>
+                                                </a>
+                                            </li>
+                                        <?php endfor; ?>
+                                        <li class="<?php if ($page >= $total_pages) {echo 'disabled page-item';} else {echo 'page-item';} ?>">
+                                            <a class="page-link" href="<?php if ($page >= $total_pages) {echo '#';} else {echo "?page=" . ($page + 1);} ?>">>></a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=<?php echo $total_pages; ?>">Last</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

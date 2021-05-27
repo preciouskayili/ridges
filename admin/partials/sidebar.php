@@ -24,17 +24,17 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.html"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php"
                         aria-expanded="false">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         <span class="hide-menu">Profile</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="basic-table.html"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="orders.php"
                         aria-expanded="false">
-                        <i class="fa fa-table" aria-hidden="true"></i>
-                        <span class="hide-menu">Basic Table</span>
+                        <i class="fas fa-cart-arrow-down"></i>
+                        <span class="hide-menu">Orders</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -71,11 +71,6 @@
                         <i class="fas fa-cog" aria-hidden="true"></i>
                         <span class="hide-menu">Settings</span>
                     </a>
-                </li>
-                <li class="text-center p-20 upgrade-btn">
-                    <a href="https://www.wrappixel.com/templates/ampleadmin/"
-                        class="btn d-grid btn-danger text-white" target="_blank">
-                        Upgrade to Pro</a>
                 </li>
             </ul>
 

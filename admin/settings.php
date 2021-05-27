@@ -1,4 +1,5 @@
 <?php 
+    include "./middleware/unit.php";
     if(!isset($_SESSION['username'])) {
         header('Location: ../Auth/login.php');
     } else {
@@ -7,6 +8,7 @@
 ?>
 <?php setlocale(LC_ALL, "US"); ?>
 <?php include "./middleware/category.php"; ?>
+<?php include "./middleware/unit.php"; ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -25,13 +27,15 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <!-- Custom CSS -->
-   <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 </head>
 
 <body>
@@ -47,7 +51,7 @@
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-			<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
@@ -94,167 +98,318 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                          <div class="d-flex">
-                              <h3 class="box-title">Categories</h3>
-                              <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="fas fa-plus"></i>
-                              </button>
-                          </div>
-                          <div class="table-responsive">
-                              <table class="table text-nowrap">
-                                  <thead>
-                                      <tr>
-                                        <th class="border-top-0">#</th>
-                                        <th class="border-top-0">Category</th>
-                                        <th class="border-top-0">Created at</th>
-                                        <th class="border-top-0">Created by</th>
-                                        <th class="border-top-0">Actions</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-																			<?php foreach($categories as $category) : ?>
+                            <div class="d-md-flex d-sm-block">
+                                <h3 class="box-title">Categories</h3>
+                                <div class="ms-auto">
+                                    <form method="POST" id="categoryCreator" action="middleware/categoryCreator.php"
+                                        autocomplete="off">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-list-ol"></i>
+                                            </span>
+                                            <input required type="text" id="category" name="category"
+                                                class="form-control" placeholder="Category name" aria-label="Username"
+                                                aria-describedby="basic-addon1">
+                                            <button class="btn btn-primary" name="setCategory">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
                                         <tr>
-                                          <td><?php echo $category["id"] ?></td>
-                                          <td><?php echo $category["category_name"] ?></td>
-                                          <td><?php
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Category</th>
+                                            <th class="border-top-0">Created at</th>
+                                            <th class="border-top-0">Created by</th>
+                                            <th class="border-top-0"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($categories as $key => $category) : ?>
+                                        <tr>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteCategoryModal<?php echo $category["id"] ?>"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Notice
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <?php
+                                                                $id = $category["id"];
+                                                            ?>
+                                                            <p><strong>You are about to delete sensitive data,</strong>
+                                                                Are you sure want to do this?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                            <a href="middleware/categoryCreator.php?id=<?php echo $id; ?>"
+                                                                class="btn btn-danger">Yes
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <td><?php echo $category["id"] ?></td>
+                                            <td>
+                                                <p onclick="item_edit(this, this.nextElementSibling)">
+                                                    <?php echo $category["category_name"] ?></p>
+                                                <form class="col-md-9" style="display: none" method="POST"
+                                                    id="categoryUpdate<?php echo $category["id"] ?>"
+                                                    action="./middleware/categoryCreator.php?id=<?php echo $category['id'] ?>"
+                                                    autocomplete="off">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <i class="fas fa-list-ol"></i>
+                                                        </span>
+                                                        <input required
+                                                            value="<?php echo $category["category_name"]; ?>"
+                                                            type="text" id="category" name="category"
+                                                            class="form-control" placeholder="Category name"
+                                                            aria-label="Category name" aria-describedby="basic-addon1">
+                                                        <button class="btn btn-primary" type="submit"
+                                                            name="updateCategory">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </td>
+
+                                            <td><?php
 																						$format="M d,Y";
 																						$created_at = new DateTime($category["created_at"]);
 																						echo date_format($created_at, $format);
 																						?>
-																					</td>
-																					<td><?php echo $category["created_by"] ?></td>
-                                          <td>
-                                              <button type="button" data-bs-toggle="modal" data-bs-target="#editModal" class="btn rounded btn-sm btn-primary text-white"><i class="fas fa-edit"></i></button>
-                                              <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn rounded btn-sm btn-danger text-white"><i class="fas fa-trash"></i></button>
-                                          </td>
-                                      </tr>
-																			<?php endforeach; ?>
-                                  </tbody>
-                              </table>
-                          </div>
-                        </div>
-                        
-                        <!-- Modal for CRUD Operations -->
-                        <!-- Create modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Create category</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" id="categoryCreator" action="middleware/categoryCreator.php" autocomplete="off">
-                                            <label class="lead" for="category">Category Name</label>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">
-                                                    <i class="fas fa-list-ol"></i>
-                                                </span>
-                                                <input required type="text" id="category" name="category" class="form-control" placeholder="Category name" aria-label="Username" aria-describedby="basic-addon1">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" name="setCategory" form="categoryCreator" class="btn btn-primary">Save changes</button>
-                                    </div>
+                                            </td>
+                                            <td><?php echo $category["created_by"] ?></td>
+                                            <td>
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteCategoryModal<?php echo $category["id"] ?>"
+                                                    class="btn rounded btn-sm btn-danger text-white"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+
+                                <div class="d-flex">
+                                    <ul class="pagination mx-auto"
+                                        style="display: <?php if (count($categories) == 0): echo "none";else:"flex";endif; ?>">
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1">First</a>
+                                        </li>
+                                        <li
+                                            class="<?php if ($page <= 1) {echo 'disabled page-item';} else {echo 'page-item';} ?>">
+                                            <a class="page-link"
+                                                href="<?php if ($page <= 1) {echo '#';} else {echo "?page=" . ($page - 1);} ?>">
+                                                << </a>
+                                        </li>
+                                        <?php for ($i = 0; $i < $total_pages; $i++): ?>
+                                        <li
+                                            class="<?php if ($page == $i + 1) {echo "page-item active";} else {echo "page-item";} ?>">
+                                            <a href="?page=<?php echo $i + 1; ?>" class="page-link">
+                                                <?php echo $i + 1; ?>
+                                            </a>
+                                        </li>
+                                        <?php endfor; ?>
+                                        <li
+                                            class="<?php if ($page >= $total_pages) {echo 'disabled page-item';} else {echo 'page-item';} ?>">
+                                            <a class="page-link"
+                                                href="<?php if ($page >= $total_pages) {echo '#';} else {echo "?page=" . ($page + 1);} ?>">>></a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=<?php echo $total_pages; ?>">Last</a>
+                                        </li>
+                                    </ul>
                                 </div>
+
                             </div>
                         </div>
 
-                        <!-- Delete alert modal -->
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Notice</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="categoryDelete" action="./middleware/categoryCreator.php?id=<?php echo $category['id'] ?>" method="POST">
-
-                                        </form>
-                                        <p><strong>You are about to delete a category,</strong> are you sure you want to delete this category.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" name="deleteCategory" form="categoryDelete" class="btn btn-danger">Yes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Edit modal -->
-                        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" id="categoryUpdate" action="./middleware/categoryCreator.php?id=<?php echo $category['id'] ?>" autocomplete="off">
-                                            <label class="lead" for="category">Category Name</label>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">
-                                                    <i class="fas fa-list-ol"></i>
-                                                </span>
-                                                <input required type="text" id="category" value="<?php echo $category['category_name'] ?>" name="category" class="form-control" placeholder="Category name" aria-label="Username" aria-describedby="basic-addon1">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" name="updateCategory" form="categoryUpdate" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
+                        <!-- ================================== -->
+                        <!-- ========== Unit settings ========= -->
+                        <!-- ================================== -->
                         <div class="white-box">
-                            <h3 class="box-title">Account</h3>
-                            <a class="setting-link" href="#">Logout <i class="fas fa-arrow-right"></i></a>
-                            <br />
-                            <a href="#" class="setting-link">Visit profile <i class="fas fa-arrow-right"></i></a>
-                            <br />
-                            <button class="btn mt-3 btn-danger text-white rounded" type="submit">Delete account</button>
+                            <div class="d-flex">
+                                <h3 class="box-title">Units</h3>
+                                <div class="ms-auto">
+                                    <form method="POST" id="unitCreator" action="middleware/unitCreator.php"
+                                        autocomplete="off">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-list-ol"></i>
+                                            </span>
+                                            <input required type="text" id="unit" name="unit" class="form-control"
+                                                placeholder="Unit name" aria-label="Unit name"
+                                                aria-describedby="basic-addon1">
+                                            <button class="btn btn-primary" name="setUnit">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Unit</th>
+                                            <th class="border-top-0">Created at</th>
+                                            <th class="border-top-0">Created by</th>
+                                            <th class="border-top-0"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($units as $key => $unit) : ?>
+                                        <tr>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteUnitModal<?php echo $unit["id"] ?>"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Notice
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <?php $id = $unit["id"]; ?>
+                                                            <p><strong>You are about to delete sensitive data,</strong>
+                                                                Are you sure want to do this?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                            <a href="middleware/unitCreator.php?id=<?php echo $id; ?>"
+                                                                class="btn btn-danger">Yes
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <td><?php echo $unit["id"] ?></td>
+                                            <td>
+                                                <p onclick="item_edit(this, this.nextElementSibling)">
+                                                    <?php echo $unit["unit"] ?></p>
+                                                <form class="col-md-9" style="display: none" method="POST"
+                                                    id="categoryUpdate<?php echo $unit["id"] ?>"
+                                                    action="./middleware/unitCreator.php?id=<?php echo $unit['id'] ?>"
+                                                    autocomplete="off">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <i class="fas fa-list-ol"></i>
+                                                        </span>
+                                                        <input required value="<?php echo $unit["unit"]; ?>" type="text"
+                                                            id="unit" name="unit" class="form-control"
+                                                            placeholder="Unit type" aria-label="Unit type"
+                                                            aria-describedby="basic-addon1">
+                                                        <button class="btn btn-primary" type="submit" name="updateUnit">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td><?php
+																						$format="M d,Y";
+																						$created_at = new DateTime($unit["created_at"]);
+																						echo date_format($created_at, $format);
+																						?>
+                                            </td>
+                                            <td><?php echo $unit["created_by"] ?></td>
+                                            <td>
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteUnitModal<?php echo $unit["id"] ?>"
+                                                    class="btn rounded btn-sm btn-danger text-white"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </td>
+
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <div class="d-flex">
+                                    <ul class="pagination mx-auto"
+                                        style="display: <?php if (count($units) == 0): echo "none";else:"flex";endif; ?>">
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1">First</a>
+                                        </li>
+                                        <li
+                                            class="<?php if ($page <= 1) {echo 'disabled page-item';} else {echo 'page-item';} ?>">
+                                            <a class="page-link"
+                                                href="<?php if ($page <= 1) {echo '#';} else {echo "?page=" . ($page - 1);} ?>">
+                                                << </a>
+                                        </li>
+                                        <?php for ($i = 0; $i < $total_pages; $i++): ?>
+                                        <li
+                                            class="<?php if ($page == $i + 1) {echo "page-item active";} else {echo "page-item";} ?>">
+                                            <a href="?page=<?php echo $i + 1; ?>" class="page-link">
+                                                <?php echo $i + 1; ?>
+                                            </a>
+                                        </li>
+                                        <?php endfor; ?>
+                                        <li
+                                            class="<?php if ($page >= $total_pages) {echo 'disabled page-item';} else {echo 'page-item';} ?>">
+                                            <a class="page-link"
+                                                href="<?php if ($page >= $total_pages) {echo '#';} else {echo "?page=" . ($page + 1);} ?>">>></a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=<?php echo $total_pages; ?>">Last</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Account</h3>
+                        <a class="setting-link" href="#">Logout <i class="fas fa-arrow-right"></i></a>
+                        <br />
+                        <a href="#" class="setting-link">Visit profile <i class="fas fa-arrow-right"></i></a>
+                        <br />
+                        <button class="btn mt-3 btn-danger text-white rounded" type="submit">Delete account</button>
+                    </div>
+                </div>
+
             </div>
+
             <!-- ============================================================== -->
-            <!-- End Container fluid  -->
+            <!-- End PAge Content -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
-            <!-- footer -->
+            <!-- Right sidebar -->
             <!-- ============================================================== -->
-            <?php include './partials/footer.php'; ?>
+            <!-- .right-sidebar -->
             <!-- ============================================================== -->
-            <!-- End footer -->
+            <!-- End Right sidebar -->
             <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
+        <!-- End Container fluid  -->
         <!-- ============================================================== -->
-			</div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <?php include './partials/footer.php'; ?>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    </div>
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
@@ -268,6 +423,8 @@
     <script src="js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
+    <!-- Form edit Javascript -->
+    <script src="js/editForm.js"></script>
 </body>
 
 </html>
