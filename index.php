@@ -1,5 +1,8 @@
 <?php
     include "./config/db_connect.php";
+    $sql0 ="SELECT * FROM cart WHERE username='$username'";
+    $result = $conn->query($sql0);
+    $cartNumber = mysqli_num_rows($result);
     if(isset($_POST["add"])) {
         $email = mysqli_real_escape_string($conn, $_POST["email"]);
         $sql = "INSERT INTO mailing_list(email) VALUES('$email')";
@@ -77,8 +80,7 @@ input {
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a href="cart.php" class="nav-link navbar-link-2 waves-effect">
-                        <span class="badge badge-pill red"><?php $hide = (!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
-echo $hide;?></span>
+                        <span class="badge badge-pill red"><?php echo $cartNumber ?></span>
                         <i class="fas fa-shopping-cart pl-0"></i>
                     </a>
                 </li>
@@ -153,7 +155,7 @@ echo $hide;?></span>
         </div>
     </div>
 
-    <div class="container-fluid mt-5">Pdas
+    <div class="container-fluid mt-5">
         <div class="col-md-8 mx-auto mt-5">
             <h5 class="text-center"><strong>Join our mailing list!</strong></h5>
             <form action="index.php" method="POST">
