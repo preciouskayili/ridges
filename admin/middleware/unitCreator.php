@@ -1,5 +1,6 @@
 <?php
 include "../../config/db_connect.php";
+session_start();
     if(isset($_POST["setUnit"])) {
         $unit = mysqli_real_escape_string($conn, $_POST["unit"]);
         $created_by = $_SESSION["username"];
@@ -23,7 +24,7 @@ include "../../config/db_connect.php";
         }
     }
 
-    if(isset($_GET["id"])) {
+    if(isset($_GET["delete"])) {
         if(isset($_GET["id"]))  {
             $id = mysqli_real_escape_string($conn, $_GET['id']);
             $sql = "DELETE FROM units WHERE id='$id'";

@@ -1,5 +1,6 @@
 <?php
     include "../../config/db_connect.php";
+    session_start();    
     if(isset($_POST["setCategory"])) {
         $category_name = mysqli_real_escape_string($conn, $_POST["category"]);
         $created_by = $_SESSION["username"];
@@ -9,11 +10,16 @@
             header("Location: ../settings.php");
         }
     }
-    if(isset($_GET["id"]))  {
-        $id = $_GET['id'];
-        $sql = "DELETE FROM category WHERE id='$id'";
-        if($conn->query($sql)) {
-            header('Location: ../settings.php');
+
+    if(isset($_GET["delete"])) {
+        if(isset($_GET["id"]))  {
+            $id = $_GET['id'];
+            $sql = "DELETE FROM category WHERE id='$id'";
+            if($conn->query($sql)) {
+                header('Location: ../settings.php');
+            } else {
+                header('Location: ../settings.php');
+            }
         } else {
             header('Location: ../settings.php');
         }

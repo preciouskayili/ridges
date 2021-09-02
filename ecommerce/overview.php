@@ -2,12 +2,13 @@
 <?php include "relatedProducts.php";?>
 <?php include "controllers/overviewController.php";?>
 <?php
-
+    // $reviews = [];
 	$foreign_key = $description[0]["id"];
 	$sql = "SELECT * FROM review WHERE product_id='$foreign_key' ORDER BY created_at DESC";
-	if($result = $conn->query($sql)) {
-		$reviews = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	}
+	$result = $conn->query($sql);
+    $reviews = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    print_r($foreign_key);
+	
 
 	if(isset($_POST["add_review"])) {
 		$name = $_SESSION["username"];
@@ -198,7 +199,11 @@ echo date_format($created_at, $format);
             loop: false,
             responsive: {
                 0: {
-                    items: 2,
+                    items: 1,
+                    nav: false
+                },
+                600: {
+                    items: 3,
                     nav: false
                 },
                 1000: {

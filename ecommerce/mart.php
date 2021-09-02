@@ -39,9 +39,9 @@ endif; ?>
                     <?php foreach ($products as $product): ?>
                     <?php $id = $product["id"]; ?>
                     <div class="row mb-4">
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-lg-3 col-md-5">
 
-                            <div class="view overlay z-depth-1 rounded mb-3 mb-md-0">
+                            <div class="view overlay shadow rounded mb-3 mb-md-0">
                                 <a href="overview.php?id=<?php echo $product["id"]; ?>">
                                     <img style="height: 250px;" class="img-fluid w-100"
                                         src="../image/<?php echo $product["img_path"]; ?>"
@@ -50,7 +50,7 @@ endif; ?>
                             </div>
 
                         </div>
-                        <div class="col-md-8 col-lg-8 col-xl-8">
+                        <div class="col-md-7 col-lg-7 col-xl-8">
                             <div class="row">
                                 <div class="col-lg-7 col-xl-7">
 

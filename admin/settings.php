@@ -161,7 +161,7 @@ $id = $category["id"];
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Cancel</button>
-                                                            <a href="middleware/categoryCreator.php?id=<?php echo $id; ?>"
+                                                            <a href="middleware/categoryCreator.php?id=<?php echo $id; ?>&delete=true"
                                                                 class="btn btn-danger">Yes
                                                             </a>
                                                         </div>
@@ -301,7 +301,7 @@ echo date_format($created_at, $format);
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Cancel</button>
-                                                            <a href="middleware/unitCreator.php?id=<?php echo $id; ?>"
+                                                            <a href="middleware/unitCreator.php?id=<?php echo $id; ?>&delete=true"
                                                                 class="btn btn-danger">Yes
                                                             </a>
                                                         </div>

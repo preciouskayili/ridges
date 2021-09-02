@@ -12,8 +12,8 @@ if (isset($_POST['signin'])) {
         $errors['username'] = 'A username is required';
     } else {
         $username = mysqli_real_escape_string($conn, $_POST['username']);
-        if (!preg_match('/^[a-z\s]{5,20}$/i', $username)) {
-        $errors['username'] = 'Username must be 5-12 characters. No special characters and numbers allowed';
+        if (!preg_match('/^[a-z\w]{5,20}$/i', $username)) {
+        $errors['username'] = 'Username must be 5-12 characters. No special characters allowed';
         }
     }
 

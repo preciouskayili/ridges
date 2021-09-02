@@ -25,39 +25,39 @@
     <title>Ridges</title>
 </head>
 <style>
-.rounded--card {
-    border-radius: 2rem !important;
-}
+    nav {
+        backdrop-filter: blur(2rem);
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    .rounded--card {
+        border-radius: 2rem !important;
+    }
 
-.bg-img {
-    background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(img/bg.jpg);
-    background-position: center;
-    background-size: cover;
-}
+    .bg-img {
+        background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(img/bg.jpg);
+        background-position: center;
+        background-size: cover;
+    }
 
-.cover {
-    background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(img/farm-bg.jpg);
-    background-position: center;
-    background-size: cover;
-    min-height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .cover {
+        background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(img/farm-bg.jpg);
+        background-position: center;
+        background-size: cover;
+        min-height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-/* .round--it {
-    border-radius: 1rem !important;
-} */
-
-input {
-    color: #777 !important;
-    height: 2.5rem !important;
-}
+    input {
+        color: #777 !important;
+        height: 2.5rem !important;
+    }
 </style>
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light">
 
         <a class="navbar-brand" href="./index.php">
             Ridges
@@ -128,18 +128,18 @@ echo $hide;?></span>
     </div>
 
     <div class="container-fluid mt-5">
-        <h4>
-            <strong>Recent products</strong>
+        <h4 class="font-weight-bold">
+            Recent products
         </h4>
         <div class="owl-carousel">
             <?php foreach($newProducts as $newProduct): ?>
             <div class="pr-3">
                 <img class="shadow rounded--card" src="./image/<?php echo $newProduct["img_path"] ?>" alt="">
-                <div class="d-flex mt-2">
+                <div class="d-flex">
                     <button title="Add to cart" class="btn btn-sm btn-primary"
                         style="padding: 10px; width: 40px; height: 40px;"><i class="fas fa-cart-plus"></i></button>
                     <div class="ml-2">
-                        <h5 class="mt-2"><strong><?php echo $newProduct["title"]; ?></strong></h5>
+                        <h5 class="mt-2 font-weight-bold"><?php echo $newProduct["title"]; ?></h5>
                         <p>NGN<?php echo $newProduct["price"] ?></p>
                         <span class="badge badge-primary"><?php echo $newProduct["category"]; ?></span>
                     </div>
@@ -151,7 +151,7 @@ echo $hide;?></span>
 
     <div class="col-md-12 shadow-lg mt-5 round--it mx-auto bg-img p-4">
         <div class="container-fluid">
-            <h4 class="text-center text-white"><strong>Join the innovation</strong></h4>
+            <h4 class="text-center text-white font-weight-bold">Join the innovation</h4>
             <p style="color: #ccc" class="d-block mx-auto text-justify col-md-6">Ridges is a smart market, creating
             a vast network of farmers as well as covering a wide market range to enhance productivity and profit.
             Ridges was born out of a need in the Agricultural sector that has been lingering for years.</p>
@@ -161,7 +161,7 @@ echo $hide;?></span>
 
     <div class="container-fluid mt-5">
         <div class="col-md-8 mx-auto mt-5">
-            <h5 class="text-center"><strong>Join our mailing list!</strong></h5>
+            <h5 class="text-center font-weight-bold">Join our mailing list!</h5>
             <form action="index.php" method="POST">
                 <div class="md-form input-group">
                     <input name="email" placeholder="Email address" required autocomplete="off" type="email" id="form77"
@@ -181,7 +181,7 @@ echo $hide;?></span>
             <!--Grid row-->
             <div class="row">
                 <!--Grid column-->
-                <div class="col-lg-6 d-block mt-auto col-md-12 mb-4 mb-md-0" style="display: flex; justify-content: center; align-items: center;">
+                <div class="col-lg-6 d-block mt-auto col-md-12 mb-4 mb-md-0 mt-auto">
                     <h1>
                         RIDGES.COM
                     </h1>
@@ -229,6 +229,7 @@ echo $hide;?></span>
             autoplay: true,
             autoplayHoverPause: true,
             responsiveClass: true,
+            margin: 10,
             loop: true,
             responsive: {
                 0: {

@@ -107,7 +107,7 @@
                             </ol>
                             <a href="createProducts.php"
                                 class="btn btn-primary  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">
-                                <i class="fa fa-plus"></i> Add product
+                                <i class="fa fa-plus"></i> Create product
                             </a>
                         </div>
                     </div>

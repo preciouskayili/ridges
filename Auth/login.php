@@ -45,7 +45,7 @@
                         <form method="POST" action="./login.php" autocomplete="off" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input value="<?php echo $username ?>" type="text" name="username" id="username" placeholder="Your Username"/>
+                                <input value="<?php echo $username ?>" type="text" name="username" id="username" placeholder="Username"/>
                             </div>
                             <small><?php echo $errors['username'] ?></small>
                             <div class="form-group d-flex">
