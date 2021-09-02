@@ -1,0 +1,7 @@
+.form-border .form-control {
+	border: 1px solid #bdbdbd !important;
+	background: transparent !important;
+}
+select {
+	border: 1px solid #bdbdbd !important;
+} 
