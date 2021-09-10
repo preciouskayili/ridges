@@ -1,9 +1,9 @@
 <?php
     session_start();
     include "../config/db_connect.php";
-    $sql ="SELECT * FROM category";
-    $sql2 = "SELECT * FROM units";
-    $sql3 = "SELECT * FROM stores";
+    $sql ="SELECT category_name FROM category";
+    $sql2 = "SELECT unit FROM units";
+    $sql3 = "SELECT store_name FROM stores";
 
     $query = $conn->query($sql);
     $query2 = $conn->query($sql2);
@@ -108,7 +108,7 @@
                             <?php echo $formErrors; ?>
 
                             <form action="createProducts.php" method="post" enctype="multipart/form-data">
-                                <div class="row">
+                                <div class="row"> 
                                     <small class="text-danger"><?php echo $invalidImage; ?></small>
                                     <div class="col-md-6">
                                         <div class="input-group mt-3 mb-3">
@@ -116,7 +116,7 @@
                                                 <i class="far fa-id-card"></i>
                                             </span>
                                             <input required value="<?php echo $title ?>" required type="text" id="title"
-                                                name="title" class="form-control" placeholder="Store name"
+                                                name="title" class="form-control" placeholder="Product name"
                                                 aria-label="Store name" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
@@ -155,7 +155,7 @@
                                                 <option disabled selected>-- Store name --</option>
                                                 
                                                 <?php foreach($stores as $store): ?>
-                                                    <option><?php $store["store_name"] ?></option>
+                                                    <option><?php echo $store["store_name"] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -169,12 +169,28 @@
                                             <select required type="text" id="title" name="title"
                                                 class="form-control" placeholder="Store name" aria-label="Store name"
                                                 aria-describedby="basic-addon1">
-                                                <option>Option 1</option>
+                                                <option disabled selected>-- Category --</option>
+                                                <?php foreach($categories as $category): ?>
+                                                    <option><?php echo $category["category_name"] ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
+                                        <div class="input-group mt-3 mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="far fa-id-card"></i>
+                                            </span>
+                                            <select required type="text" id="title" name="title"
+                                                class="form-control" placeholder="Store name" aria-label="Store name"
+                                                aria-describedby="basic-addon1">
+                                                <option disabled selected>-- Product unit --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
                                         <div class="input-group mt-3 mb-3">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="far fa-id-card"></i>

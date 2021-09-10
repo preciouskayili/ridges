@@ -33,7 +33,7 @@
     <div class="main">
         <!-- Sign in  Form -->
         <section class="sign-in">
-            <div class="container" style="margin-top: 10px">
+            <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="images/signin-image.jpg" alt="sign up"></figure>
@@ -71,5 +71,4 @@
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

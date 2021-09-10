@@ -1,27 +1,12 @@
 <?php
-session_start();
-if (!isset($_SESSION["username"])) {
-    header('Location: ../Auth/login.php');
-} // else: Allow user on page
-
-include "../config/db_connect.php";
-
-$username = $_SESSION["username"];
-$sql = "SELECT * FROM admin WHERE username='$username'";
-
-$query = $conn->query($sql);
-$result = mysqli_fetch_all($query, MYSQLI_ASSOC);
-
-if (isset($_POST["update_profile"])) {
-    $new_username = $_POST["username"];
-    $email = $_POST["email"];
-    $sql = "UPDATE admin SET username='$new_username',email='$email' WHERE username='$username'";
-    if ($conn->query($sql)) {
-        $_SESSION["username"] = $new_username;
-        header('Location: profile.php');
+    session_start();
+    if(!isset($_SESSION['username'])) {
+        header('Location: ../Auth/login.php');
+    } else {
+        // Allow user on page
     }
-}
 ?>
+<?php include "./middleware/adminRegister.php"; ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -29,7 +14,7 @@ if (isset($_POST["update_profile"])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
         content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
     <meta name="description"
@@ -67,37 +52,30 @@ if (isset($_POST["update_profile"])) {
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <?php include "./partials/topbar.php"?>
+        <?php include './partials/topbar.php'; ?>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <?php include "./partials/sidebar.php";?>
+        <?php include './partials/sidebar.php'; ?>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
-        <div class="page-wrapper">
+        <div class="page-wrapper" style="min-height: 250px;">
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Profile page</h4>
+                        <h4 class="page-title">Create store</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ms-auto">
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
-                            <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
-                                to Pro</a>
                         </div>
                     </div>
                 </div>
@@ -113,55 +91,64 @@ if (isset($_POST["update_profile"])) {
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <!-- Row -->
                 <div class="row">
-                    <!-- Column -->
-                    <div class="col-lg-4 col-xlg-3 col-md-12">
+                    <div class="col-md-12">
                         <div class="white-box">
-                            <div class="user-bg"> <img width="100%" height="100%" alt="user" src="../img/bg.jpg">
-                                <div class="overlay-box">
-                                    <div class="user-content">
-                                        <img class="rounded-circle" style="width: 100px; height: 100px" src="./middleware/admin_image/<?php echo $result[0]["img_path"] ?>" alt="">
-                                        <h4 class="text-white mt-2"><?php echo $result[0]["username"]; ?></h4>
-                                        <h5 class="text-white mt-2"><?php echo $result[0]["email"]; ?></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-lg-8 col-xlg-9 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="form-horizontal form-material" method="POST" action="profile.php">
-                                    <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">Username</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" name="username" value="<?php echo $username ?>"
-                                                class="form-control p-0 border-0"> </div>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <label for="example-email" class="col-md-12 p-0">Email</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="email" name="email" value="<?php echo $result[0]["email"]; ?>"
-                                                class="form-control p-0 border-0" name="example-email"
-                                                id="example-email">
+                            <h3 class="box-title">Register Admin</h3>
+                            <small class="text-muted">Please fill in the forms below.</small>
+                            <form action="./register.php" method="POST" enctype="multipart/form-data">
+                                <div class="row">
+                                    <small class="text-danger"><?php echo $invalidImage; ?></small>
+                                    <div class="col-md-6">
+                                        <div class="input-group mt-3 mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="far fa-id-card"></i>
+                                            </span>
+                                            <input value="<?php echo $username ?>" required type="text" id="username" name="username" class="form-control" placeholder="Username" aria-label="Store name" aria-describedby="basic-addon1">
                                         </div>
+                                        <small class="text-danger"><?php echo $errors["username"]; ?></small>
                                     </div>
 
-                                    <div class="form-group mb-4">
-                                        <div class="col-sm-12">
-                                            <button class="btn btn-success" name="update_profile">Update Profile</button>
+    
+                                    <div class="col-md-6">
+                                        <div class="input-group mt-3 mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-at"></i>
+                                            </span>
+                                            <input value="<?php echo $email ?>" required type="email" id="email" name="email" class="form-control" placeholder="Email address" aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
+                                        <small class="text-danger"><?php echo $errors["email"]; ?></small>
                                     </div>
-                                </form>
-                            </div>
+
+                                    <div class="col-md-6">
+                                        <div class="input-group mt-3 mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-lock"></i>
+                                            </span>
+                                            <input required type="password" id="password" name="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <small class="text-danger"><?php echo $errors["password"]; ?></small>
+                                    </div>
+    
+                                    <div class="col-md-6">
+                                        <div class="input-group mt-3 mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-file-image"></i>
+                                            </span>
+                                            <input required type="file" id="upload_image" name="upload_image" class="form-control" placeholder="Upload image" aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <small class="text-muted">Upload admin's image</small>
+                                    </div>
+                                    
+                                </div>
+                                <div class="d-flex">
+                                    <a class="mt-1" href="./admins.php"><i class="fas fa-arrow-left"></i> Go back to admin</a>
+                                    <button type="submit" name="register-admin" class="ms-auto btn btn-primary"><i class="fas fa-plus"></i> Create admin</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <!-- Column -->
                 </div>
-                <!-- Row -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -179,7 +166,7 @@ if (isset($_POST["update_profile"])) {
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <?php include "./partials/footer.php";?>
+            <?php include './partials/footer.php'; ?>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->

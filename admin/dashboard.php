@@ -1,40 +1,50 @@
-<?php 
-    session_start();
-    include "../config/db_connect.php";
-    setlocale(LC_ALL, "US");
-    if(!isset($_SESSION['username'])) {
-        header('Location: ../Auth/login.php');
+<?php
+session_start();
+include "../config/db_connect.php";
+setlocale(LC_ALL, "US");
+if (!isset($_SESSION['username'])) {
+    header('Location: ../Auth/login.php');
+} else {
+    // Allow user on page
+}
+
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
+
+$products_per_page = 5;
+$offset = ($page - 1) * $products_per_page;
+
+$total_pages_sql = "SELECT COUNT(*) FROM products";
+$result = $conn->query($total_pages_sql);
+$total_rows = mysqli_fetch_array($result)[0];
+$total_pages = ceil($total_rows / $products_per_page);
+
+if (isset($_GET["apply_category"])) {
+    if($_GET["apply_category"] == "def") {
+        $sql = "SELECT * FROM products LIMIT $offset, $products_per_page";
+        $result = $conn->query($sql);
+        $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
     } else {
-        // Allow user on page
-    }
-    
-    if(isset($_GET["page"])) {
-        $page = $_GET["page"];
-    } else {
-        $page = 1;
-    }
-
-    $products_per_page = 5;
-    $offset = ($page-1) * $products_per_page;
-
-    $total_pages_sql = "SELECT COUNT(*) FROM products";
-    $result = $conn->query($total_pages_sql);
-    $total_rows = mysqli_fetch_array($result)[0];
-    $total_pages = ceil($total_rows / $products_per_page);
-
-    if(isset($_GET["apply_category"])) {
         $category = mysqli_real_escape_string($conn, $_GET["apply_category"]);
         $sql = "SELECT * FROM products WHERE category='$category' LIMIT $offset, $products_per_page";
         $result = $conn->query($sql);
         $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    } else {
-        $sql = "SELECT * FROM products LIMIT $offset, $products_per_page";
-        $result = $conn->query($sql);
-        $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
+
+} else {
+    $sql = "SELECT * FROM products LIMIT $offset, $products_per_page";
+    $result = $conn->query($sql);
+    $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+$admins_sql = "SELECT username, img_path, email, created_at FROM admin ORDER BY created_at DESC LIMIT 5";
+$query = $conn->query($admins_sql);
+$recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>
-<?php include "./middleware/category.php"; ?>
+<?php include "./middleware/category.php";?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -77,14 +87,14 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <?php include './partials/topbar.php'; ?>
+        <?php include './partials/topbar.php';?>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        <?php include './partials/sidebar.php'; ?>
+        <?php include './partials/sidebar.php';?>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
@@ -126,23 +136,28 @@
                 <!-- ============================================================== -->
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Stores</h3>
+                        <div class="white-box analytics-info shadow">
+                            <h3 class="box-title">Stores</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <span class="counter text-success">659</span>
+                                <span class="counter text-success">
+                                    <?php
+                                        $store_sql = "SELECT COUNT(*) FROM stores";
+                                        echo(mysqli_num_rows($conn->query($store_sql)));
+                                    ?>
+                                </span>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Products</h3>
+                        <div class="white-box analytics-info shadow">
+                            <h3 class="box-title">Products</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
-                               <span class="counter text-purple">869</span>
+                               <span class="counter text-purple"><?php if(isset($products)): echo count($products); else: echo "0"; endif; ?></span>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
+                        <div class="white-box analytics-info shadow">
                             <h3 class="box-title">Orders</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <span class="counter text-info">911</span>
@@ -150,22 +165,23 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- ============================================================== -->
                 <!-- RECENT SALES -->
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="white-box">
+                        <div class="white-box shadow">
                             <div class="d-md-flex mb-3">
                                 <h3 class="box-title mb-0">Products</h3>
-                                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">    
                                     <form action="./dashboard.php" id="apply_category" method="GET">
-                                        <select name="apply_category" class="form-select shadow-none row border-top">
+                                        <select name="apply_category" class="form-select row border-top">
                                             <option selected disabled>-- Choose a category --</option>
-                                            <?php foreach($categories as $category): ?>
+                                            <option value="def">Default</option>
+                                            <?php foreach ($categories as $category): ?>
                                                 <option><?php echo $category["category_name"] ?></option>
-                                            <?php endforeach; ?>
+                                            <?php endforeach;?>
                                         </select>
                                     </form>
                                 </div>
@@ -183,12 +199,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($products as $product): ?>
+                                        <?php if(!isset($products) || empty($products)): ?>
+                                            <h1 class="font-weight-bold text-center">No products found</h1>
+                                        <?php else: ?>
+                                        <?php foreach ($products as $product): ?>
                                         <tr>
                                             <td><?php echo $product["id"]; ?></td>
                                             <td>
                                                 <img width="40px" height="40px" class="rounded-circle" src="../image/<?php echo $product['img_path']; ?>" alt="">
-                                            </td> 
+                                            </td>
                                             <td class="txt-oflo">
                                                 <a class="text-dark" href="middlware/editProduct.php?id=<?php echo $product["id"]; ?>">
                                                     <strong><?php echo $product["title"]; ?></strong>
@@ -197,32 +216,33 @@
                                             <td><?php echo $product["store"]; ?></td>
                                             <td class="txt-oflo">
                                             <?php
-                                                    $format="M d,Y";
-                                                    $created_at = new DateTime($product["created_at"]);
-                                                    echo date_format($created_at, $format);
-                                                    ?></td>
+$format = "M d,Y";
+$created_at = new DateTime($product["created_at"]);
+echo date_format($created_at, $format);
+?></td>
                                             <td><span class="text-success">NGN<?php echo $product["price"]; ?></span></td>
                                         </tr>
-                                        <?php endforeach; ?>
+                                        <?php endforeach;?>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
                                 <div class="d-flex">
-                                    <ul class="pagination mx-auto" style="display: <?php if (count($product) == 0): echo "none";else:"flex";endif; ?>">
+                                    <ul class="pagination mx-auto" style="display: <?php if (isset($product)): if (count($product) == 0): echo "none";else:"flex";endif;else:echo "none";endif;?>">
                                         <li class="page-item">
                                             <a class="page-link" href="?page=1">First</a>
                                         </li>
-                                        <li class="<?php if ($page <= 1) {echo 'disabled page-item';} else {echo 'page-item';} ?>">
-                                            <a class="page-link" href="<?php if ($page <= 1) {echo '#';} else {echo "?page=" . ($page - 1);} ?>"><<</a>
+                                        <li class="<?php if ($page <= 1) {echo 'disabled page-item';} else {echo 'page-item';}?>">
+                                            <a class="page-link" href="<?php if ($page <= 1) {echo '#';} else {echo "?page=" . ($page - 1);}?>"><<</a>
                                         </li>
                                         <?php for ($i = 0; $i < $total_pages; $i++): ?>
-                                            <li class="<?php if ($page == $i + 1) {echo "page-item active";} else {echo "page-item";} ?>">
+                                            <li class="<?php if ($page == $i + 1) {echo "page-item active";} else {echo "page-item";}?>">
                                                 <a href="?page=<?php echo $i + 1; ?>" class="page-link">
                                                     <?php echo $i + 1; ?>
                                                 </a>
                                             </li>
-                                        <?php endfor; ?>
-                                        <li class="<?php if ($page >= $total_pages) {echo 'disabled page-item';} else {echo 'page-item';} ?>">
-                                            <a class="page-link" href="<?php if ($page >= $total_pages) {echo '#';} else {echo "?page=" . ($page + 1);} ?>">>></a>
+                                        <?php endfor;?>
+                                        <li class="<?php if ($page >= $total_pages) {echo 'disabled page-item';} else {echo 'page-item';}?>">
+                                            <a class="page-link" href="<?php if ($page >= $total_pages) {echo '#';} else {echo "?page=" . ($page + 1);}?>">>></a>
                                         </li>
                                         <li class="page-item">
                                             <a class="page-link" href="?page=<?php echo $total_pages; ?>">Last</a>
@@ -285,124 +305,43 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="card white-box p-0">
                             <div class="card-heading">
-                                <h3 class="box-title mb-0">Chat Listing</h3>
+                                <h3 class="box-title mb-0">Recent admin's</h3>
                             </div>
                             <div class="card-body">
                                 <ul class="chatonline">
-                                    <li>
+                                    <?php foreach ($recent_admins as $admin): ?>
+                                    <li class="">
                                         <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
+                                            <button onclick="sendmail('<?php echo $admin['email'] ?>')" class="btn btn-success text-white btn-circle btn" type="button">
+                                                <i class="fas fa-envelope"></i>
                                             </button>
                                         </div>
                                         <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/varun.jpg" alt="user-img" class="img-circle">
+                                                src="./middleware/admin_image/<?php echo $admin['img_path']; ?>" style="height: 50px; width: 50px;" alt="user-img" class="img-circle">
                                             <div class="ms-2">
-                                                <span class="text-dark">Varun Dhavan <small
-                                                        class="d-block text-success d-block">online</small></span>
+                                                <span class="text-dark"><?php echo $admin["username"]; ?><small
+                                                        class="d-block text-success d-block"><?php
+$format = "M d,Y";
+$created_at = new DateTime($admin["created_at"]);
+echo date_format($created_at, $format);
+?></small></span>
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/genu.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">Genelia
-                                                    Deshmukh <small class="d-block text-warning">Away</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">Ritesh
-                                                    Deshmukh <small class="d-block text-danger">Busy</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/arijit.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">Arijit
-                                                    Sinh <small class="d-block text-muted">Offline</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/govinda.jpg" alt="user-img"
-                                                class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">Govinda
-                                                    Star <small class="d-block text-success">online</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="call-chat">
-                                            <button class="btn btn-success text-white btn-circle btn" type="button">
-                                                <i class="fas fa-phone"></i>
-                                            </button>
-                                            <button class="btn btn-info btn-circle btn" type="button">
-                                                <i class="far fa-comments text-white"></i>
-                                            </button>
-                                        </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/hritik.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">John
-                                                    Abraham<small class="d-block text-success">online</small></span>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <!-- /.col -->
+                    
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -441,11 +380,14 @@
         $("#apply_category").change(function() {
             $(this).submit();
         });
+        function sendmail(mail) {
+            location.href = `mailto:${mail}`;
+        }
     </script>
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
     <!--This page JavaScript -->
-    <!--chartis chart-->
+    <!--chartist chart-->
     <script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
     <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="js/pages/dashboards/dashboard1.js"></script>

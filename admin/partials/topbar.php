@@ -6,16 +6,12 @@
             <!-- ============================================================== -->
             <a class="navbar-brand" href="dashboard.php">
                 <!-- Logo icon -->
-                <b class="logo-icon">
+                <b class="logo-icon d-flex mx-auto">
                     <!-- Dark Logo icon -->
-                    <img src="plugins/images/logo-icon.png" alt="homepage" />
+                    <!-- <img src="plugins/images/logo-icon.png" alt="homepage" /> -->
+                    <img style="height: 4rem" src="./../img/logo.png" alt="homepage" />
                 </b>
                 <!--End Logo icon -->
-                <!-- Logo text -->
-                <span class="logo-text">
-                    <!-- dark Logo text -->
-                    <img src="plugins/images/logo-text.png" alt="homepage" />
-                </span>
             </a>
             <!-- ============================================================== -->
             <!-- End Logo -->
@@ -56,7 +52,8 @@
                 <!-- User profile and search -->
                 <!-- ============================================================== -->
                 <li>
-                    <a class="profile-pic" href="#">
+                    <a class="profile-pic" href="./profile.php">
+                        <img width="40px" height="40px" class="rounded-circle" src="./middleware/admin_image/<?php echo $_SESSION['img_path']; ?>" alt="">
                         <span class="text-white font-medium">Hello, <?php echo $_SESSION["username"] ?></span></a>
                 </li>
                 <!-- ============================================================== -->

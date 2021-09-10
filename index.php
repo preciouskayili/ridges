@@ -1,10 +1,18 @@
 <?php
     include "./config/db_connect.php";
+    $invalidMail = "";
     if(isset($_POST["add"])) {
         $email = mysqli_real_escape_string($conn, $_POST["email"]);
-        $sql = "INSERT INTO mailing_list(email) VALUES('$email')";
 
-        $conn->query($sql);
+        $query = "SELECT COUNT(*) FROM mailing_list WHERE email='$email'";
+        $response = $conn->query($query);
+    
+        if(mysqli_num_rows($response) > 0) {
+            $invalidMail = "Email address already exists.";
+        } else {
+            $sql = "INSERT INTO mailing_list(email) VALUES('$email')";
+            $conn->query($sql);
+        }
     } else {
         // Not set yet
     }
@@ -115,7 +123,7 @@ echo $hide;?></span>
             <div class="row">
                 <div class="col-md-10">
                     <h1 class="font-weight-bold text-white text-justify">Discover, order and access the best farm produce.</h1>
-                    <p class="text-justify" style="color: #ccc">Ridges offers you a wide range of opportunities to harness in the
+                    <p class="text-justify" style="color: #ccc; font-size: 18px;">Ridges offers you a wide range of opportunities to harness in the
                             Agricultural sector as well as a merge of the technological and Agricultural sectors for
                             a wide market coverage. The platform provides statistical analysis of all the
                             happenings on the site, from the sales, to the most farm produce, and so on.</p>
@@ -162,12 +170,13 @@ echo $hide;?></span>
     <div class="container-fluid mt-5">
         <div class="col-md-8 mx-auto mt-5">
             <h5 class="text-center font-weight-bold">Join our mailing list!</h5>
+            <small class="text-danger font-weight-bold text-center" style="text-align: center"><?php echo $invalidMail; ?></small>
             <form action="index.php" method="POST">
                 <div class="md-form input-group">
                     <input name="email" placeholder="Email address" required autocomplete="off" type="email" id="form77"
                         style="background-color: transparent; border: 1px solid #777; color: white;"
                         class="form-control m-0">
-                    <button name="add" type="submit" class="btn rounded btn-md btn-dark"><i
+                    <button name="add" type="submit" class="btn rounded btn-md btn-dark" style="margin-top: 0.08rem"><i
                             class="fas fa-paper-plane"></i></button>
                 </div>
             </form>
@@ -176,43 +185,6 @@ echo $hide;?></span>
 
     <!-- Footer -->
     <footer class="mt-5 bg-primary text-center text-white text-lg-left">
-        <!-- Grid container -->
-        <div class="container p-4">
-            <!--Grid row-->
-            <div class="row">
-                <!--Grid column-->
-                <div class="col-lg-6 d-block mt-auto col-md-12 mb-4 mb-md-0 mt-auto">
-                    <h1>
-                        RIDGES.COM
-                    </h1>
-                </div>
-                <!--Grid column-->
-
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase mb-0">Links</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="./index.php" class="text-dark">Home</a>
-                        </li>
-                        <li>
-                            <a href="./ecommerce/mart.php" class="text-dark">Market</a>
-                        </li>
-                        <li>
-                            <a href="./Auth/login.php" class="text-dark">Login</a>
-                        </li>
-
-                    </ul>
-                </div>
-                <!--Grid column-->
-            </div>
-            <!--Grid row-->
-        </div>
-        <!-- Grid container -->
-
-        <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © <?php echo date('Y') ?> Copyright:
             <a class="text-light" href="index.php">Presh Enterprise</a>

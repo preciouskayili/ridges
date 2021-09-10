@@ -2,25 +2,29 @@
 <?php include "relatedProducts.php";?>
 <?php include "controllers/overviewController.php";?>
 <?php
-    // $reviews = [];
-	$foreign_key = $description[0]["id"];
-	$sql = "SELECT * FROM review WHERE product_id='$foreign_key' ORDER BY created_at DESC";
-	$result = $conn->query($sql);
-    $reviews = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    print_r($foreign_key);
-	
+session_start();
+$foreign_key = $description[0]["id"];
+$sql = "SELECT * FROM review WHERE product_id='$foreign_key' ORDER BY created_at DESC";
+$result = $conn->query($sql);
+$reviews = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-	if(isset($_POST["add_review"])) {
-		$name = $_SESSION["username"];
-		$email = mysqli_real_escape_string($conn, $_POST["email"]);
-		$review = mysqli_real_escape_string($conn, $_POST["review"]);
-		$product_id = $description[0]["id"];
+if (isset($_POST["add_review"])) {
+    $name = $_SESSION["username"];
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+    $review = mysqli_real_escape_string($conn, $_POST["review"]);
+    $product_id = $description[0]["id"];
+    $sql2 = "INSERT INTO review(name,email,review,product_id) VALUES('$name','$email','$review','$product_id')";
+    if ($conn->query($sql2)) {
+        header('Location: overview.php' . "?id=" . $description[0]["id"]);
+    }
+}
 
-		$sql2 ="INSERT INTO review(name,email,review,product_id) VALUES('$name','$email','$review','$product_id')";
-		if($conn->query($sql2)) {
-			header('Location: overview.php' . "?id=" . $description[0]["id"]);
-		}
-	}
+if(!isset($_GET["id"])) {
+    header('Location: mart.php');
+} // else: Stay on the page
+if(empty($_GET["id"])) {
+    header('Location: mart.php');
+} // else: stay on the page
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +43,7 @@
 </head>
 
 <body>
-	<?php include "../templates/navbar.php"; ?>
+	<?php include "../templates/navbar.php";?>
     <!-- Navbar -->
     <div class="container mt-5">
         <!-- Classic tabs -->
@@ -112,7 +116,7 @@
                     </table>
                 </div>
                 <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                    <h5><span><?php echo count($reviews) ?></span> reviews for
+                    <h5><span><?php if (isset($reviews)): echo count($reviews);else:echo "0";endif;?></span> reviews for
                         <span><?php echo $description[0]["title"]; ?></span>
                     </h5>
                     <h5 class="mt-4">Add a review</h5>
@@ -121,13 +125,14 @@
                         <form action="overview.php?id=<?php echo $description[0]["id"] ?>" method="POST">
                             <!-- Your review -->
                             <div class="md-form md-outline">
-                                <textarea id="form76" required name="review" class="md-textarea form-control pr-6"
+                                <textarea id="form76" onchange="countWords()" required max="250" name="review" class="md-textarea form-control pr-6"
                                     rows="4"></textarea>
                                 <label for="form76">Your review</label>
+                                <small class="text-muted word-count">100/250 words</small>
                             </div>
                             <!-- Email -->
                             <div class="md-form md-outline">
-                                <input type="email" required name="email" id="form77" class="form-control pr-6">
+                                <input oninput="countWords(e.target.value)" type="email" required name="email" id="form77" class="form-control pr-6">
                                 <label for="form77">Email</label>
                             </div>
                             <div class="text-right pb-2">
@@ -136,14 +141,14 @@
                         </form>
                     </div>
                     <hr>
-                    <?php foreach($reviews as $review): ?>
+                    <?php foreach ($reviews as $review): ?>
                     <div class="media mt-3 mb-4">
                         <div class="media-body">
                             <div class="d-sm-flex justify-content-between">
                                 <p class="mt-1 mb-2">
                                     <strong><?php echo $review["name"] ?></strong>
                                     <span>– </span><span><?php
-$format     = "M d,Y";
+$format = "M d,Y";
 $created_at = new DateTime($review["created_at"]);
 echo date_format($created_at, $format);
 ?></span>
@@ -152,7 +157,7 @@ echo date_format($created_at, $format);
                             <p class="mb-0"><?php echo $review["review"] ?></p>
                         </div>
                     </div>
-                    <?php endforeach; ?>
+                    <?php endforeach;?>
                 </div>
             </div>
 
@@ -162,28 +167,26 @@ echo date_format($created_at, $format);
         <!--Section: Block Content-->
         <div class="container mt-5 d-block ml-auto">
             <h3 class="mb-4">Related products</h3>
-            <section class="text-center">
-
-                <?php foreach ($relatedProducts as $related): ?>
-
+            <section class="text-center mb-4">
                 <!-- Card -->
                 <div class="owl-carousel">
+                    <?php foreach ($relatedProducts as $related): ?>
                     <div class="card">
-                        <div class="view overlay z-depth-2 rounded">
+                        <div class="view overlay shadow rounded">
                             <a href="overview.php?id=<?php echo $related["id"]; ?>">
-                                <img style="height: 250px;" class="img-fluid w-100"
+                                <img style="height: 250px;" class="img-fluid w-100 rounded"
                                     src="../image/<?php echo $related["img_path"]; ?>" alt="Sample">
+                            </a>
                         </div>
-                        </a>
 
                         <div class="pt-4">
                             <h5><?php echo $related["title"]; ?></h5>
                             <h6>NGN <?php echo $related["price"]; ?></h6>
                         </div>
                     </div>
+                    <?php endforeach;?>
                 </div>
                 <!-- Card -->
-                <?php endforeach;?>
             </section>
         </div>
     </div>
@@ -196,6 +199,7 @@ echo date_format($created_at, $format);
             autoplay: true,
             autoplayHoverPause: true,
             responsiveClass: true,
+            margin: 20,
             loop: false,
             responsive: {
                 0: {
@@ -213,6 +217,11 @@ echo date_format($created_at, $format);
             }
         });
     });
+    </script>
+    <script>
+        function countWords(e) {
+            console.log(e);
+        }
     </script>
     <script type="text/javascript" src="../mdbootstrap/js/mdb.min.js"></script>
     <script type="text/javascript" src="../mdbootstrap/js/script.js"></script>

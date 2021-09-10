@@ -1,6 +1,10 @@
 <?php include "controllers/cartController.php";?>
 <?php
     $item_prices = [];
+
+    function vat($price) {
+        return (5/100) * $price;
+    }
     for($i = 0;$i < count($cartItems); $i++) {
         $item_prices[] += $cartItems[$i]["price"];
         $total_price = array_sum($item_prices);
@@ -90,7 +94,7 @@ echo $hide;?></span> item(s)</h5>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <a href="controllers/cartItemDelete.php?id=<?php echo $cart["product_id"]; ?>" type="button"
-                                                    class="card-link-secondary small text-uppercase mr-3"><i
+                                                    class="card-link-secondary text-danger small text-uppercase mr-3"><i
                                                         class="fas fa-trash-alt mr-1"></i> Remove item </a>
 
                                             </div>
@@ -119,13 +123,13 @@ echo $hide;?></span> item(s)</h5>
                             <p class="mb-0"> <?php
                                 $date = date("M d, Y");
                                 $date = strtotime($date);
-                                $date = strtotime("+5 day", $date);
+                                $date = strtotime("+7 day", $date);
 
                                 echo date('M d, Y', $date);
                             ?> - <?php
                                 $date2 = date("M d, Y");
                                 $date2 = strtotime($date2);
-                                $date2 = strtotime("+7 day", $date2);
+                                $date2 = strtotime("+14 day", $date2);
 
                                 echo date('M d, Y', $date2);
                             ?></p>
@@ -245,6 +249,8 @@ echo $hide;?></span> item(s)</h5>
     <script>
         // Animations initialization
         new WOW().init();
+
+        console.log("<?php echo $_SESSION["username"] ?>")
     </script>
 </body>
 

@@ -9,7 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"> -->
+    <link rel="stylesheet" href="../admin/css/icons/font-awesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <link rel="stylesheet" href="../mdbootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../mdbootstrap/css/mdb.min.css">
@@ -19,10 +20,12 @@
 
 <body>
 	<?php include "../templates/navbar.php" ?>
+    <?php include "../templates/sidebar.php" ?>
     <?php if (count($products) == 0): include "./emptyResult.php";
 endif; ?>
     <div class="container-fluid mt-5">
         <div class="row">
+            
             <div class="col-lg-12 mb-3">
                 <!--Section: Block Content-->
                 <section>
@@ -41,7 +44,7 @@ endif; ?>
                     <div class="row mb-4">
                         <div class="col-lg-3 col-md-5">
 
-                            <div class="view overlay shadow rounded mb-3 mb-md-0">
+                            <div class="view overlay shadow mb-3 mb-md-0" style="border-radius: 1rem;">
                                 <a href="overview.php?id=<?php echo $product["id"]; ?>">
                                     <img style="height: 250px;" class="img-fluid w-100"
                                         src="../image/<?php echo $product["img_path"]; ?>"
@@ -71,9 +74,11 @@ echo date_format($created_at, $format);
 ?></small>
                                     <div class="my-4">
                                         <a style="display: <?php if(isset($_SESSION["username"])) { echo "initial";} else { echo "none";} ?>"
-                                        href="./controllers/addToCart.php?id=<?php echo $id; ?>&img_path=<?php echo $product["img_path"] ?>&title=<?php echo $product["title"]; ?>&category=<?php echo $product["category"]; ?>&price=<?php echo $product["price"]; ?>&unit=<?php echo $product["unit"]; ?>&number_of_items=<?php echo $product["number_of_items"]; ?>" class="btn btn-primary btn-md mr-1 mb-2"><i
+                                        href="./controllers/addToCart.php?id=<?php echo $id; ?>&img_path=<?php echo $product["img_path"] ?>&title=<?php echo $product["title"]; ?>&category=<?php echo $product["category"]; ?>&price=<?php echo $product["price"]; ?>&unit=<?php echo $product["unit"]; ?>&number_of_items=<?php echo $product["number_of_items"]; ?>" 
+                                        class="btn btn-primary btn-md mr-1"><i
                                             class="fas fa-shopping-cart pr-2"></i>Add to cart</a>
-                                        <a href="overview.php?id=<?php echo $product["id"]; ?>" class="btn btn-light btn-md mr-1 mb-2"><i
+                                        <a href="overview.php?id=<?php echo $product["id"]; ?>" 
+                                            class="btn btn-light btn-md mr-1"><i
                                                 class="fas fa-info-circle pr-2"></i>Details</a>
                                     </div>
 
@@ -87,7 +92,7 @@ echo date_format($created_at, $format);
                 </div>
             </div>
             <div class="d-flex">
-                <ul class="pagination mx-auto" style="display: <?php if (count($product) == 0): echo "none";else:"flex";endif; ?>">
+                <ul class="pagination mx-auto" style="display: <?php if(isset($product)): if (count($product) == 0): echo "none";else:"flex";endif; else: "none"; endif; ?>">
                     <li class="page-item">
                         <a class="page-link" href="?page=1">First</a>
                     </li>

@@ -22,8 +22,8 @@ if (isset($_POST['signin'])) {
         $errors['password'] = 'A password is required';
     } else {
         $password = $_POST['password'];
-        if (!preg_match('/^[\w@-]{8,20}$/', $password)) {
-            $errors['password'] = 'Password must be alphanumeric, 8-20 characters and contain a special character';
+        if (!preg_match('/[a-z\w]{8,20}$/', $password)) {
+            $errors['password'] = 'Password must be 8-20 characters.';
         }
     }
 
@@ -35,12 +35,12 @@ if (isset($_POST['signin'])) {
         $password = mysqli_real_escape_string($conn, $_POST['password']);
 
         // create sql
-        $sql = "SELECT * FROM users WHERE username='$username'";
+        $sql = "SELECT * FROM admin WHERE username='$username'";
 
         $result  = $conn->query($sql);
 
         $numRows = mysqli_num_rows($result);
-
+        
         if($numRows == 1) {
 
             $userData = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -50,6 +50,9 @@ if (isset($_POST['signin'])) {
             $unhashedPassword = password_verify($password, $passwordHash);
             if($unhashedPassword) {
                 $_SESSION['username'] = $userData[0]['username'];
+                $_SESSION["img_path"] = $userData[0]['img_path'];
+                $_SESSION["is_admin"] = TRUE;
+                
                 header('Location: ../admin/dashboard.php');
             } else {
                 $invalid = "Wrong password";

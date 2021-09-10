@@ -31,8 +31,8 @@ if (isset($_POST['signup'])) {
   $errors['password'] = 'A password is required';
  } else {
   $password = mysqli_real_escape_string($conn, $_POST['password']);
-  if (!preg_match('/^[\w@-]{8,20}$/', $password)) {
-   $errors['password'] = 'Password must be alphanumeric [8-20 characters]';
+  if (!preg_match('/[a-z\w]{8,20}$/', $password)) {
+   $errors['password'] = 'Password must be 8-20 characters';
   }
  }
 

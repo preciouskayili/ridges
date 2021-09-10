@@ -59,10 +59,10 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="404.html"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admins.php"
                         aria-expanded="false">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        <span class="hide-menu">Error 404</span>
+                        <i class="fa fa-user-secret" aria-hidden="true"></i>
+                        <span class="hide-menu">Admins</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
