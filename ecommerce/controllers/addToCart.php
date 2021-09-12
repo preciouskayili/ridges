@@ -14,6 +14,7 @@ if (isset($_GET["id"])) {
             "unit" => mysqli_real_escape_string($conn, $_GET["unit"]), 
             "number_of_items" => mysqli_real_escape_string($conn, $_GET["number_of_items"])
         );
+        $_SESSION["product_info"] += $productInfo;
         $product_id = $productInfo["id"];
         $img_path = $productInfo["img_path"];
         $title = $productInfo["title"];
@@ -25,7 +26,6 @@ if (isset($_GET["id"])) {
         $sql0 = "SELECT * FROM cart WHERE username='$username' AND product_id='$product_id'";
         $result = $conn->query($sql0);
         $numRows = mysqli_num_rows($result);
-        
         if($numRows >= 1) {
             $_SESSION["cart_failed"] = "Item already exists in cart";
             header('Location: ../mart.php');
@@ -50,3 +50,10 @@ if (isset($_GET["id"])) {
 } else {
     header("Location: ../mart.php");
 }
+
+?>
+<script>
+    const addToCart = () => {
+        
+    }
+</script>

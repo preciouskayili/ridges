@@ -23,7 +23,9 @@ if (isset($_POST['createStore'])) {
 
     $store_name = mysqli_real_escape_string($conn, $_POST['store_name']);
 
-    $store_location = mysqli_real_escape_string($conn, $_POST['store_location']);
+    $state = mysqli_real_escape_string($conn, $_POST['state']);
+
+    $lga - mysqli_real_escape_string($conn, $_POST['lga']);
 
     $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
 

@@ -134,6 +134,7 @@ $recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
                 <!-- ============================================================== -->
                 <!-- Three charts -->
                 <!-- ============================================================== -->
+                <button type="button" onclick="location.href = '../index.php'" class="btn btn-primary shadow-lg flex-center" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">Go to site</button>
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info shadow">

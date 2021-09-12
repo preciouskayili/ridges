@@ -1,5 +1,10 @@
 <?php 
     include "../config/db_connect.php";
+
+    $table_query = "SELECT units.unit, stores.store_name FROM units, stores";
+    $response = $conn->query($table_query); 
+    $result = mysqli_fetch_all($response, MYSQLI_ASSOC);
+
 ?>
 <html>
     <head>
@@ -23,18 +28,23 @@
             <p class="pt-3 mt-3" onclick="toggleNav(document.getElementById('nav'))" style="cursor: pointer; color: white; font-size: 40px;user-select: none;">&times;</p>
             <ul class="mt-3">
                 <li class="mt-4 mb-4 list">
-                    <select style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white; backdrop-filter: blur(2rem);" class="form-control m-0 p-2 rounded">
-                        <option>-- Filter By Store --</option>
-                    </select>
+                    <input type="number" required min="1" style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white; backdrop-filter: blur(2rem);" placeholder="Filter by Price" class="form-control m-0 p-2 rounded" />
                 </li>
                 <li class="list mb-4">
                     <select style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white; backdrop-filter: blur(2rem);" class="form-control m-0 p-2 rounded">
-                        <option>-- Filter By Category --</option>
+                        <option disabled selected>-- Filter By Unit --</option>
+                        <?php echo "Precious"; ?>
+                        <?php for($i = 0; $i < count($result); $i++): ?>
+                            <option><?php echo($result[$i]["unit"]); ?></option>
+                        <?php endfor; ?>
                     </select>
                 </li>
                 <li class="list mb-3">
                     <select style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white; backdrop-filter: blur(2rem);" class="form-control m-0 p-2 rounded">
-                        <option>-- Filter By Category --</option>
+                        <option disabled selected>-- Filter By Store --</option>
+                        <?php for($i = 0; $i < count($result); $i++): ?>
+                            <option><?php echo($result[$i]["store_name"]); ?></option>
+                        <?php endfor; ?>
                     </select>
                 </li>
                 <li class="list mt-2">

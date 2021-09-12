@@ -116,7 +116,16 @@
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-location-arrow"></i>
                                             </span>
-                                            <input value="<?php echo $store_location ?>" required type="address" id="store_location" name="store_location" class="form-control" placeholder="Store location" aria-label="Username" aria-describedby="basic-addon1">
+                                            <input value="<?php echo $state ?>" required type="address" id="store_location" name="store_location" class="form-control" placeholder="Store location" aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="input-group mt-3 mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-location-arrow"></i>
+                                            </span>
+                                            <input value="<?php echo $lga ?>" required type="address" id="store_location" name="store_location" class="form-control" placeholder="Store location" aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
     
