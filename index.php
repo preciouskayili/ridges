@@ -149,7 +149,7 @@ echo $hide;?></span>
                     <div class="ml-2">
                         <h5 class="mt-2 font-weight-bold"><?php echo $newProduct["title"]; ?></h5>
                         <p>NGN<?php echo $newProduct["price"] ?></p>
-                        <span class="badge badge-primary"><?php echo $newProduct["category"]; ?></span>
+                        <span class="badge badge-primary"><?php echo $newProduct["category"]; ?></span> 
                     </div>
                 </div>
             </div>

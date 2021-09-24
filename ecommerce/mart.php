@@ -19,10 +19,10 @@
 </head>
 
 <body>
-	<?php include "../templates/navbar.php" ?>
+    <?php include "../templates/navbar.php" ?>
     <?php include "../templates/sidebar.php" ?>
     <?php if (count($products) == 0): include "./emptyResult.php";
-endif; ?>
+endif; ?> 
     <div class="container-fluid mt-5">
         <div class="row">
             
@@ -39,54 +39,28 @@ endif; ?>
                         <i class="fa fa-times me-3"></i> <?php echo $_SESSION["cart_failed"]; ?>
                     </div>
                     <?php unset($_SESSION["cart_failed"]); endif; ?>
-                    <?php foreach ($products as $product): ?>
-                    <?php $id = $product["id"]; ?>
-                    <div class="row mb-4">
-                        <div class="col-lg-3 col-md-5">
-
-                            <div class="view overlay shadow mb-3 mb-md-0" style="border-radius: 1rem;">
-                                <a href="overview.php?id=<?php echo $product["id"]; ?>">
-                                    <img style="height: 250px;" class="img-fluid w-100"
-                                        src="../image/<?php echo $product["img_path"]; ?>"
-                                        alt="Sample">
-                                </a>
-                            </div>
-
-                        </div>
-                        <div class="col-md-7 col-lg-7 col-xl-8">
-                            <div class="row">
-                                <div class="col-lg-7 col-xl-7">
-
-                                    <h5 class="text-uppercase text-truncate" title="<?php echo $product["title"] ?>"><?php echo $product["title"]; ?></h5>
-                                    <p class="mb-2 text-muted text-uppercase small"><?php echo $product["category"]; ?></p>
-                                    <p class="text-uppercase small">Unit: <?php echo $product["unit"]; ?></p>
-                                    <hr>
-                                    <p class="mb-lg-0"><?php echo $product["description"]; ?></p>
-                                </div>
-                                <div class="col-lg-5 col-xl-5">
-
-                                    <h6 class="mb-3">NGN<span><?php echo number_format($product["price"]); ?></span></h6>
-                                    <small class="text-muted">
-                                    <?php
-$format     = "M d,Y";
-$created_at = new DateTime($product["created_at"]);
-echo date_format($created_at, $format);
-?></small>
-                                    <div class="my-4">
-                                        <a style="display: <?php if(isset($_SESSION["username"])) { echo "initial";} else { echo "none";} ?>"
-                                        href="./controllers/addToCart.php?id=<?php echo $id; ?>&img_path=<?php echo $product["img_path"] ?>&title=<?php echo $product["title"]; ?>&category=<?php echo $product["category"]; ?>&price=<?php echo $product["price"]; ?>&unit=<?php echo $product["unit"]; ?>&number_of_items=<?php echo $product["number_of_items"]; ?>" 
-                                        class="btn btn-primary btn-md mr-1"><i
-                                            class="fas fa-shopping-cart pr-2"></i>Add to cart</a>
-                                        <a href="overview.php?id=<?php echo $product["id"]; ?>" 
-                                            class="btn btn-light btn-md mr-1"><i
-                                                class="fas fa-info-circle pr-2"></i>Details</a>
+                    <div class="container-fluid">
+                        <div class="row">
+                        <?php foreach ($products as $product): ?>
+                            <?php $id = $product["id"]; ?>
+                                <div class="col-lg-2 col-md-3 col-sm-4">
+                                    <div class="view overlay shadow mb-3 mb-md-0" style="border-radius: 1rem;">
+                                        <a href="overview.php?id=<?php echo $product["id"]; ?>">
+                                            <img style="height: 150px;" class="img-fluid w-100"
+                                                src="../image/<?php echo $product["img_path"]; ?>"
+                                                alt="Sample">
+                                        </a>
                                     </div>
 
+                                    <div class="card-body text-center">
+                                        <h4 class="text-center font-weight-bold"><?php echo $product["title"] ?></h4>
+                                        <small class="text-muted"><?php echo "NGN" . $product["price"]; ?></small>
+                                        <span class="badge badge-primary"><?php echo $product["category"]; ?></span>
+                                    </div>
                                 </div>
+                                <?php endforeach; ?>
                             </div>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
+                        </div>                        
                     </section>
                 <!--Section: Block Content-->
                 </div>

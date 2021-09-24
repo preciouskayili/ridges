@@ -23,7 +23,7 @@ $total_rows = mysqli_fetch_array($result)[0];
 $total_pages = ceil($total_rows / $products_per_page);
 
 if (isset($_GET["apply_category"])) {
-    if($_GET["apply_category"] == "def") {
+    if ($_GET["apply_category"] == "def") {
         $sql = "SELECT * FROM products LIMIT $offset, $products_per_page";
         $result = $conn->query($sql);
         $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -90,10 +90,6 @@ $recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
         <?php include './partials/topbar.php';?>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
         <?php include './partials/sidebar.php';?>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
@@ -124,17 +120,11 @@ $recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Three charts -->
                 <!-- ============================================================== -->
-                <button type="button" onclick="location.href = '../index.php'" class="btn btn-primary shadow-lg flex-center" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">Go to site</button>
+                <button type="button" onclick="window.open('../index.php')" class="btn btn-primary shadow-lg flex-center" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">Go to site</button>
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info shadow">
@@ -142,9 +132,10 @@ $recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <span class="counter text-success">
                                     <?php
-                                        $store_sql = "SELECT COUNT(*) FROM stores";
-                                        echo(mysqli_num_rows($conn->query($store_sql)));
-                                    ?>
+$store_sql = "SELECT * FROM stores";
+$store_query = $conn->query($store_sql);
+echo (mysqli_num_rows($store_query));
+?>
                                 </span>
                             </ul>
                         </div>
@@ -153,7 +144,7 @@ $recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
                         <div class="white-box analytics-info shadow">
                             <h3 class="box-title">Products</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
-                               <span class="counter text-purple"><?php if(isset($products)): echo count($products); else: echo "0"; endif; ?></span>
+                               <span class="counter text-purple"><?php if (isset($products)): echo count($products);else:echo "0";endif;?></span>
                             </ul>
                         </div>
                     </div>
@@ -161,7 +152,12 @@ $recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
                         <div class="white-box analytics-info shadow">
                             <h3 class="box-title">Orders</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <span class="counter text-info">911</span>
+                                <span class="counter text-info">
+                                    <?php
+$orders_sql = "SELECT * FROM `orders`";
+echo (mysqli_num_rows($conn->query($orders_sql)));
+?>
+                                </span>
                             </ul>
                         </div>
                     </div>
@@ -175,7 +171,7 @@ $recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
                         <div class="white-box shadow">
                             <div class="d-md-flex mb-3">
                                 <h3 class="box-title mb-0">Products</h3>
-                                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">    
+                                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
                                     <form action="./dashboard.php" id="apply_category" method="GET">
                                         <select name="apply_category" class="form-select row border-top">
                                             <option selected disabled>-- Choose a category --</option>
@@ -200,7 +196,7 @@ $recent_admins = mysqli_fetch_all($query, MYSQLI_ASSOC);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if(!isset($products) || empty($products)): ?>
+                                        <?php if (!isset($products) || empty($products)): ?>
                                             <h1 class="font-weight-bold text-center">No products found</h1>
                                         <?php else: ?>
                                         <?php foreach ($products as $product): ?>
@@ -224,7 +220,7 @@ echo date_format($created_at, $format);
                                             <td><span class="text-success">NGN<?php echo $product["price"]; ?></span></td>
                                         </tr>
                                         <?php endforeach;?>
-                                        <?php endif; ?>
+                                        <?php endif;?>
                                     </tbody>
                                 </table>
                                 <div class="d-flex">
@@ -266,47 +262,34 @@ echo date_format($created_at, $format);
                             </div>
                             <div class="comment-widgets">
                                 <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3 mt-0">
-                                    <div class="p-2"><img src="plugins/images/users/varun.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <h5 class="font-medium">James Anderson</h5>
-                                        <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-                                             <span class="badge bg-primary rounded">Pending</span>
+                                <?php
+$new_order_sql = "SELECT * FROM orders LIMIT 5";
+$new_order_query = $conn->query($new_order_sql);
+$new_orders = mysqli_fetch_all($new_order_query, MYSQLI_ASSOC);
 
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+foreach ($new_orders as $order):
+?>
+                                    <div class="d-flex flex-row comment-row p-3 mt-0">
+                                        <div class="p-2"><img src="../image/<?php echo $order['img_path']; ?>" alt="user" width="50" class="rounded-circle"></div>
+                                        <div class="comment-text ps-2 ps-md-3 w-100">
+                                            <h5 class="font-medium"><?php echo $order['title']; ?></h5>
+                                            <p class="text-muted font-weight-bold"><?php echo $order["username"]; ?></p>
+                                            <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
+                                            <div class="comment-footer d-md-flex align-items-center">
+                                                    <span class="badge bg-primary rounded"><?php echo $order["category"] ?></span>
+
+                                                <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">
+                                                    <?php
+                                                        $format = "M d,Y";
+                                                        $created_at = new DateTime($order["ordered_at"]);
+                                                        echo date_format($created_at, $format);
+                                                    ?>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3">
-                                    <div class="p-2"><img src="plugins/images/users/genu.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text ps-2 ps-md-3 active w-100">
-                                        <h5 class="font-medium">Michael Jorden</h5>
-                                        <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
+                                <?php endforeach;?>
 
-                                            <span class="badge bg-success rounded">Approved</span>
-
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3">
-                                    <div class="p-2"><img src="plugins/images/users/ritesh.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <h5 class="font-medium">Johnathan Doeting</h5>
-                                        <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-
-                                            <span class="badge rounded bg-danger">Rejected</span>
-
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -336,13 +319,13 @@ echo date_format($created_at, $format);
                                             </div>
                                         </a>
                                     </li>
-                                    <?php endforeach; ?>
+                                    <?php endforeach;?>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <!-- /.col -->
-                    
+
                 </div>
             </div>
             <!-- ============================================================== -->

@@ -7,7 +7,7 @@
         $page = 1;
     }
 
-    $products_per_page = 5;
+    $products_per_page = 18;
     $offset = ($page-1) * $products_per_page;
 
     $total_pages_sql = "SELECT COUNT(*) FROM products";

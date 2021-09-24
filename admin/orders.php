@@ -3,6 +3,9 @@
     if(!isset($_SESSION["username"])) {
         header('Location: ../index.php');
     } // else: Allow user on page
+    $sql = "SELECT * FROM orders";
+    $query = $conn->query($sql);
+    $orders = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">

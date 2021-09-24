@@ -40,156 +40,95 @@ if(empty($_GET["id"])) {
     <link rel="stylesheet" href="../owlcarousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="../owlcarousel/dist/assets/owl.theme.default.min.css">
     <title>Ridges</title>
+    <style>
+        .header {
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .header.row {
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 
 <body>
 	<?php include "../templates/navbar.php";?>
     <!-- Navbar -->
-    <div class="container mt-5">
-        <!-- Classic tabs -->
-
-        <div class="view overlay z-depth-1 rounded mb-3 mb-md-0">
-            <img style="height: 600px;" class="img-fluid w-100" src="../image/<?php echo $description[0]["img_path"] ?>"
-                alt="Sample">
-        </div>
-
-        <div class="classic-tabs border rounded px-4 pt-1">
-            <ul class="nav tabs-primary nav-justified" id="advancedTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link text-dark active show" id="description-tab" data-toggle="tab" href="#description"
-                        role="tab" aria-controls="description" aria-selected="true">Description</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" id="info-tab" data-toggle="tab" href="#info" role="tab"
-                        aria-controls="info" aria-selected="false">Information</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab"
-                        aria-controls="reviews" aria-selected="false">Reviews (<?php echo count($reviews) ?>)</a>
-                </li>
-            </ul>
-            <hr>
-            <div class="tab-content" id="advancedTabContent">
-                <div class="tab-pane fade show active container-fluid" id="description" role="tabpanel"
-                    aria-labelledby="description-tab">
-                    <h5><?php echo $description[0]["title"] ?></h5>
-                    <p class="small text-muted text-uppercase mb-2"><?php echo $description[0]["category"] ?></p>
-                    <h6>NGN<?php echo number_format($description[0]["price"]); ?></h6>
-                    <p class="pt-1"><?php echo $description[0]["description"]; ?></p>
-                    <a href="./controllers/addToCart.php?id=<?php echo $id; ?>&img_path=<?php echo $description[0]["img_path"] ?>&title=<?php echo $description[0]["title"]; ?>&category=<?php echo $description[0]["category"]; ?>&price=<?php echo $description[0]["price"]; ?>&unit=<?php echo $description[0]["unit"]; ?>&number_of_items=<?php echo $description[0]["number_of_items"]; ?>"
-                        class="btn btn-primary btn-sm rounded"><i class="fas fa-cart-plus"></i></a>
+    <div class="header bg-dark" style="display: flex; align-items: center; justify-content: center">
+        <div class="col-md-11 col-sm-12">
+            <div class="row">
+                <div class="col-md-7 col-sm-12 mb-sm-3">
+                    <img class="img-fluid w-100" src="../image/<?php echo $description[0]["img_path"] ?>"
+                        alt="Sample">
                 </div>
-                <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
-                    <h5>Additional Information</h5>
-                    <table class="table table-striped table-bordered mt-3">
-                        <thead>
-                            <tr>
-                                <th scope="row" class="w-150 dark-grey-text h6"><?php echo $description[0]["unit"]; ?>
-                                    available</th>
-                                <td><em><?php echo number_format($description[0]["number_of_items"]); ?></em></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row" class="w-150 dark-grey-text h6">Store</th>
-                                <td><em><?php echo $description[0]["store"] ?></em></td>
-                            </tr>
-                        </tbody>
-                        <thead>
-                            <tr>
-                                <th scope="row" class="w-150 dark-grey-text h6">Category</th>
-                                <td><em><?php echo $description[0]["category"] ?></em></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row" class="w-150 dark-grey-text h6">Created at</th>
-                                <td><em><?php echo $description[0]["created_at"]; ?></em></td>
-                            </tr>
-                        </tbody>
-                        <thead>
-                            <tr>
-                                <th scope="row" class="w-150 dark-grey-text h6">Unit</th>
-                                <td><em><?php echo $description[0]["unit"]; ?></em></td>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                    <h5><span><?php if (isset($reviews)): echo count($reviews);else:echo "0";endif;?></span> reviews for
-                        <span><?php echo $description[0]["title"]; ?></span>
-                    </h5>
-                    <h5 class="mt-4">Add a review</h5>
-                    <p>Your email address will not be published.</p>
-                    <div>
-                        <form action="overview.php?id=<?php echo $description[0]["id"] ?>" method="POST">
-                            <!-- Your review -->
-                            <div class="md-form md-outline">
-                                <textarea id="form76" onchange="countWords()" required max="250" name="review" class="md-textarea form-control pr-6"
-                                    rows="4"></textarea>
-                                <label for="form76">Your review</label>
-                                <small class="text-muted word-count">100/250 words</small>
-                            </div>
-                            <!-- Email -->
-                            <div class="md-form md-outline">
-                                <input oninput="countWords(e.target.value)" type="email" required name="email" id="form77" class="form-control pr-6">
-                                <label for="form77">Email</label>
-                            </div>
-                            <div class="text-right pb-2">
-                                <button type="submit" name="add_review" class="btn btn-primary">Add a review</button>
-                            </div>
-                        </form>
-                    </div>
-                    <hr>
-                    <?php foreach ($reviews as $review): ?>
-                    <div class="media mt-3 mb-4">
-                        <div class="media-body">
-                            <div class="d-sm-flex justify-content-between">
-                                <p class="mt-1 mb-2">
-                                    <strong><?php echo $review["name"] ?></strong>
-                                    <span>– </span><span><?php
-$format = "M d,Y";
-$created_at = new DateTime($review["created_at"]);
-echo date_format($created_at, $format);
-?></span>
-                                </p>
-                            </div>
-                            <p class="mb-0"><?php echo $review["review"] ?></p>
-                        </div>
-                    </div>
-                    <?php endforeach;?>
+                <div class="col-md-5 my-auto">
+                    <h2 class="font-weight-bold text-white"><?php echo $description[0]["title"]; ?></h2>
+                    <p class="text-white font-weight-bold">NGN <?php echo $description[0]["price"]; ?></p>
+                    <form action="overview.php">
+                        <input name="quantity" id="num_items"  
+                            type="number" 
+                            class="form-control w-25 mt-3 mb-2" 
+                            placeholder="Quantity"
+                            min="1"
+                            required
+                            style="
+                                background-color: rgba(256, 256, 256, 0.1); 
+                                backdrop-filter: blur(2rem); 
+                                border: none; color: white;" 
+                            class="form-control m-0"
+                            value="1"
+                            max="<?php echo $description[0]['number_of_items']; ?>" 
+                        />
+                    </form>
+                    <small class="text-white font-weight-bold">Unit: 
+                    <?php 
+                        echo $description[0]["unit"];
+                    ?></small>
+                    <p class="text-white text-justify">
+                        <?php
+                            echo $description[0]["description"]
+                        ?>
+                    </p>
+
+                    <button id="addBtn" class="btn w-100 btn-warning" style="border-radius: 0px">
+                        <i class="fas fa-shopping-cart" style="margin-right: 10px"></i>Add To Cart
+                    </button>
                 </div>
             </div>
-
-
-        </div>
-        <!-- Classic tabs -->
-        <!--Section: Block Content-->
-        <div class="container mt-5 d-block ml-auto">
-            <h3 class="mb-4">Related products</h3>
-            <section class="text-center mb-4">
-                <!-- Card -->
-                <div class="owl-carousel">
-                    <?php foreach ($relatedProducts as $related): ?>
-                    <div class="card">
-                        <div class="view overlay shadow rounded">
-                            <a href="overview.php?id=<?php echo $related["id"]; ?>">
-                                <img style="height: 250px;" class="img-fluid w-100 rounded"
-                                    src="../image/<?php echo $related["img_path"]; ?>" alt="Sample">
-                            </a>
-                        </div>
-
-                        <div class="pt-4">
-                            <h5><?php echo $related["title"]; ?></h5>
-                            <h6>NGN <?php echo $related["price"]; ?></h6>
-                        </div>
-                    </div>
-                    <?php endforeach;?>
-                </div>
-                <!-- Card -->
-            </section>
         </div>
     </div>
+                        
+    <!--Section: Block Content-->
+    <div class="container mt-5 ml-auto" style="display: <?php if(empty($relatedProducts)) {
+        echo "none";
+    } else {
+        echo "block";
+    } ?>">
+        <h3 class="mb-4">Related products</h3>
+        <section class="text-center mb-4">
+            <!-- Card -->
+            <div class="owl-carousel">
+                <?php foreach ($relatedProducts as $related): ?>
+                <div class="card">
+                    <div class="view overlay shadow rounded">
+                        <a href="overview.php?id=<?php echo $related["id"]; ?>">
+                            <img style="height: 250px;" class="img-fluid w-100 rounded"
+                                src="../image/<?php echo $related["img_path"]; ?>" alt="Sample">
+                        </a>
+                    </div>
+                    <div class="pt-4">
+                        <h5><?php echo $related["title"]; ?></h5>
+                        <h6>NGN <?php echo $related["price"]; ?></h6>
+                    </div>
+                </div>
+                <?php endforeach;?>
+            </div>
+            <!-- Card -->
+        </section>
+    </div>
+
     <script type="text/javascript" src="../mdbootstrap/js/jquery.min.js"></script>
     <script type="text/javascript" src="../mdbootstrap/js/popper.min.js"></script>
     <script type="text/javascript" src="../mdbootstrap/js/bootstrap.min.js"></script>
@@ -207,25 +146,41 @@ echo date_format($created_at, $format);
                     nav: false
                 },
                 600: {
-                    items: 3,
+                    items: 2,
                     nav: false
                 },
                 1000: {
-                    items: 4,
+                    items: 3,
                     nav: false
                 }
             }
         });
     });
     </script>
-    <script>
-        function countWords(e) {
-            console.log(e);
-        }
-    </script>
     <script type="text/javascript" src="../mdbootstrap/js/mdb.min.js"></script>
     <script type="text/javascript" src="../mdbootstrap/js/script.js"></script>
     <script type="text/javascript" src="../owlcarousel/dist/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="./js/cart.js"></script>
+    <script>
+        const addButton = $("#addBtn");
+        let numberOfItems;
+        $('#num_items').on('change', function(e) {
+            numberOfItems = parseInt(e.target.value);
+            console.log(numberOfItems);
+        })
+        addButton.on('click', function() {
+            console.log(typeof numberOfItems);
+            if(numberOfItems < 1) {
+                console.log("Error dey");
+            } else {
+                cartLS.add({
+                    id: <?php echo $description[0]["id"] ?>, 
+                    name: "<?php echo $description[0]["title"] ?>", 
+                    price: <?php echo $description[0]["price"] ?>,
+                }, numberOfItems)
+            }
+        })
+    </script>
 </body>
 
 </html>

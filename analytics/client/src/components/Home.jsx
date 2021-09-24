@@ -1,8 +1,9 @@
-import React from 'react';
-import Map from "./Map";
+import React from "react";
 import styled from "styled-components";
+import DisplayMap from "./Map";
+
 const Home = () => {
-    const Header = styled.div`
+  const Header = styled.div`
     min-height: 30vh;
     background-color: #153d77;
     color: #fff;
@@ -10,15 +11,18 @@ const Home = () => {
     padding-left: 4rem;
   `;
 
-    return (
-        <>
-        <Header>
+  return (
+    <>
+      <Header>
         <h3>Nigerian Map</h3>
-        <p>Dashboard  /  Maps  /  <span className="font-weight-bold">Vector Maps</span></p>
+        <p>
+          Dashboard / Maps /{" "}
+          <span className="font-weight-bold">Vector Maps</span>
+        </p>
       </Header>
-      <Map />
-      </>
-    );
-}
- 
+      <DisplayMap />
+    </>
+  );
+};
+
 export default Home;

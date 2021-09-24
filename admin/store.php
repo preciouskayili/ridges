@@ -125,7 +125,7 @@
                                             <img height="60" width="60" class="shadow-sm rounded-circle border border-3 border-danger p-1" src="./store_images/<?php echo $store["img_path"]; ?>" alt="Store icon">
                                           </td>
                                           <td><?php echo $store["store_name"] ?></td>
-                                          <td><?php echo $store["store_location"] ?></td>
+                                          <td><?php echo $store["state"] ?></td>
                                           <td><?php
 																						$format="M d,Y";
 																						$created_at = new DateTime($store["created_at"]);

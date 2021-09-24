@@ -186,6 +186,9 @@
                                                 class="form-control" placeholder="Store name" aria-label="Store name"
                                                 aria-describedby="basic-addon1">
                                                 <option disabled selected>-- Product unit --</option>
+                                                <?php foreach($units as $unit): ?>
+                                                    <option><?php echo $unit["unit"] ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>

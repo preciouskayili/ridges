@@ -5,9 +5,7 @@ if (isset($_SESSION["username"])) {
     $username = $_SESSION["username"];
 }
 $sql = "SELECT * FROM category";
-$sql2 = "SELECT * FROM cart WHERE username='$username'";
-$result = $conn->query($sql2);
-$numRows = mysqli_num_rows($result);
+
 $query = $conn->query($sql);
 $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>
@@ -25,7 +23,7 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 <!-- Navbar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #3f51b5 !important;">
 
-	<a class="navbar-brand" href="#!">
+	<a class="navbar-brand" href="../index.php">
 		Ridges
 	</a>
 
@@ -43,11 +41,6 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 			<li class="nav-item">
 				<a href="../index.php" class="nav-link waves-effect">
 					Home
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="mart.php" class="nav-link waves-effect">
-					Shop
 				</a>
 			</li>
 		</ul>
@@ -70,7 +63,7 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
 				<a href="cart.php" class="nav-link navbar-link-2 waves-effect" style="display: <?php if (isset($_SESSION["username"])): echo "block";else:echo "none";endif;?>">
-					<span class="badge badge-pill red"><?php echo $numRows; ?></span>
+					<span class="badge badge-pill red"><?php echo "1"; ?></span>
 					<i class="fas fa-shopping-cart pl-0"></i>
 				</a>
 			</li>

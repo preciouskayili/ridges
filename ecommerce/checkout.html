@@ -7,9 +7,9 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-  <link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
-  <link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
+  <link rel="stylesheet" href="../mdbootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../mdbootstrap/css/mdb.min.css">
+  <link rel="stylesheet" href="../mdbootstrap/css/style.css">
   <title>Ridges</title>
 </head>
 
@@ -27,6 +27,46 @@
     aria-controls="basicExampleNav1" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fa fa-align-center"></i>
     </button>
+
+    <form>
+      <script src="https://checkout.flutterwave.com/v3.js"></script>
+      <button type="button" onClick="makePayment()">Pay Now</button>
+    </form>
+    
+    <script>
+      function makePayment() {
+        FlutterwaveCheckout({
+          public_key: "FLWPUBK_TEST-SANDBOXDEMOKEY-X",
+          tx_ref: "RX1",
+          amount: 10,
+          currency: "USD",
+          country: "US",
+          payment_options: " ",
+          redirect_url: // specified redirect URL
+            "https://callbacks.piedpiper.com/flutterwave.aspx?ismobile=34",
+          meta: {
+            consumer_id: 23,
+            consumer_mac: "92a3-912ba-1192a",
+          },
+          customer: {
+            email: "cornelius@gmail.com",
+            phone_number: "08102909304",
+            name: "Flutterwave Developers",
+          },
+          callback: function (data) {
+            console.log(data);
+          },
+          onclose: function() {
+            // close modal
+          },
+          customizations: {
+            title: "My store",
+            description: "Payment for items in cart",
+            logo: "https://assets.piedpiper.com/logo.png",
+          },
+        });
+      }
+    </script>
 
     <div class="col-md-6">
         <div class="flex-center">
@@ -352,11 +392,11 @@
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
-	<script type="text/javascript" src="node_modules/mdbootstrap/js/jquery.min.js"></script>
-	<script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
-	<script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
-	<script type="text/javascript" src="node_modules/mdbootstrap/js/script.js"></script>
+	<script type="text/javascript" src="../mdbootstrap/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../mdbootstrap/js/popper.min.js"></script>
+	<script type="text/javascript" src="../mdbootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../mdbootstrap/js/mdb.min.js"></script>
+	<script type="text/javascript" src="../mdbootstrap/js/script.js"></script>
 	<script>
     // Animations initialization
     new WOW().init();

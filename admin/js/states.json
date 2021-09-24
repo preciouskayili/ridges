@@ -1,0 +1,150 @@
+[
+    {
+      "id": "ng-ab",
+      "name": "Abia"
+    },
+    {
+      "id": "ng-ad",
+      "name": "Adamawa"
+    },
+    {
+      "id": "ng-ak",
+      "name": "Akwa Ibom"
+    },
+    {
+      "id": "ng-an",
+      "name": "Anambra"
+    },
+    {
+      "id": "ng-ba",
+      "name": "Bauchi"
+    },
+    {
+      "id": "ng-be",
+      "name": "Benue"
+    },
+    {
+      "id": "ng-bo",
+      "name": "Borno"
+    },
+    {
+      "id": "ng-by",
+      "name": "Bayelsa"
+    },
+    {
+      "id": "ng-cr",
+      "name": "Cross River"
+    },
+    {
+      "id": "ng-de",
+      "name": "Delta"
+    },
+    {
+      "id": "ng-eb",
+      "name": "Ebonyi"
+    },
+    {
+      "id": "ng-ed",
+      "name": "Edo"
+    },
+    {
+      "id": "ng-ek",
+      "name": "Ekiti"
+    },
+    {
+      "id": "ng-en",
+      "name": "Enugu"
+    },
+    {
+      "id": "ng-fc",
+      "name": "Federal Capital Territory"
+    },
+    {
+      "id": "ng-go",
+      "name": "Gombe"
+    },
+    {
+      "id": "ng-im",
+      "name": "Imo"
+    },
+    {
+      "id": "ng-ji",
+      "name": "Jigawa"
+    },
+    {
+      "id": "ng-kd",
+      "name": "Kaduna"
+    },
+    {
+      "id": "ng-ke",
+      "name": "Kebbi"
+    },
+    {
+      "id": "ng-kn",
+      "name": "Kano"
+    },
+    {
+      "id": "ng-ko",
+      "name": "Kogi"
+    },
+    {
+      "id": "ng-kt",
+      "name": "Katsina"
+    },
+    {
+      "id": "ng-kw",
+      "name": "Kwara"
+    },
+    {
+      "id": "ng-la",
+      "name": "Lagos"
+    },
+    {
+      "id": "ng-na",
+      "name": "Nassarawa"
+    },
+    {
+      "id": "ng-ni",
+      "name": "Niger"
+    },
+    {
+      "id": "ng-og",
+      "name": "Ogun"
+    },
+    {
+      "id": "ng-on",
+      "name": "Ondo"
+    },
+    {
+      "id": "ng-os",
+      "name": "Osun"
+    },
+    {
+      "id": "ng-oy",
+      "name": "Oyo"
+    },
+    {
+      "id": "ng-pl",
+      "name": "Plateau"
+    },
+    {
+      "id": "ng-ri",
+      "name": "Rivers"
+    },
+    {
+      "id": "ng-so",
+      "name": "Sokoto"
+    },
+    {
+      "id": "ng-ta",
+      "name": "Taraba"
+    },
+    {
+      "id": "ng-yo",
+      "name": "Yobe"
+    },
+    {
+      "id": "ng-za",
+      "name": "Zamfara"
+    }
+]

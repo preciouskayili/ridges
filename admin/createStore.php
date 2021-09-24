@@ -116,19 +116,12 @@
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-location-arrow"></i>
                                             </span>
-                                            <input value="<?php echo $state ?>" required type="address" id="store_location" name="store_location" class="form-control" placeholder="Store location" aria-label="Username" aria-describedby="basic-addon1">
+                                            <select name="state" id="states" required class="form-control">
+                                                <option>-- Select state --</option>
+                                            </select>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <div class="input-group mt-3 mb-3">
-                                            <span class="input-group-text" id="basic-addon1">
-                                                <i class="fas fa-location-arrow"></i>
-                                            </span>
-                                            <input value="<?php echo $lga ?>" required type="address" id="store_location" name="store_location" class="form-control" placeholder="Store location" aria-label="Username" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-    
                                     <div class="col-md-6">
                                         <div class="input-group mt-3 mb-3">
                                             <span class="input-group-text" id="basic-addon1">
@@ -208,6 +201,8 @@
     <script src="js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
+    <!-- Dropdown states Javascript -->
+    <script src ="./js/states.js"></script>
 </body>
 
 </html>
