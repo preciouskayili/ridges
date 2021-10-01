@@ -1,4 +1,5 @@
 <?php
+// Deployed connection data.
 // mysql: //b6fb8cbf7f7226:aa1eaa22@us-cdbr-east-03.cleardb.com/heroku_03b2d78cc6a16d2?reconnect=true
 
 // Get Heroku ClearDB connection information

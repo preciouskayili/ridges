@@ -1,16 +1,4 @@
 <?php include "controllers/cartController.php";?>
-<?php
-    $item_prices = [];
-
-    print_r(json_encode($_SESSION["product_info"]));
-    function vat($price) {
-        return (5/100) * $price;
-    }
-    for($i = 0;$i < count($cartItems); $i++) {
-        $item_prices[] += $cartItems[$i]["price"];
-        $total_price = array_sum($item_prices);
-    }
-?>
 
 <!DOCTYPE html>
 <html lang="en">

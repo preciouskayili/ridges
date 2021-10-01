@@ -40,7 +40,7 @@
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->
-                <li class=" in">
+                <li class="in">
                     <form role="search" class="app-search d-none d-md-block me-3">
                         <input type="text" placeholder="Search..." class="form-control mt-0">
                         <a href="" class="active">
@@ -53,8 +53,9 @@
                 <!-- ============================================================== -->
                 <li>
                     <a class="profile-pic" href="./profile.php">
-                        <img width="40px" height="40px" class="rounded-circle" src="./middleware/admin_image/<?php echo $_SESSION['img_path']; ?>" alt="">
-                        <span class="text-white font-medium">Hello, <?php echo $_SESSION["username"] ?></span></a>
+                        <img src="./middleware/admin_image/<?php echo $_SESSION['img_path']; ?>" alt="user-img" height="36" width="36"
+                            class="img-circle"><span class="text-white font-medium"><span>Hello, <?php echo $_SESSION["username"] ?></span>
+                        </a>
                 </li>
                 <!-- ============================================================== -->
                 <!-- User profile and search -->

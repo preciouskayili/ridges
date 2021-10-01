@@ -17,7 +17,7 @@
             background-position: center;
             background-size: cover; */
         }
-    </style>
+    </style>    
     <body>
         <div class="container-fluid bg-dark shadow-sm">
             <button onclick="toggleNav(document.getElementById('nav'))" class="btn btn-white rounded btn-md shadow-sm">
@@ -26,7 +26,7 @@
         </div>
         <div class="sidenav shadow-lg bg-dark" id="nav">
             <p class="pt-3 mt-3" onclick="toggleNav(document.getElementById('nav'))" style="cursor: pointer; color: white; font-size: 40px;user-select: none;">&times;</p>
-            <ul class="mt-auto">
+            <ul class="d-block">
                 <li class="mt-4 mb-4 list">
                     <input type="number" required min="1" style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white; backdrop-filter: blur(2rem);" placeholder="Filter by Price" class="form-control m-0 p-2 rounded" />
                 </li>

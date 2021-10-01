@@ -1,8 +1,8 @@
+import React from "react";
 import Home from "./components/Home";
 import Details from "./components/Details";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NotFoundPage from './components/NotFoundPage';
-
 const App = () => {
   
   return (

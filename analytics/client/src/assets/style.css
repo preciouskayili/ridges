@@ -1,0 +1,262 @@
+.left-sidebar {
+    position: absolute;
+    width: 240px;
+    height: 100vh;
+    top: 0px;
+    z-index: 10;
+    padding-top: 64px;
+    background: #fff;
+    -webkit-box-shadow: 1px 0px 20px rgba(0,0,0,0.08);
+    box-shadow: 1px 0px 20px rgba(0,0,0,0.08)
+}
+
+.scroll-sidebar {
+    height: calc(100% - 20px);
+    position: relative
+}
+
+.sidebar-nav ul .sidebar-item {
+    width: 240px
+}
+
+.sidebar-nav ul .sidebar-item .sidebar-link {
+    color: #fff;
+    padding: 15px;
+    border-left: 3px solid transparent;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    white-space: nowrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    line-height: 20px;
+    font-weight: 300
+}
+
+.sidebar-nav ul .sidebar-item .sidebar-link i {
+    font-style: normal;
+    width: 35px;
+    line-height: 20px;
+    font-size: 23px;
+    color: #54667a;
+    text-align: center;
+    font-size: 14px
+}
+
+.sidebar-nav ul .sidebar-item .sidebar-link:hover {
+    background: rgba(0,0,0,0.07)
+}
+
+.sidebar-nav ul .sidebar-item .sidebar-link.active {
+    font-weight: 500;
+    border-left: 3px solid #41b3f9
+}
+
+.sidebar-nav ul .sidebar-item.selected>.sidebar-link {
+    opacity: 1
+}
+
+.sidebar-nav ul .sidebar-item .first-level {
+    padding: 0 0 10px 0
+}
+
+.sidebar-nav ul .sidebar-item .first-level .sidebar-item.active .sidebar-link {
+    opacity: 1
+}
+
+.sidebar-nav ul .sidebar-item .first-level .sidebar-item .sidebar-link {
+    padding: 10px 15px
+}
+
+.sidebar-nav ul .sidebar-item .first-level .sidebar-item .sidebar-link i {
+    font-size: 14px
+}
+
+.sidebar-nav ul .nav-small-cap {
+    font-size: 12px;
+    padding: 15px 35px 15px 14px;
+    white-space: nowrap;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    line-height: 30px;
+    margin-top: 10px;
+    color: #fff;
+    opacity: 0.3;
+    text-transform: uppercase
+}
+
+.sidebar-nav ul .nav-small-cap i {
+    line-height: 30px;
+    margin: 0 5px
+}
+
+.sidebar-nav ul {
+    margin: 0px;
+    padding: 0px
+}
+
+.sidebar-nav ul li {
+    list-style: none
+}
+
+.collapse.in {
+    display: block
+}
+
+.sidebar-nav .has-arrow {
+    position: relative
+}
+
+.sidebar-nav .has-arrow:after {
+    position: absolute;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-width: 1px 0 0 1px;
+    border-style: solid;
+    border-color: #fff;
+    margin-left: 10px;
+    -webkit-transform: rotate(135deg) translate(0,-50%);
+    -ms-transform: rotate(135deg) translate(0,-50%);
+    transform: rotate(135deg) translate(0,-50%);
+    -webkit-transform-origin: top;
+    -ms-transform-origin: top;
+    transform-origin: top;
+    top: 26px;
+    right: 15px;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out
+}
+
+.sidebar-nav .has-arrow[aria-expanded=true]:after,.sidebar-nav li.active>.has-arrow:after,.sidebar-nav li>.has-arrow.active:after {
+    -webkit-transform: rotate(-135deg) translate(0,-50%);
+    -ms-transform: rotate(-135deg) translate(0,-50%);
+    transform: rotate(-135deg) translate(0,-50%)
+}
+
+.user-profile {
+    padding: 15px
+}
+
+.user-profile .user-content,.user-profile .user-email,.user-profile .user-name {
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis
+}
+
+.create-btn {
+    height: 40px;
+    background: #3e5569
+}
+
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    will-change: opacity,transform;
+    -webkit-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out
+}
+
+.waves-effect .waves-ripple {
+    position: absolute;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    opacity: 0;
+    background: rgba(0,0,0,0.2);
+    -webkit-transition: all 0.7s ease-out;
+    -o-transition: all 0.7s ease-out;
+    transition: all 0.7s ease-out;
+    -webkit-transition-property: -webkit-transform,opacity;
+    -o-transition-property: -o-transform,opacity;
+    -webkit-transition-property: opacity,-webkit-transform;
+    transition-property: opacity,-webkit-transform;
+    -o-transition-property: transform,opacity;
+    transition-property: transform,opacity;
+    transition-property: transform,opacity,-webkit-transform;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    pointer-events: none
+}
+
+.waves-effect.waves-light .waves-ripple {
+    background-color: rgba(255,255,255,0.45)
+}
+
+.waves-effect.waves-red .waves-ripple {
+    background-color: rgba(244,67,54,0.7)
+}
+
+.waves-effect.waves-yellow .waves-ripple {
+    background-color: rgba(255,235,59,0.7)
+}
+
+.waves-effect.waves-orange .waves-ripple {
+    background-color: rgba(255,152,0,0.7)
+}
+
+.waves-effect.waves-purple .waves-ripple {
+    background-color: rgba(156,39,176,0.7)
+}
+
+.waves-effect.waves-green .waves-ripple {
+    background-color: rgba(76,175,80,0.7)
+}
+
+.waves-effect.waves-teal .waves-ripple {
+    background-color: rgba(0,150,136,0.7)
+}
+
+html body .waves-notransition {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none
+}
+
+.waves-circle {
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    text-align: center;
+    width: 2.5em;
+    height: 2.5em;
+    line-height: 2.5em;
+    border-radius: 50%;
+}
+
+.waves-input-wrapper {
+    border-radius: 0.2em;
+    vertical-align: bottom
+}
+
+.waves-input-wrapper .waves-button-input {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1
+}
+
+.waves-block {
+    display: block
+}

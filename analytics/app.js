@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("hello from simple server :)");
+  res.send("hello from server :)");
 });
 
 // 404 Route

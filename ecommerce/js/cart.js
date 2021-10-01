@@ -21,7 +21,7 @@ var cartLS = function(a) {
         return c
     }
     function d(a) {
-        for (var b, d = 1; d < arguments.length; d++)
+        for (var b, d = 1; d < arguments.length; d++) 
             b = null == arguments[d] ? {} : arguments[d],
             d % 2 ? c(b, !0).forEach(function(c) {
                 f(a, c, b[c])
