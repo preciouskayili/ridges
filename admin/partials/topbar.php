@@ -9,7 +9,7 @@
                 <b class="logo-icon d-flex mx-auto">
                     <!-- Dark Logo icon -->
                     <!-- <img src="plugins/images/logo-icon.png" alt="homepage" /> -->
-                    <img style="height: 4rem" src="./../img/logo.png" alt="homepage" />
+                    <img style="height: 4rem" class="p-2" src="./../img/logo.png" alt="homepage" />
                 </b>
                 <!--End Logo icon -->
             </a>

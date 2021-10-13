@@ -21,7 +21,7 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
 </style>
 <!-- Navbar -->
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #3f51b5 !important;">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark shadow-none" style="background-color: #3f51b5 !important;">
 
 	<a class="navbar-brand" href="../index.php">
 		Ridges
@@ -46,10 +46,19 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 		</ul>
 		<!-- Links -->
 		<ul class="navbar-nav mx-auto">
-			<form action="../ecommerce/mart.php" method="POST" class="search m-0 form-inline">
-					<div class="md-form md-outline m-0 w-100">
-						<input name="keywords" required placeholder="Keywords" value="<?php if (isset($_POST["search"])): echo $_POST["keywords"];else:"";endif;?>" autocomplete="off" type="text" id="form77" style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0">
-						<select name="category" type="text" id="form77" style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0 p-2 rounded">
+			<div class="col-md-12">
+				<form action="../ecommerce/mart.php" method="POST" class="search m-0 form-inline">
+					<div class="md-form md-outline m-0 col-md-12">
+						<input
+						name="keywords"
+							required
+							 placeholder=" &#128269; Search"
+							 value="<?php if (isset($_POST["search"])): echo $_POST["keywords"];else:"";endif;?>"
+							 autocomplete="off"
+							 type="text" id="form77"
+							 style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0"
+						>
+						<select name="category" type="text" id="form77" style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0 p-2 rounded d-lg-none d-md-block d-sm-block">
 							<option disabled selected>Category</option>
 							<?php foreach ($categories as $category): ?>
 								<option><?php echo $category["category_name"] ?></option>
@@ -57,7 +66,8 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 						</select>
 						<button name="search" class="btn btn-sm rounded btn-outline-white" style="background-color: #3F51B5;"><i class="fas fa-search"></i></button>
 					</div>
-			</form>
+				</form>
+			</div>
 		</ul>
 		<!-- Right -->
 		<ul class="navbar-nav ml-auto">
@@ -67,22 +77,22 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 					<i class="fas fa-shopping-cart pl-0"></i>
 				</a>
 			</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">
-						<i class="fas fa-user-circle"></i>
-						<?php if (isset($_SESSION["username"])) {echo $_SESSION["username"];} else {echo "";}?>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
-						<?php if (isset($_SESSION["username"])): ?>
-							<a class="dropdown-item" href="./navbar.php">Profile</a>
-							<a class="dropdown-item" href="../logout.php?logout=true">Logout</a>
-						<?php else: ?>
-							<a class="dropdown-item" href="./">Login</a>
-							<a class="dropdown-item" href="../logout.php?logout=true">Sign Up</a>
-						<?php endif;?>
-					</div>
-				</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">
+					<i class="fas fa-user-circle"></i>
+					<?php if (isset($_SESSION["username"])) {echo $_SESSION["username"];} else {echo "";}?>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
+					<?php if (isset($_SESSION["username"])): ?>
+						<a class="dropdown-item" href="./navbar.php">Profile</a>
+						<a class="dropdown-item" href="../logout.php?logout=true">Logout</a>
+					<?php else: ?>
+						<a class="dropdown-item" href="./">Login</a>
+						<a class="dropdown-item" href="../logout.php?logout=true">Sign Up</a>
+					<?php endif;?>
+				</div>
+			</li>
 		</ul>
 	</div>
 </nav>

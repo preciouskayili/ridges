@@ -1,5 +1,3 @@
-<?php include "controllers/cartController.php";?>
-
 <!DOCTYPE html>
 <html lang="en">
 

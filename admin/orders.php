@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 <?php
+    include "../config/db_connect.php";
     if(!isset($_SESSION["username"])) {
         header('Location: ../index.php');
     } // else: Allow user on page
@@ -104,7 +105,6 @@
                                             <th class="border-top-0">#</th>
                                             <th class="border-top-0">Image</th>
                                             <th class="border-top-0">Name</th>
-                                            <th class="border-top-0">Store</th>
                                             <th class="border-top-0">Date</th>
                                             <th class="border-top-0">Price</th>
                                         </tr>
@@ -124,11 +124,10 @@
                                                     <strong><?php echo $order["title"]; ?></strong>
                                                 </a>
                                             </td>
-                                            <td><?php echo $order["store"]; ?></td>
                                             <td class="txt-oflo">
                                             <?php
                                                 $format = "M d,Y";
-                                                $created_at = new DateTime($order["created_at"]);
+                                                $created_at = new DateTime($order["ordered_at"]);
                                                 echo date_format($created_at, $format);
                                                 ?></td>
                                             <td><span class="text-success">NGN<?php echo $order["price"]; ?></span></td>

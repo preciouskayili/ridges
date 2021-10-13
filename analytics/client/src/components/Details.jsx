@@ -12,28 +12,19 @@ const Header = styled.div`
   text-align: center;
 `;
 const Details = ({ match }) => {
-  const findStateById = (id) => {
-    // eslint-disable-next-line
-    const [key, state] = Object.entries(Nigeria.layers).find(
-      ([key, state]) => state.id === match.params.id
-    );
-
-    return state;
-  };
-
-  let details = findStateById(match.params.id);
-
   // TODO use result
   // eslint-disable-next-line
   const [result, setResult] = useState([]);
 
+  const STATE_NAME = match.params.title;
+
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/stores/${details.name}`)
+    fetch(`http://localhost:5000/api/v1/stores/${STATE_NAME}`)
       .then((res) => res.json())
       .then((data) => {
         setResult(data);
       });
-  }, [details])
+  }, [STATE_NAME]);
   return (
     <>
       <nav
@@ -47,7 +38,7 @@ const Details = ({ match }) => {
         </div>
       </nav>
       <Header>
-        <h3>{details.name}</h3>
+        <h3>{STATE_NAME}</h3>
       </Header>
     </>
   );

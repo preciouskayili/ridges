@@ -31,26 +31,22 @@ const Home = () => {
           >
             {toggled ? (
               <>
-              <i className="fas fa-times me-2"></i>
-              Close
+                <i className="fas fa-times me-2"></i>
+                Close
               </>
             ) : (
               <>
-              <i className="fas fa-bars me-2"></i>
-              Menu
+                <i className="fas fa-bars me-2"></i>
+                Menu
               </>
             )}
           </button>
         </div>
         <Content>
-          <h3>Nigerian Map</h3>
-          <p>
-            Dashboard / Maps /{" "}
-            <span className="font-weight-bold">Vector Maps</span>
-          </p>
+          <h3>Ridges Analytics</h3>
         </Content>
       </Header>
-      <div className="container-fluid" style={{ marginTop: "-1rem" }}>
+      <div className="container-fluid" style={{ marginTop: "-1.5rem" }}>
         <div className="row">
           <div className="col-md-12">
             <Map />

@@ -132,31 +132,6 @@ if(empty($_GET["id"])) {
     <script type="text/javascript" src="../mdbootstrap/js/jquery.min.js"></script>
     <script type="text/javascript" src="../mdbootstrap/js/popper.min.js"></script>
     <script type="text/javascript" src="../mdbootstrap/js/bootstrap.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        $(".owl-carousel").owlCarousel({
-            autoplay: true,
-            autoplayHoverPause: true,
-            responsiveClass: true,
-            margin: 20,
-            loop: false,
-            responsive: {
-                0: {
-                    items: 1,
-                    nav: false
-                },
-                600: {
-                    items: 2,
-                    nav: false
-                },
-                1000: {
-                    items: 3,
-                    nav: false
-                }
-            }
-        });
-    });
-    </script>
     <script type="text/javascript" src="../mdbootstrap/js/mdb.min.js"></script>
     <script type="text/javascript" src="../mdbootstrap/js/script.js"></script>
     <script type="text/javascript" src="../owlcarousel/dist/owl.carousel.min.js"></script>

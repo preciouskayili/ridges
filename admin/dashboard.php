@@ -2,7 +2,7 @@
 session_start();
 include "../config/db_connect.php";
 setlocale(LC_ALL, "US");
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || !isset($_SESSION['is_admin'])) {
     header('Location: ../Auth/login.php');
 } else {
     // Allow user on page
@@ -273,8 +273,7 @@ foreach ($new_orders as $order):
                                         <div class="p-2"><img src="../image/<?php echo $order['img_path']; ?>" alt="user" width="50" class="rounded-circle"></div>
                                         <div class="comment-text ps-2 ps-md-3 w-100">
                                             <h5 class="font-medium"><?php echo $order['title']; ?></h5>
-                                            <p class="text-muted font-weight-bold"><?php echo $order["username"]; ?></p>
-                                            <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry.It has survived not only five centuries. </span>
+                                            <span class="mb-3 d-block"><?php echo $order["number_of_items"] ?> <?php echo $order["unit"] ?> </span>
                                             <div class="comment-footer d-md-flex align-items-center">
                                                     <span class="badge bg-primary rounded"><?php echo $order["category"] ?></span>
 

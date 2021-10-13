@@ -1,21 +1,22 @@
 <?php
-    include "./config/db_connect.php";
-    $invalidMail = "";
-    if(isset($_POST["add"])) {
-        $email = mysqli_real_escape_string($conn, $_POST["email"]);
+include "./config/db_connect.php";
+$invalidMail = "";
+if (isset($_POST["add"])) {
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
 
-        $query = "SELECT COUNT(*) FROM mailing_list WHERE email='$email'";
-        $response = $conn->query($query);
-    
-        if(mysqli_num_rows($response) > 0) {
-            $invalidMail = "Email address already exists.";
-        } else {
-            $sql = "INSERT INTO mailing_list(email) VALUES('$email')";
-            $conn->query($sql);
-        }
+    $query = "SELECT * FROM `mailing_list` WHERE `email`='$email'";
+    $response = $conn->query($query);
+
+    if (mysqli_num_rows($response) >= 1) {
+        $invalidMail = "Email address already exists.";
+        print_r($response);
     } else {
-        // Not set yet
+        $sql = "INSERT INTO mailing_list(email) VALUES('$email')";
+        $conn->query($sql);
     }
+} else {
+    // Not set yet
+}
 ?>
 <?php include "controllers/newProducts.php";?>
 <!DOCTYPE html>
@@ -48,7 +49,10 @@
     }
 
     .cover {
-        background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(img/farm-bg.jpg);
+        background: linear-gradient(
+                        to right bottom, rgba(0, 0, 0, 0.4), 
+                        rgba(0, 0, 0, 0.6)
+                    ), url(img/farm-bg.jpg);
         background-position: center;
         background-size: cover;
         min-height: 60vh;
@@ -94,7 +98,7 @@
             <!-- Right -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="cart.php" class="nav-link navbar-link-2 waves-effect">
+                    <a href="ecommerce/cart.php" class="nav-link navbar-link-2 waves-effect">
                         <span class="badge badge-pill red"><?php $hide = (!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
 echo $hide;?></span>
                         <i class="fas fa-shopping-cart pl-0"></i>
@@ -106,7 +110,7 @@ echo $hide;?></span>
                         <i class="fas fa-user-circle"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="#!">Login</a>
+                        <a class="dropdown-item" href="user/login.php">Login</a>
                         <a class="dropdown-item" href="#!">Create account</a>
                         <a class="dropdown-item" href="#!">Create store</a>
                     </div>
@@ -140,20 +144,20 @@ echo $hide;?></span>
             Recent products
         </h4>
         <div class="owl-carousel">
-            <?php foreach($newProducts as $newProduct): ?>
+            <?php foreach ($newProducts as $newProduct): ?>
             <div class="pr-3">
-                <img class="shadow rounded--card" src="./image/<?php echo $newProduct["img_path"] ?>" alt="">
+                <img class="shadow rounded--card w-100" style="height: 200px" src="./image/<?php echo $newProduct["img_path"] ?>" alt="">
                 <div class="d-flex">
                     <button title="Add to cart" class="btn btn-sm btn-primary"
                         style="padding: 10px; width: 40px; height: 40px;"><i class="fas fa-cart-plus"></i></button>
                     <div class="ml-2">
                         <h5 class="mt-2 font-weight-bold"><?php echo $newProduct["title"]; ?></h5>
                         <p>NGN<?php echo $newProduct["price"] ?></p>
-                        <span class="badge badge-primary"><?php echo $newProduct["category"]; ?></span> 
+                        <span class="badge badge-primary"><?php echo $newProduct["category"]; ?></span>
                     </div>
                 </div>
             </div>
-            <?php endforeach; ?>
+            <?php endforeach;?>
         </div>
     </div>
 

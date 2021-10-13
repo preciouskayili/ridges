@@ -2,8 +2,8 @@
 <?php
 include "./middleware/adminController.php";
 session_start();
-if (!isset($_SESSION['username'])) {
-    // header('Location: ../Auth/login.php');
+if (!isset($_SESSION['username']) || !isset($_SESSION['is_admin'])) {
+    header('Location: ../Auth/login.php');
 } else {
     // Allow user on page
 }
@@ -113,7 +113,7 @@ if (!isset($_SESSION['username'])) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if(isset($admins) || count($admins) > 0): ?>
+                                        <?php if (isset($admins) || count($admins) > 0): ?>
                                         <?php foreach ($admins as $key => $admin): ?>
                                         <tr>
                                             <td><?php echo $admin["id"] ?></td>
@@ -131,7 +131,7 @@ if (!isset($_SESSION['username'])) {
                                                     <?php echo $admin["email"] ?>
                                                 </p>
                                             </td>
-                                            
+
                                             <td><?php
 $format = "M d,Y";
 $created_at = new DateTime($admin["created_at"]);
@@ -142,7 +142,7 @@ echo date_format($created_at, $format);
                                         <?php endforeach;?>
                                         <?php else: ?>
                                             <h3>No registered admins yet</h3>
-                                        <?php endif; ?>
+                                        <?php endif;?>
                                     </tbody>
                                 </table>
 
