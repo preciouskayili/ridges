@@ -13,9 +13,9 @@ if (isset($_POST['register-admin'])) {
     $target = "./middleware/admin_image/";
     $uniqueId = uniqid() . '_' . time();
     $image = basename($_FILES['upload_image']['name']);
-    $imageName = $uniqueId . $image;
+    $imageName = $uniqueId;
     $temp_name = $_FILES['upload_image']['tmp_name'];
-    $imagePath = $target . $uniqueId . $image;
+    $imagePath = $target . $uniqueId;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
     $check = getimagesize($_FILES["upload_image"]["tmp_name"]);

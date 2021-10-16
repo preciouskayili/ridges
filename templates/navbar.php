@@ -50,13 +50,13 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 				<form action="../ecommerce/mart.php" method="POST" class="search m-0 form-inline">
 					<div class="md-form md-outline m-0 col-md-12">
 						<input
-						name="keywords"
+							name="keywords"
 							required
-							 placeholder=" &#128269; Search"
-							 value="<?php if (isset($_POST["search"])): echo $_POST["keywords"];else:"";endif;?>"
-							 autocomplete="off"
-							 type="text" id="form77"
-							 style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0"
+							placeholder=" &#128269; Search"
+							value="<?php if (isset($_POST["search"])): echo $_POST["keywords"];else:"";endif;?>"
+							autocomplete="off"
+							type="text" id="form77"
+							style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0"
 						>
 						<select name="category" type="text" id="form77" style="background-color: rgba(0, 0, 0, 0.2); border: none; color: white;" class="form-control m-0 p-2 rounded d-lg-none d-md-block d-sm-block">
 							<option disabled selected>Category</option>
@@ -88,8 +88,8 @@ $categories = mysqli_fetch_all($query, MYSQLI_ASSOC);
 						<a class="dropdown-item" href="./navbar.php">Profile</a>
 						<a class="dropdown-item" href="../logout.php?logout=true">Logout</a>
 					<?php else: ?>
-						<a class="dropdown-item" href="./">Login</a>
-						<a class="dropdown-item" href="../logout.php?logout=true">Sign Up</a>
+						<a class="dropdown-item" href="../user/login.php">Login</a>
+						<a class="dropdown-item" href="../user/signup.php">Sign Up</a>
 					<?php endif;?>
 				</div>
 			</li>

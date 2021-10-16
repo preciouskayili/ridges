@@ -17,10 +17,22 @@
     }
     body {
         display: flex;
-        justify-content: center; /* horizontal center */
         align-items: center; /* vertical center */
     }
 </style>
+
+<script>
+    const showPassword = () => {
+
+        const password = document.getElementById("password")
+
+        if(password.type === 'text') {
+            password.type = 'password'
+        } else {
+            password.type = 'text'
+        }
+    }
+</script>
 
 <body style="background-color: #eee">
     <div class="container-fluid">
@@ -42,8 +54,8 @@
 
             <div class="col-lg-4 col-md-5">
                 <div class="md-form md-outline m-0 mb-4">
-                    <input name="password" type="password" id="form1" class="form-control" autocomplete="off" />
-                    <label class="form-label" for="form1">Password</label>
+                    <input name="password" type="password" id="password" class="form-control" autocomplete="off" />
+                    <label class="form-label" for="password">Password</label>
 
                     <small class="text-warning font-weight-bold">
                         <?php echo $errors["password"]; ?>
@@ -52,6 +64,17 @@
             </div>
 
             <div class="col-lg-4 col-md-5">
+                <div class="form-check mt-2 mb-2">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="flexCheckChecked"
+                        onclick="showPassword()"
+                    />
+                    <label class="form-check-label" style="color: #777" for="flexCheckChecked">
+                        Show Password
+                    </label>
+                </div>
                 <button name="signin" class="col-md-12 btn btn-warning" style="margin-left: -0.05rem;">Login</button>
                 <div class="sign-up-link mt-3 text-muted">
                     <span>Not yet a member? </span><a href="signup.php">Sign up</a>

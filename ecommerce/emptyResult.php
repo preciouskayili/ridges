@@ -1,11 +1,29 @@
-<div class="card">
-	<div class="card-body">
-		<h3 class="card-title">OOPS, something went wrong.</h3>
-		<p>We have no search results for your query, try:</p>
-		<ul class="list p-3">
-			<li>Checking your search query</li>
-			<li>Refreshing your browser</li>
-			<li>Typing less specific search queries</li>
-		</ul>
+<style>
+	.bg {
+		background:
+			linear-gradient(to right bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),
+			url('../img/404.jpg');
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	.btn--rounded {
+		border-radius: 2.5rem;
+	}
+</style>
+
+<div class="col-md-12">
+	<div class="card bg">
+		<div class="card-body text-center">
+			<h1 class="text-white" style="font-weight: 900; font-size: 5rem">OOPS 404 ERROR</h1>
+			<p class="text-light">We could not find what you were looking from.</p>
+
+			<button class="btn btn-warning btn-lg btn--rounded" onclick="location.href = '/ridges'">
+				Go home
+				<span>
+					<i class="fa fa-angle-right"></i>
+				</span>
+			</button>
+		</div>
 	</div>
 </div>

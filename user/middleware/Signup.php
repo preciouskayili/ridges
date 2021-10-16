@@ -68,7 +68,7 @@ if (empty($_POST['re_pass'])) {
             if (mysqli_query($conn, $sql)) {
              // success
              $_SESSION["username"] = $username;
-             header('Location: ../ecommerce/mart.php');
+             header('Location: ../index.php');
             } else {
              echo 'query error: ' . mysqli_error($conn);
             }

@@ -50,7 +50,7 @@ if (isset($_POST['signin'])) {
             $unhashedPassword = password_verify($password, $passwordHash);
             if ($unhashedPassword) {
                 $_SESSION['username'] = $userData[0]['username'];
-                header('Location: ../ecommerce/mart.php');
+                header('Location: ../index.php');
             } else {
                 $invalid = "Wrong password";
             }

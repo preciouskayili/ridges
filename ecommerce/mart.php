@@ -15,20 +15,21 @@
     <link rel="stylesheet" href="../mdbootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../mdbootstrap/css/mdb.min.css">
     <link rel="stylesheet" href="../mdbootstrap/css/style.css">
+    <link rel="stylesheet" href="../owlcarousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="../owlcarousel/dist/assets/owl.theme.default.min.css">
     <title>Ridges</title>
 </head>
 <body>
     <?php include "../templates/navbar.php"?>
     <?php include "../templates/sidebar.php"?>
-    <?php if (count($products) == 0): include "./emptyResult.php";
-endif;?>
+
     <div class="container-fluid mt-4" style="width: 95%">
         <div class="row">
             <div class="mr-auto">
                 <h2 class="font-weight-bold">Products</h2>
             </div>
             <div class="ml-auto">
-                <select name="category" class="font-weight-bold text-muted" type="text" id="form77" style="border: none !important;" class="form-control m-0 p-2 rounded text-muted">
+                <select name="category" class="font-weight-bold" id="form77" style="border: none !important; color: #ccc; line-spacing: 1.15" class="form-control m-0 p-2 rounded text-muted">
                     <option disabled selected>SORT BY</option>
                 </select>
             </div>
@@ -54,26 +55,29 @@ endif;?>
                         <div class="row">
                             <div class="d-none d-lg-block col-lg-3 mx-auto">
                                 <h4 class="font-weight-bold mb-3">Categories:</h4>
-                                
+
                                 <?php foreach ($categories as $category): ?>
-                                    <div class="form-check mb-1">
-                                      <input
-                                        class="form-check-input"
-                                        type="radio"
-                                        name="flexRadioDefault"
-                                        id="flexRadioDefault1"
-                                      />
-                                      <label class="form-check-label" for="flexRadioDefault2">
-                                        <?php echo $category["category_name"]; ?>
-                                      </label>
-                                    </div>
+                                    <form action="mart.php" method="get">
+                                        <div class="form-check mb-1">
+                                          <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="c"
+                                            value="<?php $category["category_name"]?>"
+                                            id="flexRadioDefault1"
+                                          />
+                                          <label class="form-check-label" for="flexRadioDefault2">
+                                            <?php echo $category["category_name"]; ?>
+                                          </label>
+                                        </div>
+                                    </form>
                                 <?php endforeach;?>
-                                
+
                                 <hr class="my-3">
 
                                 <h4 class="font-weight-bold mb-3">Stores:</h4>
-                                
-                                <?php foreach ($result[1] as $store): ?>
+
+                                <?php foreach ($stores as $store): ?>
                                     <div class="form-check">
                                     <input
                                         class="form-check-input"
@@ -82,13 +86,15 @@ endif;?>
                                         id="flexCheckChecked"
                                     />
                                     <label class="form-check-label" for="flexCheckChecked">
-                                        <?php echo $store; ?>
+                                        <?php echo $store["store_name"]; ?>
                                     </label>
                                     </div>
-                                <?php endforeach; ?>
+                                <?php endforeach;?>
                             </div>
                             <div class="col-lg-9 col-md-12">
                                 <div class="row">
+                                <?php if (count($products) == 0): include "./emptyResult.php";
+endif;?>
                                 <?php foreach ($products as $product): ?>
                                     <?php $id = $product["id"];?>
                                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
@@ -105,7 +111,7 @@ endif;?>
                                                     <h4 class="font-weight-bold"><?php echo $product["title"] ?></h4>
                                                     <small class="text-muted"><?php echo "NGN" . $product["price"]; ?></small>
                                                     <br />
-                                                    <span class="badge badge-primary"><?php echo $product["category"]; ?></span>
+                                                    <span class="badge badge-primary"><?php echo $product["store"]; ?></span>
                                                 </div>
                                             </div>
 
@@ -147,6 +153,32 @@ endif;?>
         <script type="text/javascript" src="../mdbootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../mdbootstrap/js/mdb.min.js"></script>
         <script type="text/javascript" src="../mdbootstrap/js/script.js"></script>
+        <script>
+            $(document).ready(function() {
+                $(".owl-carousel").owlCarousel({
+                    autoplay: true,
+                    autoplayHoverPause: true,
+                    responsiveClass: true,
+                    margin: 20,
+                    loop: false,
+                    responsive: {
+                        0: {
+                            items: 10,
+                            nav: false
+                        },
+                        600: {
+                            items: 10,
+                            nav: false
+                        },
+                        1000: {
+                            items: 20,
+                            nav: false
+                        }
+                    }
+                });
+            });
+        </script>
+        <script src="../owlcarousel/dist/owl.carousel.min.js"></script>
         <script>
             setTimeout(() => $('.alert').fadeOut(), 5000);
         </script>

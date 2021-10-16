@@ -39,7 +39,7 @@ if (isset($_POST["add"])) {
         background-color: rgba(255, 255, 255, 0.5);
     }
     .rounded--card {
-        border-radius: 2rem !important;
+        border-radius: 1.5rem !important;
     }
 
     .bg-img {
@@ -50,7 +50,7 @@ if (isset($_POST["add"])) {
 
     .cover {
         background: linear-gradient(
-                        to right bottom, rgba(0, 0, 0, 0.4), 
+                        to right bottom, rgba(0, 0, 0, 0.4),
                         rgba(0, 0, 0, 0.6)
                     ), url(img/farm-bg.jpg);
         background-position: center;
@@ -64,6 +64,10 @@ if (isset($_POST["add"])) {
     input {
         color: #777 !important;
         height: 2.5rem !important;
+    }
+
+    .store-bg {
+        background: url(img/store.jpg);
     }
 </style>
 
@@ -84,19 +88,13 @@ if (isset($_POST["add"])) {
 
         <!-- Links -->
         <div class="collapse navbar-collapse" id="basicExampleNav1">
-            <!-- Left -->
-            <ul class="navbar-nav mr-auto">
-
-
+            <!-- Right -->
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a href="./ecommerce/mart.php" class="nav-link waves-effect">
                         Shop
                     </a>
                 </li>
-            </ul>
-            <!-- Links -->
-            <!-- Right -->
-            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a href="ecommerce/cart.php" class="nav-link navbar-link-2 waves-effect">
                         <span class="badge badge-pill red"><?php $hide = (!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0";
@@ -111,8 +109,7 @@ echo $hide;?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
                         <a class="dropdown-item" href="user/login.php">Login</a>
-                        <a class="dropdown-item" href="#!">Create account</a>
-                        <a class="dropdown-item" href="#!">Create store</a>
+                        <a class="dropdown-item" href="user/signup.php">Create account</a>
                     </div>
                 </li>
             </ul>
@@ -128,12 +125,10 @@ echo $hide;?></span>
                 <div class="col-md-10">
                     <h1 class="font-weight-bold text-white text-justify">Discover, order and access the best farm produce.</h1>
                     <p class="text-justify" style="color: #ccc; font-size: 18px;">Ridges offers you a wide range of opportunities to harness in the
-                            Agricultural sector as well as a merge of the technological and Agricultural sectors for
-                            a wide market coverage. The platform provides statistical analysis of all the
-                            happenings on the site, from the sales, to the most farm produce, and so on.</p>
-                    <a href="./ecommerce/mart.php" class="btn btn-rounded rounded--card btn-success btn-lg"><i
-                            class="fas fa-shopping-cart"></i> Start
-                        shopping</a>
+                        Agricultural sector as well as a merge of the technological and Agricultural sectors for
+                        a wide market coverage. The platform provides statistical analysis of all the
+                        happenings on the site, from the sales, to the most farm produce, and so on.
+                    </p>
                 </div>
             </div>
         </div>
@@ -141,12 +136,12 @@ echo $hide;?></span>
 
     <div class="container-fluid mt-5">
         <h4 class="font-weight-bold">
-            Recent products
+            New Arrivals
         </h4>
         <div class="owl-carousel">
             <?php foreach ($newProducts as $newProduct): ?>
             <div class="pr-3">
-                <img class="shadow rounded--card w-100" style="height: 200px" src="./image/<?php echo $newProduct["img_path"] ?>" alt="">
+                <img class="shadow rounded--card w-100" style="height: 175px" src="./image/<?php echo $newProduct["img_path"] ?>" alt="">
                 <div class="d-flex">
                     <button title="Add to cart" class="btn btn-sm btn-primary"
                         style="padding: 10px; width: 40px; height: 40px;"><i class="fas fa-cart-plus"></i></button>
@@ -167,7 +162,7 @@ echo $hide;?></span>
             <p style="color: #ccc" class="d-block mx-auto text-justify col-md-6">Ridges is a smart market, creating
             a vast network of farmers as well as covering a wide market range to enhance productivity and profit.
             Ridges was born out of a need in the Agricultural sector that has been lingering for years.</p>
-            <button class="btn btn-success d-block mx-auto" style="border-radius: 2rem;">Create an account</button>
+            <button onclick="location.href = 'user/signup.php'" class="btn btn-success d-block mx-auto" style="border-radius: 2rem;">Create an account</button>
         </div>
     </div>
 
@@ -212,12 +207,24 @@ echo $hide;?></span>
                     items: 1,
                     nav: false
                 },
-                600: {
+                400: {
                     items: 2,
+                    nav: false,
+                },
+                600: {
+                    items: 3,
+                    nav: false
+                },
+                800: {
+                    items: 4,
                     nav: false
                 },
                 1000: {
                     items: 4,
+                    nav: false
+                },
+                1200: {
+                    items: 5,
                     nav: false
                 }
             }
