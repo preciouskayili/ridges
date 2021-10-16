@@ -29,7 +29,7 @@
                 <h2 class="font-weight-bold">Products</h2>
             </div>
             <div class="ml-auto">
-                <select name="category" class="font-weight-bold" id="form77" style="border: none !important; color: #ccc; line-spacing: 1.15" class="form-control m-0 p-2 rounded text-muted">
+                <select name="category" class="font-weight-bold" id="form77" style="border: none !important; color: #aaa; line-spacing: 1.15" class="form-control m-0 p-2 rounded text-muted">
                     <option disabled selected>SORT BY</option>
                 </select>
             </div>
@@ -80,6 +80,7 @@
                                 <?php foreach ($stores as $store): ?>
                                     <div class="form-check">
                                     <input
+                                        style="border: 5px solid #ccc !important"
                                         class="form-check-input"
                                         type="checkbox"
                                         value=""
@@ -108,7 +109,7 @@ endif;?>
                                                     </div>
                                                 </div>
                                                 <div class="card-body text-center">
-                                                    <h4 class="font-weight-bold"><?php echo $product["title"] ?></h4>
+                                                    <h4 class="font-weight-bold text-truncate" title="<?php echo $product['title'] ?>"><?php echo $product["title"] ?></h4>
                                                     <small class="text-muted"><?php echo "NGN" . $product["price"]; ?></small>
                                                     <br />
                                                     <span class="badge badge-primary"><?php echo $product["store"]; ?></span>
@@ -154,6 +155,9 @@ endif;?>
         <script type="text/javascript" src="../mdbootstrap/js/mdb.min.js"></script>
         <script type="text/javascript" src="../mdbootstrap/js/script.js"></script>
         <script>
+            $('input[type=radio]').on('change', function() {
+                $(this).closest("form").submit();
+            });
             $(document).ready(function() {
                 $(".owl-carousel").owlCarousel({
                     autoplay: true,

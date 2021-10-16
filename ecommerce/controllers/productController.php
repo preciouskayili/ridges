@@ -16,7 +16,8 @@
     $total_pages = ceil($total_rows / $products_per_page);
 
     if(isset($_GET["c"])) {
-        $c = mysqli_real_escape_string($_GET["c"]);
+        print_r($_GET["c"]);
+        $c = mysqli_real_escape_string($conn, $_GET["c"]);
         $sql = "SELECT * FROM products WHERE category='$c' ORDER BY created_at ASC LIMIT $offset, $products_per_page";
     } else {
         $sql = "SELECT * FROM products ORDER BY created_at ASC LIMIT $offset, $products_per_page";
